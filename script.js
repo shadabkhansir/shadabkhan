@@ -1,128 +1,122 @@
 /* ============================================================
    SHADAB KHAN — PORTFOLIO INTERACTIONS
-   Small, dependency-free. Four features:
-     1. Mobile nav toggle
-     2. Scroll-reveal animations (IntersectionObserver)
-     3. Scroll progress bar + nav shadow + active link highlight
-     4. Animated number count-up on the hero stats
-   All effects respect prefers-reduced-motion.
+   Vanilla JS, no libraries. Features:
+     1. Mobile full-screen menu
+     2. Scroll reveals (IntersectionObserver)
+     3. Reading-progress line + nav border + active section link
+     4. Case-study accordions (accessible)
+     5. Cursor glow (fine pointers only)
+   Everything defers to prefers-reduced-motion.
    ============================================================ */
 
 (function () {
   "use strict";
 
-  const prefersReducedMotion = window.matchMedia(
-    "(prefers-reduced-motion: reduce)"
-  ).matches;
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  /* ---------- 1. Mobile nav toggle ---------- */
-  const navToggle = document.getElementById("navToggle");
-  const navLinks = document.getElementById("navLinks");
+  /* ---------- 1. Mobile menu ---------- */
+  const burger = document.getElementById("navBurger");
+  const menu = document.getElementById("mobileMenu");
 
-  navToggle.addEventListener("click", () => {
-    const isOpen = navLinks.classList.toggle("open");
-    navToggle.classList.toggle("open", isOpen);
-    navToggle.setAttribute("aria-expanded", String(isOpen));
+  function setMenu(open) {
+    menu.hidden = !open;
+    burger.setAttribute("aria-expanded", String(open));
+    burger.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+    document.body.style.overflow = open ? "hidden" : "";
+  }
+  setMenu(false);
+
+  burger.addEventListener("click", () => setMenu(menu.hidden));
+  menu.addEventListener("click", (e) => {
+    if (e.target.closest("a")) setMenu(false);
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && !menu.hidden) setMenu(false);
   });
 
-  // Close the mobile menu after tapping a link
-  navLinks.addEventListener("click", (e) => {
-    if (e.target.tagName === "A") {
-      navLinks.classList.remove("open");
-      navToggle.classList.remove("open");
-      navToggle.setAttribute("aria-expanded", "false");
-    }
-  });
-
-  /* ---------- 2. Scroll-reveal ---------- */
+  /* ---------- 2. Scroll reveals ---------- */
   const revealEls = document.querySelectorAll(".reveal");
-
-  if (prefersReducedMotion || !("IntersectionObserver" in window)) {
-    // No animation: just show everything
+  if (reduceMotion || !("IntersectionObserver" in window)) {
     revealEls.forEach((el) => el.classList.add("visible"));
   } else {
-    const revealObserver = new IntersectionObserver(
+    const io = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add("visible");
-            revealObserver.unobserve(entry.target); // animate once only
+            io.unobserve(entry.target);
           }
         });
       },
-      { threshold: 0.12 }
+      { threshold: 0.1 }
     );
-    revealEls.forEach((el) => revealObserver.observe(el));
+    revealEls.forEach((el) => io.observe(el));
   }
 
-  /* ---------- 3. Scroll progress + nav state + active section ---------- */
-  const progressBar = document.querySelector(".scroll-progress");
+  /* ---------- 3. Progress line + nav state + active link ---------- */
+  const progress = document.querySelector(".progress");
   const nav = document.getElementById("nav");
   const sections = document.querySelectorAll("section[id]");
-  const menuAnchors = document.querySelectorAll(".nav-links a[href^='#']");
+  const navAnchors = document.querySelectorAll(".nav-links a[href^='#']");
 
   function onScroll() {
-    const scrollTop = window.scrollY;
-    const docHeight =
-      document.documentElement.scrollHeight - window.innerHeight;
+    const y = window.scrollY;
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    progress.style.width = max > 0 ? (y / max) * 100 + "%" : "0%";
+    nav.classList.toggle("scrolled", y > 10);
 
-    // Progress bar width
-    progressBar.style.width =
-      docHeight > 0 ? (scrollTop / docHeight) * 100 + "%" : "0%";
-
-    // Nav border/shadow once the page moves
-    nav.classList.toggle("scrolled", scrollTop > 10);
-
-    // Highlight the nav link for the section currently in view
-    let currentId = "";
-    sections.forEach((section) => {
-      if (scrollTop >= section.offsetTop - 120) {
-        currentId = section.id;
-      }
+    let current = "";
+    sections.forEach((s) => {
+      if (y >= s.offsetTop - 140) current = s.id;
     });
-    menuAnchors.forEach((a) => {
-      a.classList.toggle("active", a.getAttribute("href") === "#" + currentId);
+    navAnchors.forEach((a) => {
+      a.classList.toggle("active", a.getAttribute("href") === "#" + current);
     });
   }
-
   window.addEventListener("scroll", onScroll, { passive: true });
-  onScroll(); // set initial state
+  onScroll();
 
-  /* ---------- 4. Hero stat count-up ---------- */
-  // Numbers animate from 0 to their real value the first time they scroll
-  // into view. Values come from data-count / data-suffix attributes, so the
-  // HTML always contains the correct final number even if JS is disabled.
-  const statNums = document.querySelectorAll(".stat-num[data-count]");
+  /* ---------- 4. Case-study accordions ---------- */
+  // Buttons carry aria-expanded; panels animate open via the
+  // grid-template-rows 0fr→1fr transition in CSS.
+  document.querySelectorAll(".case-head[aria-controls]").forEach((btn) => {
+    const panel = document.getElementById(btn.getAttribute("aria-controls"));
+    btn.addEventListener("click", () => {
+      const open = btn.getAttribute("aria-expanded") === "true";
+      btn.setAttribute("aria-expanded", String(!open));
+      panel.classList.toggle("open", !open);
+    });
+  });
 
-  function animateCount(el) {
-    const target = parseFloat(el.dataset.count);
-    const suffix = el.dataset.suffix || "";
-    const duration = 1200; // ms
-    const start = performance.now();
+  /* ---------- 5. Cursor glow ---------- */
+  // A large, very faint accent radial that trails the pointer.
+  // Skipped for touch devices and reduced-motion users.
+  const glow = document.querySelector(".cursor-glow");
+  const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 
-    function frame(now) {
-      const progress = Math.min((now - start) / duration, 1);
-      // ease-out cubic for a satisfying deceleration
-      const eased = 1 - Math.pow(1 - progress, 3);
-      el.textContent = Math.round(target * eased) + suffix;
-      if (progress < 1) requestAnimationFrame(frame);
+  if (glow && finePointer && !reduceMotion) {
+    let gx = 0, gy = 0, tx = 0, ty = 0, raf = null;
+
+    function tick() {
+      // ease toward the target for a soft trailing feel
+      gx += (tx - gx) * 0.12;
+      gy += (ty - gy) * 0.12;
+      glow.style.transform = `translate(${gx - 280}px, ${gy - 280}px)`;
+      if (Math.abs(tx - gx) > 0.5 || Math.abs(ty - gy) > 0.5) {
+        raf = requestAnimationFrame(tick);
+      } else {
+        raf = null;
+      }
     }
-    requestAnimationFrame(frame);
-  }
 
-  if (!prefersReducedMotion && "IntersectionObserver" in window) {
-    const statObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            animateCount(entry.target);
-            statObserver.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.6 }
-    );
-    statNums.forEach((el) => statObserver.observe(el));
+    window.addEventListener("pointermove", (e) => {
+      tx = e.clientX;
+      ty = e.clientY;
+      glow.style.opacity = "1";
+      if (!raf) raf = requestAnimationFrame(tick);
+    }, { passive: true });
+
+    window.addEventListener("pointerleave", () => { glow.style.opacity = "0"; });
   }
 
   /* ---------- Footer year ---------- */

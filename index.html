@@ -5,580 +5,460 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- ============================================================
-       SHADAB KHAN — PORTFOLIO
-       Static site: no build step, no frameworks, no backend.
-       Deployable as-is on GitHub Pages / Netlify / Vercel.
+       SHADAB KHAN — RETENTION & LIFECYCLE STRATEGIST
+       Single-page portfolio. Self-contained HTML + CSS + vanilla JS.
+       No frameworks. Only external dependency: Google Fonts.
+
+       DESIGN IDENTITY (deliberate, committed):
+       Dark editorial. Ink background, paper-white display type
+       (Space Grotesk), mono data labels (IBM Plex Mono), one acid
+       accent. Numbers are treated like instrument readouts, not
+       marketing confetti. Signature element: the lifecycle loop
+       diagram after the hero.
 
        HOW TO EDIT:
-       - All visible content lives in this one file.
-       - Search for "PLACEHOLDER" to find every AI-generated metric
-         that must be replaced with a real number before publishing.
-       - Search for "INFERRED" to find content that was added beyond
-         the resume and should be confirmed or corrected.
+       - All copy lives in this file, organised by section comments.
+       - Every bracketed placeholder you need to fill is wrapped in
+         a span with class "ph" and marked with a PLACEHOLDER comment.
+         Search this file for: class="ph"
+       - The README lists every placeholder with its location.
        ============================================================ -->
 
-  <!-- INFERRED: Name "Shadab Khan" derived from email/LinkedIn handles — confirm exact preferred spelling. -->
-  <title>Shadab Khan — CRM &amp; Lifecycle Marketing | Engagement, Retention &amp; Growth</title>
-  <meta name="description" content="CRM & Lifecycle Marketing specialist with 5+ years driving engagement, retention and measurable revenue growth across ecommerce and B2B SaaS. HubSpot, CleverTap, MoEngage, GA4.">
+  <title>Shadab Khan — Retention &amp; Lifecycle Strategist</title>
+  <meta name="description" content="Retention &amp; lifecycle strategist. I turn customer data into repeat revenue — CRM, lifecycle architecture, marketing analytics, multi-market e-commerce.">
   <meta name="author" content="Shadab Khan">
-
-  <!-- Social sharing preview -->
-  <meta property="og:title" content="Shadab Khan — CRM &amp; Lifecycle Marketing">
-  <meta property="og:description" content="I solve engagement and retention problems and turn customer data into measurable growth.">
+  <meta property="og:title" content="Shadab Khan — Retention &amp; Lifecycle Strategist">
+  <meta property="og:description" content="I turn customer data into repeat revenue.">
   <meta property="og:type" content="website">
 
-  <!-- Fonts: Inter (free, fast). Preconnect keeps load fast. -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="styles.css">
-
-  <!-- Simple inline favicon (no extra file needed) -->
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>📈</text></svg>">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='40' fill='%23C6F24E'/></svg>">
 </head>
 <body>
 
-  <!-- Accessibility: lets keyboard users jump straight to content -->
-  <a class="skip-link" href="#main">Skip to main content</a>
+  <a class="skip-link" href="#main">Skip to content</a>
 
-  <!-- Thin scroll-progress bar at the very top of the page -->
-  <div class="scroll-progress" aria-hidden="true"></div>
+  <!-- Subtle cursor-following glow (desktop pointers only, JS-driven) -->
+  <div class="cursor-glow" aria-hidden="true"></div>
 
-  <!-- ==================== NAVIGATION ==================== -->
+  <!-- Thin accent reading-progress line -->
+  <div class="progress" aria-hidden="true"></div>
+
+  <!-- ==================== NAV ==================== -->
   <header class="nav" id="nav">
-    <div class="nav-inner">
-      <a href="#top" class="nav-logo">SK<span class="accent-dot">.</span></a>
-
-      <nav class="nav-links" id="navLinks" aria-label="Main navigation">
-        <a href="#about">About</a>
-        <a href="#skills">Skills</a>
-        <a href="#ai-tools">AI Tools</a>
-        <a href="#experience">Experience</a>
-        <a href="#case-studies">Case Studies</a>
-        <a href="#certifications">Certifications</a>
-        <a href="#contact" class="nav-cta">Contact</a>
-      </nav>
-
-      <!-- Mobile hamburger -->
-      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
+    <a href="#top" class="nav-name mono">S—K</a>
+    <nav class="nav-links" aria-label="Sections">
+      <a href="#about"><span class="mono nav-idx">01</span> About</a>
+      <a href="#capabilities"><span class="mono nav-idx">02</span> Capabilities</a>
+      <a href="#work"><span class="mono nav-idx">03</span> Case Studies</a>
+      <a href="#credentials"><span class="mono nav-idx">04</span> Credentials</a>
+      <a href="#contact" class="nav-contact"><span class="mono nav-idx">05</span> Contact</a>
+    </nav>
+    <button class="nav-burger" id="navBurger" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+      <span></span><span></span>
+    </button>
   </header>
+
+  <!-- Full-screen mobile menu -->
+  <div class="mobile-menu" id="mobileMenu" hidden>
+    <nav aria-label="Sections">
+      <a href="#about"><span class="mono">01</span>About</a>
+      <a href="#capabilities"><span class="mono">02</span>Capabilities</a>
+      <a href="#work"><span class="mono">03</span>Case Studies</a>
+      <a href="#credentials"><span class="mono">04</span>Credentials</a>
+      <a href="#contact"><span class="mono">05</span>Contact</a>
+    </nav>
+    <p class="mono mobile-menu-foot">UAE · open to relocation — UK · IE · AU · CA</p>
+  </div>
 
   <main id="main">
 
     <!-- ==================== HERO ==================== -->
     <section class="hero" id="top">
-      <div class="container hero-inner">
-        <p class="hero-eyebrow reveal">Shadab Khan · Dubai, UAE</p>
+      <p class="mono hero-eyebrow reveal">Shadab Khan — Retention &amp; Lifecycle Strategist</p>
 
-        <!-- The positioning statement: recruiter should get it in 3 seconds -->
-        <h1 class="hero-title reveal">
-          I solve <span class="gradient-text">engagement &amp; retention</span> problems —<br class="desktop-break">
-          and turn customer data into measurable growth.
-        </h1>
+      <h1 class="hero-h1">
+        <span class="hero-line reveal">I turn customer data</span>
+        <span class="hero-line reveal">into <em>repeat revenue.</em></span>
+      </h1>
 
-        <p class="hero-sub reveal">
-          CRM &amp; Lifecycle Marketing specialist with <strong>5+ years</strong> across ecommerce and B2B SaaS.
-          I build the journeys, segments and automation that make customers come back —
-          on HubSpot, CleverTap, MoEngage and GA4.
-        </p>
+      <p class="hero-sub reveal">
+        Retention &amp; lifecycle strategist across CleverTap, GA4/GTM, and multi-market e-commerce.
+      </p>
+      <p class="mono hero-tags reveal">CRM · Lifecycle Architecture · Marketing Analytics · Multi-market E-commerce</p>
 
-        <div class="hero-actions reveal">
-          <a href="#case-studies" class="btn btn-primary">See my results</a>
-          <a href="#contact" class="btn btn-ghost">Get in touch</a>
-        </div>
-
-        <!-- Proof bar: these four figures are REAL, taken directly from the resume -->
-        <div class="hero-stats reveal" aria-label="Career highlights">
-          <div class="stat">
-            <span class="stat-num" data-count="40" data-suffix="%">40%</span>
-            <span class="stat-label">Repeat purchase lift</span>
-          </div>
-          <div class="stat">
-            <span class="stat-num" data-count="30" data-suffix="%">30%</span>
-            <span class="stat-label">CRM-attributed revenue growth</span>
-          </div>
-          <div class="stat">
-            <span class="stat-num" data-count="3" data-suffix="x">3x</span>
-            <span class="stat-label">Company revenue growth driven</span>
-          </div>
-          <div class="stat">
-            <span class="stat-num" data-count="6" data-suffix="">6</span>
-            <span class="stat-label">GCC markets owned</span>
-          </div>
-        </div>
+      <div class="hero-cta reveal">
+        <a class="btn btn-solid" href="#work">View case studies</a>
+        <a class="btn btn-line" href="#contact">Get in touch</a>
       </div>
 
-      <!-- Decorative background blobs (pure CSS, no images) -->
-      <div class="hero-bg" aria-hidden="true">
-        <div class="blob blob-1"></div>
-        <div class="blob blob-2"></div>
+      <!-- Credibility stats: indexed / anonymised by design -->
+      <div class="hero-stats reveal" role="list" aria-label="Credibility statistics">
+        <div class="hstat" role="listitem">
+          <span class="hstat-num mono">56<span class="hstat-arrow">→</span>17</span>
+          <span class="hstat-label">live journeys audited &amp; rebuilt into a 17-stage lifecycle framework</span>
+        </div>
+        <div class="hstat" role="listitem">
+          <span class="hstat-num mono">12×</span>
+          <span class="hstat-label">conversion lift on the flagship journey after root-cause fix</span>
+        </div>
+        <div class="hstat" role="listitem">
+          <span class="hstat-num mono">5<span class="hstat-unit">mkts</span></span>
+          <span class="hstat-label">GCC e-commerce operation, 11K+ SKUs, dual B2B + retail base</span>
+        </div>
+      </div>
+      <p class="mono hero-footnote reveal">Figures indexed / anonymised — absolute values withheld for confidentiality.</p>
+    </section>
+
+    <!-- ==================== SIGNATURE: LIFECYCLE LOOP ==================== -->
+    <!-- The one memorable element. Everything around it stays quiet. -->
+    <section class="loop-section" aria-label="Lifecycle framework diagram">
+      <div class="loop-scroll">
+        <svg class="loop-svg" viewBox="0 0 920 250" role="img"
+             aria-label="Lifecycle loop: acquire, activate, retain, grow value, win back — with win-back feeding back into retention">
+          <!-- main forward path -->
+          <path class="loop-path" d="M60 100 H860" />
+          <!-- animated flow overlay -->
+          <path class="loop-flow" d="M60 100 H860" />
+          <!-- win-back return curve: last node loops under and re-enters at Retain -->
+          <path class="loop-return" d="M860 100 C 900 100, 900 200, 820 200 L 540 200 C 480 200, 470 130, 460 108" />
+          <path class="loop-return-flow" d="M860 100 C 900 100, 900 200, 820 200 L 540 200 C 480 200, 470 130, 460 108" />
+          <!-- arrowhead on the return path -->
+          <path class="loop-arrow" d="M452 122 L460 104 L470 121 Z" />
+
+          <!-- nodes -->
+          <g class="loop-node" style="--d:0">
+            <circle cx="60" cy="100" r="9"/>
+            <text class="loop-label" x="60" y="62">ACQUIRE</text>
+            <text class="loop-sub" x="60" y="140">first order</text>
+          </g>
+          <g class="loop-node" style="--d:1">
+            <circle cx="260" cy="100" r="9"/>
+            <text class="loop-label" x="260" y="62">ACTIVATE</text>
+            <text class="loop-sub" x="260" y="140">onboarding</text>
+          </g>
+          <g class="loop-node" style="--d:2">
+            <circle cx="460" cy="100" r="9"/>
+            <text class="loop-label" x="460" y="62">RETAIN</text>
+            <text class="loop-sub" x="460" y="140">repeat purchase</text>
+          </g>
+          <g class="loop-node" style="--d:3">
+            <circle cx="660" cy="100" r="9"/>
+            <text class="loop-label" x="660" y="62">GROW VALUE</text>
+            <text class="loop-sub" x="660" y="140">CLV · frequency</text>
+          </g>
+          <g class="loop-node" style="--d:4">
+            <circle cx="860" cy="100" r="9"/>
+            <text class="loop-label" x="860" y="62">WIN BACK</text>
+            <text class="loop-sub" x="860" y="140">lapse triggers</text>
+          </g>
+          <text class="loop-sub loop-return-label" x="660" y="232">churn is a journey, not an exit</text>
+        </svg>
       </div>
     </section>
 
-    <!-- ==================== ABOUT ==================== -->
+    <!-- ==================== 01 ABOUT ==================== -->
     <section class="section" id="about">
-      <div class="container">
-        <p class="section-eyebrow reveal">About me</p>
-        <h2 class="section-title reveal">The person behind the funnels</h2>
+      <header class="section-head reveal">
+        <span class="mono section-idx">01</span>
+        <h2>About</h2>
+      </header>
 
-        <div class="about-grid">
-          <div class="about-text reveal">
-            <p>
-              Most companies are great at acquiring customers and terrible at keeping them.
-              That gap is where I work. For the last 5+ years I've specialised in the moment
-              <em>after</em> the first purchase or signup — onboarding, engagement, retention,
-              loyalty, win-back — because that's where sustainable growth actually lives.
-            </p>
-            <p>
-              Today I lead ecommerce CRM retention strategy across <strong>six GCC markets</strong>
-              for Nazih Group, one of the region's largest beauty distributors, owning the full
-              customer lifecycle for brands like GHD, BaByliss Pro and Revlon. Before that, I helped
-              a B2B SaaS startup <strong>3x its revenue in a year</strong> through lifecycle marketing
-              and CRM-led nurture programs.
-            </p>
-            <p>
-              My background is a little unusual: a Computer Science engineering degree plus an MBA.
-              It means I'm equally comfortable debugging a GTM tracking container as I am presenting
-              a retention strategy to leadership — and I never have to choose between
-              "data person" and "marketing person."
-            </p>
-          </div>
-
-          <div class="about-facts reveal">
-            <h3 class="facts-title">Quick facts</h3>
-            <ul class="facts-list">
-              <li><span class="fact-icon">📍</span> Based in Dubai, UAE</li>
-              <li><span class="fact-icon">🎯</span> Focus: CRM, lifecycle &amp; retention marketing</li>
-              <li><span class="fact-icon">🏢</span> Industries: Ecommerce &amp; B2B SaaS</li>
-              <li><span class="fact-icon">🌍</span> Markets: UAE, KSA, Oman, Bahrain, Kuwait, Qatar, India</li>
-              <li><span class="fact-icon">🎓</span> MBA (Amity University) + B.Tech CSE (LPU)</li>
-              <!-- INFERRED: languages not on resume — confirm or remove -->
-              <li><span class="fact-icon">💬</span> English, Hindi <span class="inferred-tag" title="Added by AI — please confirm">confirm</span></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ==================== SKILLS ==================== -->
-    <section class="section section-alt" id="skills">
-      <div class="container">
-        <p class="section-eyebrow reveal">Skills</p>
-        <h2 class="section-title reveal">What I bring to the table</h2>
-        <p class="section-sub reveal">Grouped the way I actually use them — platforms, lifecycle craft, channels, and the analytics that keep it honest.</p>
-
-        <div class="skills-grid">
-          <div class="skill-card reveal">
-            <div class="skill-icon">🛠️</div>
-            <h3>CRM &amp; Automation Platforms</h3>
-            <ul class="tag-list">
-              <li>HubSpot</li><li>CleverTap</li><li>MoEngage</li>
-              <li>Klaviyo</li><li>Mailchimp</li>
-            </ul>
-            <p class="skill-note">Day-to-day admin, journey building, and platform migrations — not just campaign sending.</p>
-          </div>
-
-          <div class="skill-card reveal">
-            <div class="skill-icon">🔁</div>
-            <h3>Lifecycle &amp; Retention</h3>
-            <ul class="tag-list">
-              <li>Journey Orchestration</li><li>Segmentation &amp; RFM</li>
-              <li>Personalization</li><li>Loyalty Programs</li>
-              <li>Win-Back Campaigns</li><li>Lead Nurturing &amp; Scoring</li>
-              <li>Cart Recovery</li>
-            </ul>
-            <p class="skill-note">From first touch to loyal repeat customer — and back again when they lapse.</p>
-          </div>
-
-          <div class="skill-card reveal">
-            <div class="skill-icon">📣</div>
-            <h3>Channels &amp; Campaign Ops</h3>
-            <ul class="tag-list">
-              <li>Email</li><li>SMS</li><li>Push</li><li>In-App</li>
-              <li>WhatsApp</li><li>A/B Testing</li><li>Campaign QA</li>
-              <li>Google / Meta / LinkedIn Ads</li>
-            </ul>
-            <!-- INFERRED: WhatsApp is standard in GCC ecommerce CRM but is not on the resume — confirm -->
-            <p class="skill-note">Multi-channel by default. <span class="inferred-tag" title="Added by AI — please confirm">WhatsApp: confirm</span></p>
-          </div>
-
-          <div class="skill-card reveal">
-            <div class="skill-icon">📊</div>
-            <h3>Analytics &amp; Reporting</h3>
-            <ul class="tag-list">
-              <li>GA4</li><li>Google Tag Manager</li><li>Funnel &amp; Cohort Analysis</li>
-              <li>Attribution</li><li>CLV / ROI / ROAS</li><li>Dashboarding</li>
-              <li>Hotjar</li>
-            </ul>
-            <p class="skill-note">If it can't be measured, it didn't happen. I build the tracking, then the story.</p>
-          </div>
-
-          <div class="skill-card reveal">
-            <div class="skill-icon">🛒</div>
-            <h3>Ecommerce &amp; Web</h3>
-            <ul class="tag-list">
-              <li>Shopify</li><li>Magento</li><li>WordPress</li>
-              <li>SEO</li><li>Content Marketing</li><li>CRO</li>
-            </ul>
-            <p class="skill-note">Comfortable inside the storefront stack, not just the marketing tools bolted onto it.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ==================== AI TOOLS ==================== -->
-    <!-- INFERRED SECTION: the resume does not mention AI tools. Everything below is a
-         professionally-plausible draft based on what CRM practitioners at this level
-         typically use. Please confirm, correct, or delete items before publishing. -->
-    <section class="section" id="ai-tools">
-      <div class="container">
-        <p class="section-eyebrow reveal">AI Tools &amp; Experience</p>
-        <h2 class="section-title reveal">How I use AI to move faster</h2>
-        <p class="section-sub reveal">
-          AI doesn't replace lifecycle strategy — it compresses the boring parts so I can ship more experiments.
-          <span class="inferred-tag" title="This whole section was drafted by AI — confirm every item">section drafted for your review</span>
+      <div class="about-body reveal">
+        <!-- PLACEHOLDER: refine this paragraph in your own voice -->
+        <p class="about-lede">
+          CRM &amp; retention lead for a leading GCC beauty &amp; cosmetics retailer — five markets,
+          11K+ SKUs, a dual B2B salon and retail customer base. I specialise in diagnosing broken
+          retention systems in the data and re-architecting them: the lifecycle journeys, the
+          segmentation, the measurement layer underneath, and the commercial logic on top.
+          Currently targeting senior retention roles in international markets.
         </p>
-
-        <div class="ai-grid">
-          <div class="ai-card reveal">
-            <h3>✍️ LLMs for campaign production</h3>
-            <p><strong>ChatGPT &amp; Claude</strong> — drafting and localising email/SMS/push copy variants for A/B tests across 6 markets, summarising campaign performance into stakeholder-ready narratives, and writing audience-segment briefs.</p>
-          </div>
-
-          <div class="ai-card reveal">
-            <h3>🎯 Native AI in CRM platforms</h3>
-            <p><strong>CleverTap &amp; MoEngage AI features</strong> — predictive segments (likely-to-churn, likely-to-convert), send-time optimisation, and AI-recommended journey splits to lift engagement without manual guesswork.</p>
-          </div>
-
-          <div class="ai-card reveal">
-            <h3>🤖 HubSpot AI</h3>
-            <p><strong>Content Assistant &amp; AI workflows</strong> — accelerating nurture-sequence drafts, subject-line variants, and lead-scoring refinement inside existing HubSpot automations.</p>
-          </div>
-
-          <div class="ai-card reveal">
-            <h3>🔮 Predictive analytics</h3>
-            <p><strong>GA4 predictive audiences</strong> — feeding purchase-probability and churn-probability audiences back into CRM and paid channels for smarter targeting and suppression.</p>
-          </div>
-
-          <div class="ai-card reveal">
-            <h3>🎨 Creative production</h3>
-            <p><strong>Canva AI / image generation tools</strong> — rapid campaign visuals and localised creative variants when design bandwidth is tight.</p>
-          </div>
-
-          <div class="ai-card reveal">
-            <h3>⚡ Working principle</h3>
-            <p>AI output is a first draft, never a final send. Every AI-assisted campaign still goes through the same QA, brand and deliverability checks as everything else.</p>
-          </div>
-        </div>
+        <p class="mono about-note"><span class="ph" title="Editable placeholder">[ Refine this paragraph in your own voice ]</span></p>
       </div>
     </section>
 
-    <!-- ==================== EXPERIENCE ==================== -->
-    <section class="section section-alt" id="experience">
-      <div class="container">
-        <p class="section-eyebrow reveal">Work Experience</p>
-        <h2 class="section-title reveal">Where I've driven growth</h2>
+    <!-- ==================== 02 CAPABILITIES ==================== -->
+    <section class="section" id="capabilities">
+      <header class="section-head reveal">
+        <span class="mono section-idx">02</span>
+        <h2>Capabilities</h2>
+      </header>
 
-        <div class="timeline">
+      <div class="cap-group reveal">
+        <h3 class="mono cap-title">Platforms</h3>
+        <ul class="cap-tags">
+          <li>CleverTap</li>
+          <li>GA4</li>
+          <li>Google Tag Manager</li>
+          <li>Server-side GTM</li>
+          <li>Meta CAPI</li>
+          <li>TikTok CAPI</li>
+          <!-- PLACEHOLDER: planned platform certifications -->
+          <li class="cap-soon">Braze <span class="mono">— learning</span></li>
+          <li class="cap-soon">Klaviyo <span class="mono">— certified strategist</span></li>
+        </ul>
+      </div>
 
-          <!-- ===== Role 1: Nazih Group ===== -->
-          <article class="timeline-item reveal">
-            <div class="timeline-marker" aria-hidden="true"></div>
-            <div class="timeline-card">
-              <div class="timeline-head">
-                <h3>Senior Ecommerce CRM Executive</h3>
-                <p class="timeline-company">Nazih Group · Dubai, UAE</p>
-                <p class="timeline-date">March 2025 – Present</p>
-              </div>
-              <p class="timeline-context">
-                Nazih is one of the Middle East's largest beauty &amp; salon-supply distributors. I own
-                end-to-end CRM and retention strategy for its ecommerce arm across <strong>6 GCC markets</strong>
-                (UAE, KSA, Oman, Bahrain, Kuwait, Qatar), covering brands like GHD, BaByliss Pro and Revlon.
-              </p>
-              <ul class="timeline-bullets">
-                <li>
-                  <strong>Re-architected the entire lifecycle program:</strong> rebuilt behavioral-trigger journeys and
-                  segmentation in CleverTap across acquisition, onboarding, retention, loyalty, win-back and
-                  cart-recovery — lifting repeat purchase rate by <strong>40%</strong> and CRM-attributed revenue
-                  by <strong>30%</strong> across 5 storefronts.
-                </li>
-                <li>
-                  <strong>Fixed attribution at the source:</strong> led a GA4/GTM tracking rebuild so every lifecycle
-                  decision runs on clean event data — improving attribution visibility for CRM, performance and
-                  ecommerce teams alike.
-                </li>
-                <li>
-                  <strong>Runs multi-channel by default:</strong> orchestrates email, SMS, push and in-app messaging
-                  from one segmentation layer, so each market gets localised journeys instead of one-size-fits-all blasts.
-                </li>
-                <li>
-                  <!-- PLACEHOLDER: replace with real number -->
-                  <strong>Scaled cart recovery:</strong> rebuilt abandoned-cart journeys with tiered incentives and
-                  timing tests, recovering <span class="placeholder-metric" title="Placeholder — replace with your real number">18%</span>
-                  of abandoned carts
-                  <!-- PLACEHOLDER: replace with real number -->
-                  and adding <span class="placeholder-metric" title="Placeholder — replace with your real number">AED 250K+</span>
-                  in incremental annual revenue.
-                </li>
-              </ul>
-            </div>
-          </article>
-
-          <!-- ===== Role 2: Next Big Innovation Labs ===== -->
-          <article class="timeline-item reveal">
-            <div class="timeline-marker" aria-hidden="true"></div>
-            <div class="timeline-card">
-              <div class="timeline-head">
-                <h3>Growth Marketing Associate</h3>
-                <p class="timeline-company">Next Big Innovation Labs · Bangalore, India</p>
-                <p class="timeline-date">August 2023 – February 2025</p>
-              </div>
-              <p class="timeline-context">
-                A deep-tech startup in a fast-paced growth environment. I was the marketing engine across
-                lifecycle, content, and paid — with direct line of sight to revenue.
-              </p>
-              <ul class="timeline-bullets">
-                <li>
-                  <strong>Contributed to 3x revenue growth in one year</strong> by building CRM-led nurture programs
-                  and lifecycle campaigns that moved leads from first touch to sales-ready.
-                </li>
-                <li>
-                  <strong>Grew organic lead generation by 80%</strong> through SEO, content marketing, website
-                  optimisation and email newsletter programs that strengthened both capture and nurture.
-                </li>
-                <li>
-                  <strong>Ran full-funnel paid campaigns</strong> across Google, Meta and LinkedIn Ads, coordinating
-                  with sales to keep lead flow, handoff and tracking accuracy tight.
-                </li>
-                <li>
-                  <!-- PLACEHOLDER: replace with real number -->
-                  <strong>Made the funnel measurable:</strong> instituted UTM discipline and funnel reporting that cut
-                  lead-source ambiguity and reduced cost per qualified lead by
-                  <span class="placeholder-metric" title="Placeholder — replace with your real number">25%</span>.
-                </li>
-              </ul>
-            </div>
-          </article>
-
-          <!-- ===== Role 3: CustomerGlu ===== -->
-          <article class="timeline-item reveal">
-            <div class="timeline-marker" aria-hidden="true"></div>
-            <div class="timeline-card">
-              <div class="timeline-head">
-                <h3>Growth Marketer</h3>
-                <p class="timeline-company">CustomerGlu (Marax Technologies) · Bangalore, India</p>
-                <p class="timeline-date">May 2021 – May 2023</p>
-              </div>
-              <p class="timeline-context">
-                CustomerGlu builds gamified retention tooling for consumer apps — so I was doing retention
-                marketing <em>for</em> a retention product. This is where I learned HubSpot inside-out.
-              </p>
-              <ul class="timeline-bullets">
-                <li>
-                  <strong>Contributed to 35% growth in new customer acquisition</strong> through multi-channel
-                  B2B SaaS acquisition and nurture campaigns.
-                </li>
-                <li>
-                  <strong>Automated the entire HubSpot lead lifecycle</strong> — capture, nurturing, scoring,
-                  lifecycle-stage progression and follow-up sequences — improving lead qualification and
-                  sales handoff speed.
-                </li>
-                <li>
-                  <strong>Supported a Product Hunt launch</strong> and surrounding demand-gen campaigns that
-                  generated <strong>1,000+ inbound leads</strong>, while building the CRM reporting to actually
-                  track what happened to them.
-                </li>
-              </ul>
-            </div>
-          </article>
-
+      <!-- Channels rendered as a slow marquee strip — the site's one moment of motion between sections.
+           Duplicated list is aria-hidden; animation stops on hover and under prefers-reduced-motion. -->
+      <div class="cap-group reveal">
+        <h3 class="mono cap-title">Channels</h3>
+        <div class="marquee" aria-label="Channels: Mobile Push, Web Push, In-App, Email, Web Pop-up, App Inbox">
+          <div class="marquee-track">
+            <span class="marquee-seq">Mobile Push <i>·</i> Web Push <i>·</i> In-App <i>·</i> Email <i>·</i> Web Pop-up <i>·</i> App Inbox <i>·</i>&nbsp;</span>
+            <span class="marquee-seq" aria-hidden="true">Mobile Push <i>·</i> Web Push <i>·</i> In-App <i>·</i> Email <i>·</i> Web Pop-up <i>·</i> App Inbox <i>·</i>&nbsp;</span>
+          </div>
         </div>
+      </div>
+
+      <div class="cap-group reveal">
+        <h3 class="mono cap-title">Disciplines</h3>
+        <ul class="cap-tags">
+          <li>Lifecycle Architecture</li>
+          <li>Behavioral Segmentation</li>
+          <li>Retention Analytics — cohorts · CLV · churn</li>
+          <li>A/B &amp; Holdout Testing</li>
+          <li>Data-Layer &amp; Event Taxonomy Design</li>
+          <li>GDPR / Consent-compliant Data Flows</li>
+        </ul>
       </div>
     </section>
 
-    <!-- ==================== CASE STUDIES ==================== -->
-    <section class="section" id="case-studies">
-      <div class="container">
-        <p class="section-eyebrow reveal">Case Studies</p>
-        <h2 class="section-title reveal">Problems I've solved</h2>
-        <p class="section-sub reveal">Four representative projects, each told the same way: the problem, what I did, what changed.</p>
+    <!-- ==================== 03 CASE STUDIES ==================== -->
+    <section class="section" id="work">
+      <header class="section-head reveal">
+        <span class="mono section-idx">03</span>
+        <h2>Case Studies</h2>
+      </header>
+      <p class="section-note mono reveal">All numbers indexed / anonymised. Employer referenced as “a leading GCC beauty &amp; cosmetics retailer.”</p>
 
-        <div class="case-grid">
+      <!-- Each case is an accessible accordion: summary always visible,
+           press to expand the full problem → diagnosis → built → impact → next. -->
+      <div class="cases">
 
-          <!-- Case 1 -->
-          <article class="case-card reveal">
-            <div class="case-tag">Retention · Ecommerce</div>
-            <h3>Rebuilding retention across 6 GCC markets</h3>
-            <div class="case-block">
-              <h4>Problem</h4>
-              <p>Five storefronts, six markets, one generic blast calendar. Repeat purchase rates were flat and CRM revenue was under-attributed because tracking was unreliable.</p>
+        <!-- CASE 1 -->
+        <article class="case reveal">
+          <button class="case-head" aria-expanded="false" aria-controls="case1">
+            <span class="mono case-idx">CS·01</span>
+            <span class="case-title">Rebuilding a retention system converting below 1%</span>
+            <span class="mono case-kpi">12× flagship lift</span>
+            <span class="case-toggle" aria-hidden="true"></span>
+          </button>
+          <div class="case-body" id="case1">
+            <div class="case-inner">
+              <dl>
+                <div class="case-row">
+                  <dt class="mono">Problem</dt>
+                  <dd>Inherited 56 live lifecycle journeys converting under 1% overall.</dd>
+                </div>
+                <div class="case-row">
+                  <dt class="mono">Diagnosis</dt>
+                  <dd>Audited every journey. Found the flagship Welcome journey pulling tens of thousands of users into a dead end through a mis-configured goal event — and app/in-app surfaces converting roughly 10× better than web.</dd>
+                </div>
+                <div class="case-row">
+                  <dt class="mono">Built</dt>
+                  <dd>A canonical 17-journey lifecycle framework spanning acquisition → retention → value growth. Fixed the goal-event logic, reallocated effort to the high-converting surfaces, and stood up back-in-stock and price-drop trigger journeys.</dd>
+                </div>
+                <div class="case-row">
+                  <dt class="mono">Impact</dt>
+                  <!-- PLACEHOLDER: confirm/replace achieved metrics -->
+                  <dd>Flagship journey conversion improved <span class="ph" title="Sample figure — confirm or replace">[ 12× ]</span>; top performer (wishlist abandonment) sustained <span class="ph" title="Sample figure — confirm or replace">[ ~18% conversion ]</span>.</dd>
+                </div>
+                <div class="case-row">
+                  <dt class="mono">Next</dt>
+                  <!-- PLACEHOLDER: confirm next step -->
+                  <dd><span class="ph" title="Editable placeholder">[ Holdout-based incrementality measurement ]</span></dd>
+                </div>
+              </dl>
             </div>
-            <div class="case-block">
-              <h4>Approach</h4>
-              <p>Re-architected segmentation in CleverTap around behaviour and purchase recency, replaced calendar blasts with behavioral-trigger journeys (onboarding, replenishment, win-back, cart recovery), and localised messaging per market across email, SMS, push and in-app.</p>
-            </div>
-            <div class="case-block case-outcome">
-              <h4>Outcome</h4>
-              <p>
-                Repeat purchase rate up <strong>40%</strong>; CRM-attributed revenue up <strong>30%</strong> across 5 storefronts.
-                <!-- PLACEHOLDER: replace with real number -->
-                Win-back journeys reactivated <span class="placeholder-metric" title="Placeholder — replace with your real number">12%</span>
-                of lapsed customers within 90 days.
-              </p>
-            </div>
-          </article>
+          </div>
+        </article>
 
-          <!-- Case 2 -->
-          <article class="case-card reveal">
-            <div class="case-tag">Analytics · Attribution</div>
-            <h3>Attribution you can trust: the GA4 + GTM rebuild</h3>
-            <div class="case-block">
-              <h4>Problem</h4>
-              <p>Lifecycle decisions were being made on dirty data — broken events, duplicate transactions, and CRM revenue that couldn't be traced to specific journeys. Nobody fully trusted the dashboards.</p>
+        <!-- CASE 2 -->
+        <article class="case reveal">
+          <button class="case-head" aria-expanded="false" aria-controls="case2">
+            <span class="mono case-idx">CS·02</span>
+            <span class="case-title">Rebuilding the measurement layer for 6 markets</span>
+            <span class="mono case-kpi">32-event spec</span>
+            <span class="case-toggle" aria-hidden="true"></span>
+          </button>
+          <div class="case-body" id="case2">
+            <div class="case-inner">
+              <dl>
+                <div class="case-row">
+                  <dt class="mono">Problem</dt>
+                  <dd>Fragmented, non-compliant tracking across six regional sites sharing one app.</dd>
+                </div>
+                <div class="case-row">
+                  <dt class="mono">Built</dt>
+                  <dd>A 32-event GA4/GTM specification with server-side routing to GA4, Google Ads, Meta CAPI and TikTok CAPI — plus a PII-compliance split: hashed user data for Enhanced Conversions and CAPI, kept apart from non-PII GA4 properties. GDPR / consent-aware by design.</dd>
+                </div>
+                <div class="case-row">
+                  <dt class="mono">Impact</dt>
+                  <!-- PLACEHOLDER: add measured outcome -->
+                  <dd><span class="ph" title="Editable placeholder">[ Clean attribution · compliant data flow · conversion-accuracy improvement ]</span></dd>
+                </div>
+                <div class="case-row">
+                  <dt class="mono">Why it matters</dt>
+                  <dd>This is the data layer most retention managers can't touch — and the compliance rigour Western markets require.</dd>
+                </div>
+              </dl>
             </div>
-            <div class="case-block">
-              <h4>Approach</h4>
-              <p>Audited the full event taxonomy, rebuilt the GTM container with a clean data-layer spec, aligned GA4 events with CRM platform events, and partnered with ecommerce and analytics teams on ongoing data-hygiene ownership.</p>
-            </div>
-            <div class="case-block case-outcome">
-              <h4>Outcome</h4>
-              <p>
-                Clean attribution became the foundation for the 40% repeat-purchase result above.
-                <!-- PLACEHOLDER: replace with real number -->
-                Event tracking accuracy reached <span class="placeholder-metric" title="Placeholder — replace with your real number">95%+</span>,
-                <!-- PLACEHOLDER: replace with real number -->
-                and monthly reporting time dropped by <span class="placeholder-metric" title="Placeholder — replace with your real number">60%</span>.
-              </p>
-            </div>
-          </article>
+          </div>
+        </article>
 
-          <!-- Case 3 -->
-          <article class="case-card reveal">
-            <div class="case-tag">Lifecycle · B2B Growth</div>
-            <h3>The organic growth engine behind a 3x revenue year</h3>
-            <div class="case-block">
-              <h4>Problem</h4>
-              <p>A deep-tech startup with a long, consultative sales cycle and a lead pipeline almost entirely dependent on paid spend and founder networks.</p>
+        <!-- CASE 3 -->
+        <article class="case reveal">
+          <button class="case-head" aria-expanded="false" aria-controls="case3">
+            <span class="mono case-idx">CS·03</span>
+            <span class="case-title">Connecting CRM to the P&amp;L</span>
+            <span class="mono case-kpi">7-figure risk found</span>
+            <span class="case-toggle" aria-hidden="true"></span>
+          </button>
+          <div class="case-body" id="case3">
+            <div class="case-inner">
+              <dl>
+                <div class="case-row">
+                  <dt class="mono">Problem</dt>
+                  <dd>The same SKUs sold on our own site and on marketplaces (Amazon, Noon); own-site underperforming, with heavy stock gaps leaking revenue.</dd>
+                </div>
+                <div class="case-row">
+                  <dt class="mono">Built</dt>
+                  <dd>A cross-channel SKU analysis pinpointing precise discount targets to lift own-site sales; an out-of-stock / opportunity-loss model; and a standing rule that every campaign runs a live stock check — out-of-stock heroes never get pushed.</dd>
+                </div>
+                <div class="case-row">
+                  <dt class="mono">Impact</dt>
+                  <!-- PLACEHOLDER: indexed figure -->
+                  <dd>Identified <span class="ph" title="Indexed figure — confirm">[ seven-figure, indexed ]</span> revenue-at-risk from stock gaps, plus a targeted discount list to recover own-site volume.</dd>
+                </div>
+                <div class="case-row">
+                  <dt class="mono">Why it matters</dt>
+                  <dd>Retention thinking tied directly to margin and merchandising — not just messaging.</dd>
+                </div>
+              </dl>
             </div>
-            <div class="case-block">
-              <h4>Approach</h4>
-              <p>Built a compounding organic engine: SEO and content targeting high-intent queries, website conversion optimisation, and an email newsletter that kept the long-cycle audience warm — all wired into CRM nurture flows that scored and progressed leads automatically.</p>
-            </div>
-            <div class="case-block case-outcome">
-              <h4>Outcome</h4>
-              <p>
-                Organic lead generation up <strong>80%</strong>, contributing to <strong>3x company revenue growth</strong> within one year.
-                <!-- PLACEHOLDER: replace with real number -->
-                Organic share of pipeline grew from <span class="placeholder-metric" title="Placeholder — replace with your real number">15%</span>
-                <!-- PLACEHOLDER: replace with real number -->
-                to <span class="placeholder-metric" title="Placeholder — replace with your real number">45%</span>.
-              </p>
-            </div>
-          </article>
+          </div>
+        </article>
 
-          <!-- Case 4 -->
-          <article class="case-card reveal">
-            <div class="case-tag">Automation · Demand Gen</div>
-            <h3>1,000+ leads from launch — and a CRM that could handle them</h3>
-            <div class="case-block">
-              <h4>Problem</h4>
-              <p>A Product Hunt launch was about to flood the funnel, but lead handling was manual: no scoring, no lifecycle stages, and sales handoff by spreadsheet.</p>
+        <!-- CASE 4 -->
+        <article class="case reveal">
+          <button class="case-head" aria-expanded="false" aria-controls="case4">
+            <span class="mono case-idx">CS·04</span>
+            <span class="case-title">Launching retention across 4 new markets</span>
+            <span class="mono case-kpi">0 → 4 storefronts</span>
+            <span class="case-toggle" aria-hidden="true"></span>
+          </button>
+          <div class="case-body" id="case4">
+            <div class="case-inner">
+              <dl>
+                <div class="case-row">
+                  <dt class="mono">Problem</dt>
+                  <dd>Stand up e-commerce and engagement for four new GCC storefronts, from zero.</dd>
+                </div>
+                <div class="case-row">
+                  <dt class="mono">Built</dt>
+                  <dd>Regional launch strategy, a formula-driven media plan across all four markets, competitive white-space analysis, AI-produced launch video creative, and cross-functional delivery with an external dev vendor.</dd>
+                </div>
+                <div class="case-row">
+                  <dt class="mono">Impact</dt>
+                  <!-- PLACEHOLDER: add launch outcomes -->
+                  <dd><span class="ph" title="Editable placeholder">[ Launch outcomes / reach ]</span></dd>
+                </div>
+              </dl>
             </div>
-            <div class="case-block">
-              <h4>Approach</h4>
-              <p>Automated the full HubSpot lifecycle ahead of launch — capture forms, enrichment, lead scoring, nurture sequences and lifecycle-stage progression — then ran the launch and surrounding demand-gen campaigns.</p>
-            </div>
-            <div class="case-block case-outcome">
-              <h4>Outcome</h4>
-              <p>
-                <strong>1,000+ inbound leads</strong> captured, scored and routed with zero manual triage, contributing to <strong>35% growth in new customer acquisition</strong>.
-                <!-- PLACEHOLDER: replace with real number -->
-                Sales handoff time dropped from days to <span class="placeholder-metric" title="Placeholder — replace with your real number">under 1 hour</span>.
-              </p>
-            </div>
-          </article>
+          </div>
+        </article>
 
-        </div>
+        <!-- CASE 5 — coming soon slot -->
+        <article class="case case-soon reveal">
+          <div class="case-head case-head-static">
+            <span class="mono case-idx">CS·05</span>
+            <span class="case-title">External lifecycle teardown — a well-known DTC brand</span>
+            <span class="mono case-kpi case-kpi-soon">coming soon</span>
+          </div>
+          <!-- PLACEHOLDER: build later — outside-in audit of a DTC brand's welcome flow / cart recovery -->
+        </article>
+
       </div>
     </section>
 
-    <!-- ==================== CERTIFICATIONS ==================== -->
-    <section class="section section-alt" id="certifications">
-      <div class="container">
-        <p class="section-eyebrow reveal">Certifications &amp; Education</p>
-        <h2 class="section-title reveal">Credentials</h2>
+    <!-- ==================== 04 CREDENTIALS ==================== -->
+    <section class="section" id="credentials">
+      <header class="section-head reveal">
+        <span class="mono section-idx">04</span>
+        <h2>Credentials</h2>
+      </header>
 
-        <div class="cert-grid">
-          <div class="cert-card reveal">
-            <div class="cert-icon">🏅</div>
-            <h3>Customer Engagement Leadership Program</h3>
-            <p class="cert-issuer">MoEngage · 2023</p>
-          </div>
-          <div class="cert-card reveal">
-            <div class="cert-icon">🏅</div>
-            <h3>CRM Strategist Certification</h3>
-            <p class="cert-issuer">Klaviyo</p>
-          </div>
-          <div class="cert-card reveal">
-            <div class="cert-icon">🎓</div>
-            <h3>MBA — Master of Business Administration</h3>
-            <p class="cert-issuer">Amity University, India · 2023–2025</p>
-          </div>
-          <div class="cert-card reveal">
-            <div class="cert-icon">🎓</div>
-            <h3>B.Tech, Computer Science &amp; Engineering</h3>
-            <p class="cert-issuer">Lovely Professional University, India · 2018–2022</p>
-          </div>
-        </div>
+      <ul class="cred-list">
+        <li class="cred reveal">
+          <span class="cred-name">Klaviyo — CRM Strategist Certification</span>
+          <span class="mono cred-status cred-done">earned</span>
+        </li>
+        <li class="cred reveal">
+          <span class="cred-name">MoEngage — Customer Engagement Leadership Program</span>
+          <span class="mono cred-status cred-done">earned · 2023</span>
+        </li>
+        <li class="cred reveal">
+          <!-- PLACEHOLDER: add certification name/date when earned -->
+          <span class="cred-name">CleverTap certification <span class="ph" title="Add when earned">[ add ]</span></span>
+          <span class="mono cred-status">in progress</span>
+        </li>
+        <li class="cred reveal">
+          <!-- PLACEHOLDER: add certification when earned -->
+          <span class="cred-name">GA4 / Google Analytics Certification <span class="ph" title="Add when earned">[ add ]</span></span>
+          <span class="mono cred-status">in progress</span>
+        </li>
+        <li class="cred reveal">
+          <!-- PLACEHOLDER: planned -->
+          <span class="cred-name">Braze certification</span>
+          <span class="mono cred-status">planned</span>
+        </li>
+      </ul>
+
+      <!-- Testimonials: two placeholder slots, visually quiet until filled -->
+      <div class="testis">
+        <figure class="testi reveal">
+          <!-- PLACEHOLDER: replace with a real quote -->
+          <blockquote><span class="ph" title="Editable placeholder">[ Add a quote from a manager or colleague ]</span></blockquote>
+          <figcaption class="mono">— <span class="ph">[ Name, Title ]</span></figcaption>
+        </figure>
+        <figure class="testi reveal">
+          <!-- PLACEHOLDER: replace with a real quote -->
+          <blockquote><span class="ph" title="Editable placeholder">[ Add a second quote ]</span></blockquote>
+          <figcaption class="mono">— <span class="ph">[ Name, Title ]</span></figcaption>
+        </figure>
       </div>
     </section>
 
-    <!-- ==================== CONTACT ==================== -->
-    <section class="section contact-section" id="contact">
-      <div class="container">
-        <p class="section-eyebrow reveal">Contact</p>
-        <h2 class="section-title reveal">Let's talk retention</h2>
-        <p class="section-sub reveal">
-          Hiring for CRM, lifecycle or retention marketing? I'd love to hear about the problem you're trying to solve.
-        </p>
+    <!-- ==================== 05 CONTACT ==================== -->
+    <section class="section contact" id="contact">
+      <header class="section-head reveal">
+        <span class="mono section-idx">05</span>
+        <h2>Contact</h2>
+      </header>
 
-        <div class="contact-links reveal">
-          <a class="contact-card" href="mailto:hishadabk@gmail.com">
-            <span class="contact-icon">✉️</span>
-            <span class="contact-label">Email</span>
-            <span class="contact-value">hishadabk@gmail.com</span>
-          </a>
-          <a class="contact-card" href="https://linkedin.com/in/shadabkhansir" target="_blank" rel="noopener noreferrer">
-            <span class="contact-icon">💼</span>
-            <span class="contact-label">LinkedIn</span>
-            <span class="contact-value">linkedin.com/in/shadabkhansir</span>
-          </a>
-          <!-- INFERRED: GitHub URL guessed from repo owner handle — confirm it's correct -->
-          <a class="contact-card" href="https://github.com/shadabkhansir" target="_blank" rel="noopener noreferrer">
-            <span class="contact-icon">🐙</span>
-            <span class="contact-label">GitHub</span>
-            <span class="contact-value">github.com/shadabkhansir</span>
-          </a>
-          <a class="contact-card" href="tel:+971551448115">
-            <span class="contact-icon">📱</span>
-            <span class="contact-label">Phone</span>
-            <span class="contact-value">+971 55 144 8115</span>
-          </a>
-        </div>
+      <p class="contact-lede reveal">
+        Open to senior retention roles in <em>UK · Ireland · Australia · Canada.</em>
+      </p>
+      <p class="contact-sub reveal">If your repeat-purchase curve is flat, let's look at the data together.</p>
+
+      <div class="contact-actions reveal">
+        <a class="btn btn-solid" href="mailto:hishadabk@gmail.com">hishadabk@gmail.com</a>
+        <a class="btn btn-line" href="https://linkedin.com/in/shadabkhansir" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
       </div>
+      <p class="mono contact-loc reveal">Based in the UAE — open to relocation.</p>
     </section>
 
   </main>
 
   <footer class="footer">
-    <div class="container footer-inner">
-      <p>© <span id="year">2026</span> Shadab Khan · Built with plain HTML, CSS &amp; JS — no frameworks, loads fast.</p>
-      <a href="#top" class="back-to-top">Back to top ↑</a>
-    </div>
+    <p class="mono">© <span id="year">2026</span> Shadab Khan</p>
+    <p class="mono">No frameworks. No trackers. Loads fast.</p>
+    <a class="mono" href="#top">↑ top</a>
   </footer>
 
   <script src="script.js"></script>
