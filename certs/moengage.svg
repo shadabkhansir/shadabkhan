@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 560" font-family="monospace">
+  <!-- PLACEHOLDER certificate image.
+       Replace this file with your real MoEngage certificate
+       (keep the same filename, or update data-cert in index.html). -->
+  <rect width="800" height="560" fill="#12151d"/>
+  <rect x="24" y="24" width="752" height="512" fill="none" stroke="#c6f24e" stroke-width="2" stroke-dasharray="10 8"/>
+  <text x="400" y="200" fill="#c6f24e" font-size="30" text-anchor="middle" letter-spacing="6">CERTIFICATE</text>
+  <text x="400" y="260" fill="#eef0f4" font-size="22" text-anchor="middle">MoEngage — Customer Engagement Leadership</text>
+  <text x="400" y="330" fill="#8b93a7" font-size="16" text-anchor="middle">placeholder image</text>
+  <text x="400" y="360" fill="#8b93a7" font-size="16" text-anchor="middle">replace with your uploaded certificate</text>
+</svg>
