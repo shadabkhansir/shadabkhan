@@ -38,30 +38,31 @@
     var label = document.getElementById("themeLabel");
     if (!btn) return;
 
-    function isMono() {
-      return root.getAttribute("data-theme") === "mono";
+    function isLight() {
+      return root.getAttribute("data-theme") === "light";
     }
 
     function sync() {
-      var mono = isMono();
-      if (label) label.textContent = mono ? "Mono" : "Normal";
-      btn.setAttribute("aria-checked", mono ? "true" : "false");
+      var light = isLight();
+      // The label names the theme you are currently viewing.
+      if (label) label.textContent = light ? "Light" : "Dark";
+      btn.setAttribute("aria-checked", light ? "true" : "false");
       btn.setAttribute(
         "aria-label",
-        mono ? "Switch to normal colour view" : "Switch to black and white view"
+        light ? "Switch to dark theme" : "Switch to light theme"
       );
     }
 
     btn.addEventListener("click", function () {
-      var goingMono = !isMono();
-      if (goingMono) {
-        root.setAttribute("data-theme", "mono");
+      var goingLight = !isLight();
+      if (goingLight) {
+        root.setAttribute("data-theme", "light");
       } else {
         root.removeAttribute("data-theme");
       }
       // Persist, but never let a storage failure block the visual switch.
       try {
-        localStorage.setItem("theme", goingMono ? "mono" : "normal");
+        localStorage.setItem("theme", goingLight ? "light" : "dark");
       } catch (e) { /* private mode / file:// — switch still works this session */ }
       sync();
     });

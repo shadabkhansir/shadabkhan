@@ -28,21 +28,25 @@ If something still looks stale, hard-refresh: **Ctrl+Shift+R** (Windows) or
 
 ## Theme switch
 
-The nav carries a sliding pill switch with two views:
+The nav carries a sliding pill switch with two fully designed colour themes:
 
 | Label | What it is |
 |---|---|
-| **Normal** (droplet icon) | The colour theme — dark ink with the acid accent |
-| **Mono** (half-circle icon) | Black & white — black type on paper, no accent colour |
+| **Dark** (moon icon) — *default* | Ink ground, paper-white type, acid-lime accent |
+| **Light** (sun icon) | Cool paper ground, near-black navy type, vivid indigo accent |
 
-The knob slides, the icons rotate/fade between states, and the whole page
-crossfades its colours. The choice is saved to `localStorage` and re-applied
-before first paint on the next visit, so there's no flash.
+Both are real palettes, not inversions of each other. The knob slides, the
+moon/sun icons rotate and fade as they swap, the label crossfades, and the
+whole page transitions its colours. The choice is saved to `localStorage` and
+re-applied before first paint on the next visit, so there's no flash.
 
-To change either palette, edit the CSS custom properties at the top of
-`styles.css`: `:root { … }` is Normal, `[data-theme="mono"] { … }` is Mono.
-Nothing else needs touching — every colour on the site derives from those
-tokens.
+**To edit a palette**: the CSS custom properties at the top of `styles.css` —
+`:root { … }` is Dark, `[data-theme="light"] { … }` is Light. Every colour on
+the site derives from those tokens, so nothing else needs touching.
+
+**To make Light the default** instead of Dark: swap the values in those two
+blocks, and change `"light"` to `"dark"` in the small `<script>` in
+`index.html`'s `<head>`.
 
 ## Certificate images
 

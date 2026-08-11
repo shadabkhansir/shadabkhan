@@ -28,19 +28,24 @@
   --glow-color: rgba(198, 242, 78, 0.055);
 }
 
-/* ---------- Black & white theme ----------
-   Toggled by the ◐ button in the nav (saved to localStorage).
-   Same layout, monochrome light palette: black ink on paper. */
-[data-theme="mono"] {
-  --ink: #f6f6f3;
-  --surface: #ffffff;
-  --paper: #101010;
-  --muted: #595959;
-  --accent: #101010;
-  --accent-ink: #f6f6f3;
-  --line: #d8d8d2;
-  --ph: #91650a;
-  --glow-color: rgba(0, 0, 0, 0.045);
+/* ---------- LIGHT THEME ----------
+   A properly designed colour palette — not a washed-out inversion:
+   cool paper ground, near-black navy type, vivid indigo accent.
+   Toggled by the sun/moon switch in the nav, saved to localStorage.
+
+   TO MAKE LIGHT THE DEFAULT instead of dark: swap these values with
+   the :root block above (and flip the check in the <head> script of
+   index.html from "light" to "dark"). */
+[data-theme="light"] {
+  --ink: #f4f4fa;          /* page ground */
+  --surface: #ffffff;      /* raised panels */
+  --paper: #14162b;        /* primary type */
+  --muted: #5c6379;        /* secondary type */
+  --accent: #4a34e0;       /* vivid indigo */
+  --accent-ink: #ffffff;   /* type on accent */
+  --line: #e2e1ee;         /* hairlines */
+  --ph: #a85b00;           /* placeholder chips, readable on light */
+  --glow-color: rgba(74, 52, 224, 0.06);
 }
 
 /* ---------- Base ---------- */
@@ -156,7 +161,7 @@ em { font-style: normal; color: var(--accent); }
   background: var(--accent);
   transition: transform 0.45s cubic-bezier(0.5, 1.6, 0.5, 1), background 0.4s;
 }
-[data-theme="mono"] .theme-knob { transform: translateX(4px) rotate(180deg); }
+[data-theme="light"] .theme-knob { transform: translateX(4px) rotate(180deg); }
 
 /* icons sit on top of the knob and swap */
 .theme-ico {
@@ -171,10 +176,11 @@ em { font-style: normal; color: var(--accent); }
 }
 .theme-ico svg { width: 15px; height: 15px; }
 
-.theme-ico-colour { opacity: 1; transform: rotate(0deg) scale(1); }
-.theme-ico-mono   { opacity: 0; transform: rotate(-120deg) scale(0.4); }
-[data-theme="mono"] .theme-ico-colour { opacity: 0; transform: rotate(120deg) scale(0.4); }
-[data-theme="mono"] .theme-ico-mono   { opacity: 1; transform: translateX(4px) scale(1); }
+/* moon shows while dark is active, sun while light is active */
+.theme-ico-dark  { opacity: 1; transform: rotate(0deg) scale(1); }
+.theme-ico-light { opacity: 0; transform: rotate(-120deg) scale(0.4); }
+[data-theme="light"] .theme-ico-dark  { opacity: 0; transform: rotate(120deg) scale(0.4); }
+[data-theme="light"] .theme-ico-light { opacity: 1; transform: translateX(4px) scale(1); }
 
 .theme-label {
   font-size: 0.72rem;

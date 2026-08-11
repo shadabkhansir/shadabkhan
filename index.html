@@ -40,15 +40,15 @@
   <!-- The ?v= number busts browser caches. BUMP IT (v=6, v=7 …) every time
        you edit styles.css or script.js, otherwise returning visitors keep
        running the old cached files. -->
-  <link rel="stylesheet" href="styles.css?v=5">
+  <link rel="stylesheet" href="styles.css?v=6">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='40' fill='%23C6F24E'/></svg>">
 
   <!-- Apply the saved theme before first paint so there's no colour flash.
-       Default is Normal (colour); "mono" is the black & white view. -->
+       Dark is the default; "light" is the indigo colour theme. -->
   <script>
     try {
-      if (localStorage.getItem("theme") === "mono") {
-        document.documentElement.setAttribute("data-theme", "mono");
+      if (localStorage.getItem("theme") === "light") {
+        document.documentElement.setAttribute("data-theme", "light");
       }
     } catch (e) { /* private mode etc. — default theme is fine */ }
   </script>
@@ -70,25 +70,25 @@
       <a href="#contact" class="nav-contact"><span class="mono nav-idx">05</span> Contact</a>
     </nav>
     <div class="nav-right">
-      <!-- Theme switch: Normal (colour) ↔ Mono (black & white).
-           A sliding pill with two icons; state saved in localStorage. -->
+      <!-- Theme switch: Dark (default identity) ↔ Light (indigo colour theme).
+           Sliding pill with a moon/sun icon swap; saved in localStorage. -->
       <button class="theme-switch" id="themeToggle" role="switch" aria-checked="false"
-              aria-label="Switch to black and white view" title="Switch view">
+              aria-label="Switch to light theme" title="Switch theme">
         <span class="theme-knob" aria-hidden="true"></span>
-        <span class="theme-ico theme-ico-colour" aria-hidden="true">
-          <!-- droplet = colour view -->
+        <span class="theme-ico theme-ico-dark" aria-hidden="true">
+          <!-- moon = dark theme active -->
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 2.7 6.8 8.4a7.3 7.3 0 1 0 10.4 0Z"/>
+            <path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z"/>
           </svg>
         </span>
-        <span class="theme-ico theme-ico-mono" aria-hidden="true">
-          <!-- half-filled circle = black & white view -->
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="9"/>
-            <path d="M12 3a9 9 0 0 1 0 18Z" fill="currentColor" stroke="none"/>
+        <span class="theme-ico theme-ico-light" aria-hidden="true">
+          <!-- sun = light theme active -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <circle cx="12" cy="12" r="4.2"/>
+            <path d="M12 2v2.4M12 19.6V22M2 12h2.4M19.6 12H22M4.9 4.9l1.7 1.7M17.4 17.4l1.7 1.7M19.1 4.9l-1.7 1.7M6.6 17.4l-1.7 1.7"/>
           </svg>
         </span>
-        <span class="theme-label mono" id="themeLabel">Normal</span>
+        <span class="theme-label mono" id="themeLabel">Dark</span>
       </button>
       <button class="nav-burger" id="navBurger" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
         <span></span><span></span>
@@ -665,6 +665,6 @@
   </footer>
 
   <!-- Bump ?v= together with the stylesheet whenever you edit this file. -->
-  <script src="script.js?v=5"></script>
+  <script src="script.js?v=6"></script>
 </body>
 </html>
