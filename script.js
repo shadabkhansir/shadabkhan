@@ -88,7 +88,125 @@
     });
   });
 
-  /* ---------- 5. Cursor glow ---------- */
+  /* ---------- 5. Capability tabs ---------- */
+  const tabBtns = document.querySelectorAll(".tab-btn");
+  const tabPanels = document.querySelectorAll(".tab-panel");
+
+  tabBtns.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      tabBtns.forEach((b) => {
+        const on = b === btn;
+        b.classList.toggle("active", on);
+        b.setAttribute("aria-selected", String(on));
+      });
+      tabPanels.forEach((p) => {
+        const on = p.id === btn.getAttribute("aria-controls");
+        p.hidden = !on;
+        // re-toggling .active restarts the chip cascade animation
+        p.classList.remove("active");
+        if (on) requestAnimationFrame(() => p.classList.add("active"));
+      });
+    });
+  });
+  // arrow-key support on the tablist
+  document.querySelector(".tab-list")?.addEventListener("keydown", (e) => {
+    if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
+    const list = Array.from(tabBtns);
+    const i = list.indexOf(document.activeElement);
+    if (i === -1) return;
+    const next = list[(i + (e.key === "ArrowRight" ? 1 : list.length - 1)) % list.length];
+    next.focus();
+    next.click();
+  });
+
+  /* ---------- 6. Certificate images (graceful) ---------- */
+  // Each credential can declare data-cert="certs/<file>". We probe the file
+  // with an off-screen Image: if it loads, a "view certificate" button is
+  // injected that opens the lightbox. If it 404s, nothing happens — the
+  // credential simply shows without a view option. No errors surface.
+  const lightbox = document.getElementById("lightbox");
+  const lightboxImg = document.getElementById("lightboxImg");
+  const lightboxCap = document.getElementById("lightboxCap");
+  const lightboxClose = document.getElementById("lightboxClose");
+  let lastCertTrigger = null;
+
+  function openLightbox(src, title, trigger) {
+    lightboxImg.src = src;
+    lightboxImg.alt = title;
+    lightboxCap.textContent = title;
+    lightbox.hidden = false;
+    document.body.style.overflow = "hidden";
+    lastCertTrigger = trigger;
+    lightboxClose.focus();
+  }
+  function closeLightbox() {
+    lightbox.hidden = true;
+    document.body.style.overflow = "";
+    if (lastCertTrigger) lastCertTrigger.focus();
+  }
+  if (lightbox) {
+    lightboxClose.addEventListener("click", closeLightbox);
+    lightbox.addEventListener("click", (e) => {
+      if (e.target === lightbox) closeLightbox();
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && !lightbox.hidden) closeLightbox();
+    });
+  }
+
+  document.querySelectorAll(".cred[data-cert]").forEach((li) => {
+    const src = li.dataset.cert;
+    const title = li.dataset.certTitle || "Certificate";
+    if (!src) return;
+    const probe = new Image();
+    probe.onload = () => {
+      const btn = document.createElement("button");
+      btn.className = "cred-view";
+      btn.textContent = "view certificate ↗";
+      btn.addEventListener("click", () => openLightbox(src, title, btn));
+      li.querySelector(".cred-meta").prepend(btn);
+    };
+    // onerror: intentionally do nothing — missing file, no button, no error
+    probe.src = src;
+  });
+
+  /* ---------- 7. Testimonials carousel ---------- */
+  const track = document.getElementById("testiTrack");
+  const carousel = document.getElementById("testiCarousel");
+  const dots = document.querySelectorAll(".testi-dot");
+  let testiIndex = 0;
+  let testiTimer = null;
+
+  function goTo(i) {
+    testiIndex = (i + dots.length) % dots.length;
+    track.style.transform = `translateX(-${testiIndex * 100}%)`;
+    dots.forEach((d, n) => {
+      d.classList.toggle("active", n === testiIndex);
+      d.setAttribute("aria-selected", String(n === testiIndex));
+    });
+  }
+  function startAuto() {
+    if (reduceMotion || testiTimer) return;
+    testiTimer = setInterval(() => goTo(testiIndex + 1), 6000);
+  }
+  function stopAuto() {
+    clearInterval(testiTimer);
+    testiTimer = null;
+  }
+
+  if (track && dots.length) {
+    dots.forEach((d, n) =>
+      d.addEventListener("click", () => { goTo(n); stopAuto(); startAuto(); })
+    );
+    // pause while the reader is engaging with it
+    carousel.addEventListener("mouseenter", stopAuto);
+    carousel.addEventListener("mouseleave", startAuto);
+    carousel.addEventListener("focusin", stopAuto);
+    carousel.addEventListener("focusout", startAuto);
+    startAuto();
+  }
+
+  /* ---------- 8. Cursor glow ---------- */
   // A large, very faint accent radial that trails the pointer.
   // Skipped for touch devices and reduced-motion users.
   const glow = document.querySelector(".cursor-glow");

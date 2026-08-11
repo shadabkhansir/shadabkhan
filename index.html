@@ -5,29 +5,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- ============================================================
-       SHADAB KHAN — RETENTION & LIFECYCLE STRATEGIST
+       SHADAB KHAN — RETENTION, LIFECYCLE & GROWTH
        Single-page portfolio. Self-contained HTML + CSS + vanilla JS.
        No frameworks. Only external dependency: Google Fonts.
 
-       DESIGN IDENTITY (deliberate, committed):
-       Dark editorial. Ink background, paper-white display type
+       DESIGN IDENTITY:
+       Dark editorial. Ink ground, paper-white display type
        (Space Grotesk), mono data labels (IBM Plex Mono), one acid
-       accent. Numbers are treated like instrument readouts, not
-       marketing confetti. Signature element: the lifecycle loop
-       diagram after the hero.
+       accent. Signature element: the animated customer-lifecycle
+       loop after the hero (pure SVG + SMIL — no video, no images).
 
        HOW TO EDIT:
        - All copy lives in this file, organised by section comments.
-       - Every bracketed placeholder you need to fill is wrapped in
-         a span with class "ph" and marked with a PLACEHOLDER comment.
-         Search this file for: class="ph"
+       - Every bracketed placeholder is wrapped in a span with class
+         "ph" and marked with a PLACEHOLDER comment. Search: class="ph"
+       - Certificate images: drop files into the certs/ folder and
+         point each credential's data-cert attribute at them. If the
+         file is missing, the "view certificate" button simply never
+         appears — no error shown.
        - The README lists every placeholder with its location.
        ============================================================ -->
 
-  <title>Shadab Khan — Retention &amp; Lifecycle Strategist</title>
-  <meta name="description" content="Retention &amp; lifecycle strategist. I turn customer data into repeat revenue — CRM, lifecycle architecture, marketing analytics, multi-market e-commerce.">
+  <title>Shadab Khan — Retention, Lifecycle &amp; Growth Strategist</title>
+  <meta name="description" content="Retention, lifecycle &amp; growth strategist. I turn customer data into repeat revenue — full-funnel growth marketing, CRM &amp; lifecycle architecture, marketing analytics, multi-market e-commerce.">
   <meta name="author" content="Shadab Khan">
-  <meta property="og:title" content="Shadab Khan — Retention &amp; Lifecycle Strategist">
+  <meta property="og:title" content="Shadab Khan — Retention, Lifecycle &amp; Growth Strategist">
   <meta property="og:description" content="I turn customer data into repeat revenue.">
   <meta property="og:type" content="website">
 
@@ -41,11 +43,7 @@
 <body>
 
   <a class="skip-link" href="#main">Skip to content</a>
-
-  <!-- Subtle cursor-following glow (desktop pointers only, JS-driven) -->
   <div class="cursor-glow" aria-hidden="true"></div>
-
-  <!-- Thin accent reading-progress line -->
   <div class="progress" aria-hidden="true"></div>
 
   <!-- ==================== NAV ==================== -->
@@ -63,7 +61,6 @@
     </button>
   </header>
 
-  <!-- Full-screen mobile menu -->
   <div class="mobile-menu" id="mobileMenu" hidden>
     <nav aria-label="Sections">
       <a href="#about"><span class="mono">01</span>About</a>
@@ -79,7 +76,7 @@
 
     <!-- ==================== HERO ==================== -->
     <section class="hero" id="top">
-      <p class="mono hero-eyebrow reveal">Shadab Khan — Retention &amp; Lifecycle Strategist</p>
+      <p class="mono hero-eyebrow reveal">Shadab Khan — Retention, Lifecycle &amp; Growth</p>
 
       <h1 class="hero-h1">
         <span class="hero-line reveal">I turn customer data</span>
@@ -87,16 +84,17 @@
       </h1>
 
       <p class="hero-sub reveal">
-        Retention &amp; lifecycle strategist across CleverTap, GA4/GTM, and multi-market e-commerce.
+        I run the full customer journey — growth marketing that fills the funnel,
+        and CRM &amp; lifecycle systems that turn it into retention. CleverTap, GA4/GTM,
+        multi-market e-commerce.
       </p>
-      <p class="mono hero-tags reveal">CRM · Lifecycle Architecture · Marketing Analytics · Multi-market E-commerce</p>
+      <p class="mono hero-tags reveal">Growth Marketing · CRM &amp; Lifecycle Architecture · Marketing Analytics · Multi-market E-commerce</p>
 
       <div class="hero-cta reveal">
         <a class="btn btn-solid" href="#work">View case studies</a>
         <a class="btn btn-line" href="#contact">Get in touch</a>
       </div>
 
-      <!-- Credibility stats: indexed / anonymised by design -->
       <div class="hero-stats reveal" role="list" aria-label="Credibility statistics">
         <div class="hstat" role="listitem">
           <span class="hstat-num mono">56<span class="hstat-arrow">→</span>17</span>
@@ -107,56 +105,85 @@
           <span class="hstat-label">conversion lift on the flagship journey after root-cause fix</span>
         </div>
         <div class="hstat" role="listitem">
-          <span class="hstat-num mono">5<span class="hstat-unit">mkts</span></span>
-          <span class="hstat-label">GCC e-commerce operation, 11K+ SKUs, dual B2B + retail base</span>
+          <span class="hstat-num mono">3×</span>
+          <span class="hstat-label">revenue year driven in an earlier full-funnel growth role</span>
         </div>
       </div>
       <p class="mono hero-footnote reveal">Figures indexed / anonymised — absolute values withheld for confidentiality.</p>
     </section>
 
-    <!-- ==================== SIGNATURE: LIFECYCLE LOOP ==================== -->
-    <!-- The one memorable element. Everything around it stays quiet. -->
-    <section class="loop-section" aria-label="Lifecycle framework diagram">
+    <!-- ==================== SIGNATURE: ANIMATED LIFECYCLE LOOP ==================== -->
+    <!-- Pure SVG + SMIL + CSS: two dots travel the full journey continuously —
+         down the funnel, back through win-back into retention, and advocacy
+         looping back to awareness. No video, no images, autoplays on load. -->
+    <section class="loop-section" aria-label="Customer lifecycle loop diagram">
       <div class="loop-scroll">
-        <svg class="loop-svg" viewBox="0 0 920 250" role="img"
-             aria-label="Lifecycle loop: acquire, activate, retain, grow value, win back — with win-back feeding back into retention">
-          <!-- main forward path -->
-          <path class="loop-path" d="M60 100 H860" />
-          <!-- animated flow overlay -->
-          <path class="loop-flow" d="M60 100 H860" />
-          <!-- win-back return curve: last node loops under and re-enters at Retain -->
-          <path class="loop-return" d="M860 100 C 900 100, 900 200, 820 200 L 540 200 C 480 200, 470 130, 460 108" />
-          <path class="loop-return-flow" d="M860 100 C 900 100, 900 200, 820 200 L 540 200 C 480 200, 470 130, 460 108" />
-          <!-- arrowhead on the return path -->
-          <path class="loop-arrow" d="M452 122 L460 104 L470 121 Z" />
+        <svg class="loop-svg" viewBox="0 0 1100 310" role="img"
+             aria-label="Animated customer lifecycle loop: awareness, acquisition, activation, retention, advocacy, win-back. Win-back feeds back into retention; advocacy feeds back into awareness.">
 
-          <!-- nodes -->
-          <g class="loop-node" style="--d:0">
-            <circle cx="60" cy="100" r="9"/>
-            <text class="loop-label" x="60" y="62">ACQUIRE</text>
-            <text class="loop-sub" x="60" y="140">first order</text>
+          <!-- static guide paths -->
+          <path class="loop-path" d="M70 155 H1030" />
+          <path class="loop-path" d="M1030 155 C1092 155, 1092 250, 1000 250 L730 250 C672 250, 658 182, 648 160" />
+          <path class="loop-path" d="M838 155 C845 48, 235 40, 72 150" />
+
+          <!-- animated dash overlay on the main funnel line -->
+          <path class="loop-flow" d="M70 155 H1030" />
+
+          <!-- arrowheads for the two return loops -->
+          <path class="loop-arrow" d="M640 172 L647 155 L657 171 Z" />
+          <path class="loop-arrow" d="M64 142 L72 158 L81 142 Z" />
+
+          <!-- travelling customer dots: the full loop as a motion path.
+               Second dot starts half a cycle behind the first. -->
+          <circle class="loop-dot" r="6">
+            <animateMotion dur="12s" repeatCount="indefinite"
+              path="M70 155 H1030 C1092 155, 1092 250, 1000 250 L730 250 C672 250, 658 182, 646 157 L646 155 L838 155 C845 48, 235 40, 70 155" />
+          </circle>
+          <circle class="loop-dot loop-dot-2" r="4">
+            <animateMotion dur="12s" begin="-6s" repeatCount="indefinite"
+              path="M70 155 H1030 C1092 155, 1092 250, 1000 250 L730 250 C672 250, 658 182, 646 157 L646 155 L838 155 C845 48, 235 40, 70 155" />
+          </circle>
+
+          <!-- nodes: pulse rings fire in journey order -->
+          <g class="loop-node">
+            <circle class="loop-ring" cx="70" cy="155" r="9" style="--pd: 0s"/>
+            <circle class="loop-core" cx="70" cy="155" r="9"/>
+            <text class="loop-label" x="70" y="112">AWARENESS</text>
+            <text class="loop-sub" x="70" y="198">demand &amp; content</text>
           </g>
-          <g class="loop-node" style="--d:1">
-            <circle cx="260" cy="100" r="9"/>
-            <text class="loop-label" x="260" y="62">ACTIVATE</text>
-            <text class="loop-sub" x="260" y="140">onboarding</text>
+          <g class="loop-node">
+            <circle class="loop-ring" cx="262" cy="155" r="9" style="--pd: 0.55s"/>
+            <circle class="loop-core" cx="262" cy="155" r="9"/>
+            <text class="loop-label" x="262" y="112">ACQUISITION</text>
+            <text class="loop-sub" x="262" y="198">paid · SEO · launches</text>
           </g>
-          <g class="loop-node" style="--d:2">
-            <circle cx="460" cy="100" r="9"/>
-            <text class="loop-label" x="460" y="62">RETAIN</text>
-            <text class="loop-sub" x="460" y="140">repeat purchase</text>
+          <g class="loop-node">
+            <circle class="loop-ring" cx="454" cy="155" r="9" style="--pd: 1.1s"/>
+            <circle class="loop-core" cx="454" cy="155" r="9"/>
+            <text class="loop-label" x="454" y="112">ACTIVATION</text>
+            <text class="loop-sub" x="454" y="198">onboarding · first value</text>
           </g>
-          <g class="loop-node" style="--d:3">
-            <circle cx="660" cy="100" r="9"/>
-            <text class="loop-label" x="660" y="62">GROW VALUE</text>
-            <text class="loop-sub" x="660" y="140">CLV · frequency</text>
+          <g class="loop-node">
+            <circle class="loop-ring" cx="646" cy="155" r="9" style="--pd: 1.65s"/>
+            <circle class="loop-core" cx="646" cy="155" r="9"/>
+            <text class="loop-label" x="646" y="112">RETENTION</text>
+            <text class="loop-sub" x="646" y="198">repeat purchase</text>
           </g>
-          <g class="loop-node" style="--d:4">
-            <circle cx="860" cy="100" r="9"/>
-            <text class="loop-label" x="860" y="62">WIN BACK</text>
-            <text class="loop-sub" x="860" y="140">lapse triggers</text>
+          <g class="loop-node">
+            <circle class="loop-ring" cx="838" cy="155" r="9" style="--pd: 2.2s"/>
+            <circle class="loop-core" cx="838" cy="155" r="9"/>
+            <text class="loop-label" x="838" y="112">ADVOCACY</text>
+            <text class="loop-sub" x="838" y="198">reviews · referrals</text>
           </g>
-          <text class="loop-sub loop-return-label" x="660" y="232">churn is a journey, not an exit</text>
+          <g class="loop-node">
+            <circle class="loop-ring" cx="1030" cy="155" r="9" style="--pd: 2.75s"/>
+            <circle class="loop-core" cx="1030" cy="155" r="9"/>
+            <text class="loop-label" x="1030" y="112">WIN-BACK</text>
+            <text class="loop-sub" x="1030" y="198">lapse triggers</text>
+          </g>
+
+          <text class="loop-sub loop-cap" x="452" y="34">advocates fuel awareness</text>
+          <text class="loop-sub loop-cap" x="845" y="284">churn is a journey, not an exit</text>
         </svg>
       </div>
     </section>
@@ -169,62 +196,107 @@
       </header>
 
       <div class="about-body reveal">
-        <!-- PLACEHOLDER: refine this paragraph in your own voice -->
+        <!-- PLACEHOLDER: refine both paragraphs in your own voice -->
         <p class="about-lede">
           CRM &amp; retention lead for a leading GCC beauty &amp; cosmetics retailer — five markets,
           11K+ SKUs, a dual B2B salon and retail customer base. I specialise in diagnosing broken
           retention systems in the data and re-architecting them: the lifecycle journeys, the
           segmentation, the measurement layer underneath, and the commercial logic on top.
-          Currently targeting senior retention roles in international markets.
         </p>
-        <p class="mono about-note"><span class="ph" title="Editable placeholder">[ Refine this paragraph in your own voice ]</span></p>
+        <p class="about-second">
+          Before retention, I did growth. In B2B SaaS I built acquisition engines end to end —
+          paid campaigns across Google, Meta and LinkedIn, SEO and content programs that grew organic
+          leads 80%, and launch campaigns that generated 1,000+ inbound leads — contributing to a
+          3× revenue year. That's why my lifecycle work connects: I've owned every stage of the
+          funnel the journeys are built on. Currently targeting senior retention and growth roles
+          in international markets.
+        </p>
+        <p class="mono about-note"><span class="ph" title="Editable placeholder">[ Refine in your own voice ]</span></p>
       </div>
     </section>
 
     <!-- ==================== 02 CAPABILITIES ==================== -->
+    <!-- Redesigned as an interactive tabbed console: three operating modes,
+         animated tab switch, chips cascade in, each tab closes with a mono
+         proof line. The channels marquee runs underneath. -->
     <section class="section" id="capabilities">
       <header class="section-head reveal">
         <span class="mono section-idx">02</span>
         <h2>Capabilities</h2>
       </header>
+      <p class="section-note mono reveal">Full-funnel by design — growth fills it, lifecycle compounds it, data proves it.</p>
 
-      <div class="cap-group reveal">
-        <h3 class="mono cap-title">Platforms</h3>
-        <ul class="cap-tags">
-          <li>CleverTap</li>
-          <li>GA4</li>
-          <li>Google Tag Manager</li>
-          <li>Server-side GTM</li>
-          <li>Meta CAPI</li>
-          <li>TikTok CAPI</li>
-          <!-- PLACEHOLDER: planned platform certifications -->
-          <li class="cap-soon">Braze <span class="mono">— learning</span></li>
-          <li class="cap-soon">Klaviyo <span class="mono">— certified strategist</span></li>
-        </ul>
-      </div>
+      <div class="tabs reveal">
+        <div class="tab-list" role="tablist" aria-label="Capability areas">
+          <button class="tab-btn active" role="tab" aria-selected="true" aria-controls="panel-growth" id="tab-growth">
+            <span class="mono tab-num">A</span> Growth Marketing
+          </button>
+          <button class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-lifecycle" id="tab-lifecycle">
+            <span class="mono tab-num">B</span> CRM &amp; Lifecycle
+          </button>
+          <button class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-data" id="tab-data">
+            <span class="mono tab-num">C</span> Data &amp; Measurement
+          </button>
+        </div>
 
-      <!-- Channels rendered as a slow marquee strip — the site's one moment of motion between sections.
-           Duplicated list is aria-hidden; animation stops on hover and under prefers-reduced-motion. -->
-      <div class="cap-group reveal">
-        <h3 class="mono cap-title">Channels</h3>
-        <div class="marquee" aria-label="Channels: Mobile Push, Web Push, In-App, Email, Web Pop-up, App Inbox">
-          <div class="marquee-track">
-            <span class="marquee-seq">Mobile Push <i>·</i> Web Push <i>·</i> In-App <i>·</i> Email <i>·</i> Web Pop-up <i>·</i> App Inbox <i>·</i>&nbsp;</span>
-            <span class="marquee-seq" aria-hidden="true">Mobile Push <i>·</i> Web Push <i>·</i> In-App <i>·</i> Email <i>·</i> Web Pop-up <i>·</i> App Inbox <i>·</i>&nbsp;</span>
+        <div class="tab-panels">
+          <div class="tab-panel active" role="tabpanel" id="panel-growth" aria-labelledby="tab-growth">
+            <p class="tab-lede">Growth is where I started — the acquisition engines that fill the funnel my lifecycle work then compounds.</p>
+            <ul class="tab-chips">
+              <li style="--i:0">Google Ads</li>
+              <li style="--i:1">Meta Ads</li>
+              <li style="--i:2">LinkedIn Ads</li>
+              <li style="--i:3">SEO &amp; Content Strategy</li>
+              <li style="--i:4">CRO &amp; Landing Pages</li>
+              <li style="--i:5">Email Newsletters</li>
+              <li style="--i:6">Product &amp; Market Launches</li>
+              <li style="--i:7">Media Planning</li>
+              <li style="--i:8">Competitive White-space Analysis</li>
+            </ul>
+            <p class="mono tab-proof">3× revenue year · +80% organic leads · 1,000+ launch leads</p>
+          </div>
+
+          <div class="tab-panel" role="tabpanel" id="panel-lifecycle" aria-labelledby="tab-lifecycle" hidden>
+            <p class="tab-lede">Journeys, segmentation and commercial logic that turn first orders into repeat revenue.</p>
+            <ul class="tab-chips">
+              <li style="--i:0">CleverTap</li>
+              <li style="--i:1">Klaviyo <span class="mono chip-note">certified strategist</span></li>
+              <li style="--i:2">Braze <span class="mono chip-note">learning</span></li>
+              <li style="--i:3">Lifecycle Architecture</li>
+              <li style="--i:4">Behavioral Segmentation</li>
+              <li style="--i:5">Loyalty &amp; Win-Back</li>
+              <li style="--i:6">A/B &amp; Holdout Testing</li>
+              <li style="--i:7">Back-in-stock &amp; Price-drop Triggers</li>
+            </ul>
+            <p class="mono tab-proof">56→17 journey framework · 12× flagship lift</p>
+          </div>
+
+          <div class="tab-panel" role="tabpanel" id="panel-data" aria-labelledby="tab-data" hidden>
+            <p class="tab-lede">The measurement layer under every decision — clean events, compliant flows, honest attribution.</p>
+            <ul class="tab-chips">
+              <li style="--i:0">GA4</li>
+              <li style="--i:1">Google Tag Manager</li>
+              <li style="--i:2">Server-side GTM</li>
+              <li style="--i:3">Meta CAPI</li>
+              <li style="--i:4">TikTok CAPI</li>
+              <li style="--i:5">Event Taxonomy Design</li>
+              <li style="--i:6">Cohorts · CLV · Churn</li>
+              <li style="--i:7">GDPR / Consent-compliant Flows</li>
+            </ul>
+            <p class="mono tab-proof">32-event spec · 6 markets · PII-split compliant</p>
           </div>
         </div>
       </div>
 
-      <div class="cap-group reveal">
-        <h3 class="mono cap-title">Disciplines</h3>
-        <ul class="cap-tags">
-          <li>Lifecycle Architecture</li>
-          <li>Behavioral Segmentation</li>
-          <li>Retention Analytics — cohorts · CLV · churn</li>
-          <li>A/B &amp; Holdout Testing</li>
-          <li>Data-Layer &amp; Event Taxonomy Design</li>
-          <li>GDPR / Consent-compliant Data Flows</li>
-        </ul>
+      <!-- Channels marquee -->
+      <div class="cap-channels reveal">
+        <h3 class="mono cap-title">Channels</h3>
+        <div class="marquee" aria-label="Channels: Mobile Push, Web Push, In-App, Email, SMS, Web Pop-up, App Inbox">
+          <div class="marquee-track">
+            <span class="marquee-seq">Mobile Push <i>·</i> Web Push <i>·</i> In-App <i>·</i> Email <i>·</i> SMS <i>·</i> Web Pop-up <i>·</i> App Inbox <i>·</i>&nbsp;</span>
+            <span class="marquee-seq" aria-hidden="true">Mobile Push <i>·</i> Web Push <i>·</i> In-App <i>·</i> Email <i>·</i> SMS <i>·</i> Web Pop-up <i>·</i> App Inbox <i>·</i>&nbsp;</span>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -236,8 +308,6 @@
       </header>
       <p class="section-note mono reveal">All numbers indexed / anonymised. Employer referenced as “a leading GCC beauty &amp; cosmetics retailer.”</p>
 
-      <!-- Each case is an accessible accordion: summary always visible,
-           press to expand the full problem → diagnosis → built → impact → next. -->
       <div class="cases">
 
         <!-- CASE 1 -->
@@ -373,10 +443,42 @@
           </div>
         </article>
 
-        <!-- CASE 5 — coming soon slot -->
+        <!-- CASE 5 — the growth-marketing record -->
+        <article class="case reveal">
+          <button class="case-head" aria-expanded="false" aria-controls="case5">
+            <span class="mono case-idx">CS·05</span>
+            <span class="case-title">Growth before retention — building acquisition engines in B2B SaaS</span>
+            <span class="mono case-kpi">3× revenue year</span>
+            <span class="case-toggle" aria-hidden="true"></span>
+          </button>
+          <div class="case-body" id="case5">
+            <div class="case-inner">
+              <dl>
+                <div class="case-row">
+                  <dt class="mono">Problem</dt>
+                  <dd>Two early-stage B2B SaaS companies with long, consultative sales cycles and pipelines dependent on paid spend and founder networks.</dd>
+                </div>
+                <div class="case-row">
+                  <dt class="mono">Built</dt>
+                  <dd>Full-funnel growth systems: SEO and content engines targeting high-intent queries, CRO on the capture layer, paid acquisition across Google, Meta and LinkedIn, automated HubSpot lead-lifecycle (scoring, nurture, sales handoff), and a Product Hunt launch with its surrounding demand-gen push.</dd>
+                </div>
+                <div class="case-row">
+                  <dt class="mono">Impact</dt>
+                  <dd>Contributed to a 3× revenue year; organic lead generation up 80%; 1,000+ inbound leads from the launch, captured and routed with zero manual triage; 35% growth in new-customer acquisition.</dd>
+                </div>
+                <div class="case-row">
+                  <dt class="mono">Why it matters</dt>
+                  <dd>Retention strategists who have personally run acquisition don't design journeys in a vacuum — they know exactly what the top of the funnel costs.</dd>
+                </div>
+              </dl>
+            </div>
+          </div>
+        </article>
+
+        <!-- CASE 6 — coming soon slot -->
         <article class="case case-soon reveal">
           <div class="case-head case-head-static">
-            <span class="mono case-idx">CS·05</span>
+            <span class="mono case-idx">CS·06</span>
             <span class="case-title">External lifecycle teardown — a well-known DTC brand</span>
             <span class="mono case-kpi case-kpi-soon">coming soon</span>
           </div>
@@ -393,44 +495,105 @@
         <h2>Credentials</h2>
       </header>
 
+      <!-- Each credential may carry data-cert="certs/<file>". If that image
+           exists in the repo, JS adds a "view certificate" button that opens
+           it in a lightbox. If the file is missing, nothing appears — no error. -->
       <ul class="cred-list">
-        <li class="cred reveal">
+        <li class="cred reveal" data-cert="certs/klaviyo.svg" data-cert-title="Klaviyo — CRM Strategist Certification">
           <span class="cred-name">Klaviyo — CRM Strategist Certification</span>
-          <span class="mono cred-status cred-done">earned</span>
+          <span class="cred-meta">
+            <span class="mono cred-status cred-done">earned</span>
+          </span>
         </li>
-        <li class="cred reveal">
+        <li class="cred reveal" data-cert="certs/moengage.svg" data-cert-title="MoEngage — Customer Engagement Leadership Program">
           <span class="cred-name">MoEngage — Customer Engagement Leadership Program</span>
-          <span class="mono cred-status cred-done">earned · 2023</span>
+          <span class="cred-meta">
+            <span class="mono cred-status cred-done">earned · 2023</span>
+          </span>
         </li>
-        <li class="cred reveal">
-          <!-- PLACEHOLDER: add certification name/date when earned -->
+        <li class="cred reveal" data-cert="certs/clevertap.png" data-cert-title="CleverTap Certification">
+          <!-- PLACEHOLDER: add certification name/date when earned; drop image at certs/clevertap.png -->
           <span class="cred-name">CleverTap certification <span class="ph" title="Add when earned">[ add ]</span></span>
-          <span class="mono cred-status">in progress</span>
+          <span class="cred-meta">
+            <span class="mono cred-status">in progress</span>
+          </span>
         </li>
-        <li class="cred reveal">
-          <!-- PLACEHOLDER: add certification when earned -->
+        <li class="cred reveal" data-cert="certs/ga4.png" data-cert-title="GA4 / Google Analytics Certification">
+          <!-- PLACEHOLDER: add certification when earned; drop image at certs/ga4.png -->
           <span class="cred-name">GA4 / Google Analytics Certification <span class="ph" title="Add when earned">[ add ]</span></span>
-          <span class="mono cred-status">in progress</span>
+          <span class="cred-meta">
+            <span class="mono cred-status">in progress</span>
+          </span>
         </li>
-        <li class="cred reveal">
-          <!-- PLACEHOLDER: planned -->
+        <li class="cred reveal" data-cert="certs/braze.png" data-cert-title="Braze Certification">
+          <!-- PLACEHOLDER: planned; drop image at certs/braze.png when earned -->
           <span class="cred-name">Braze certification</span>
-          <span class="mono cred-status">planned</span>
+          <span class="cred-meta">
+            <span class="mono cred-status">planned</span>
+          </span>
         </li>
       </ul>
 
-      <!-- Testimonials: two placeholder slots, visually quiet until filled -->
-      <div class="testis">
-        <figure class="testi reveal">
-          <!-- PLACEHOLDER: replace with a real quote -->
-          <blockquote><span class="ph" title="Editable placeholder">[ Add a quote from a manager or colleague ]</span></blockquote>
-          <figcaption class="mono">— <span class="ph">[ Name, Title ]</span></figcaption>
+      <!-- Certificate lightbox (hidden until a certificate is opened) -->
+      <div class="lightbox" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="Certificate viewer">
+        <button class="lightbox-close mono" id="lightboxClose" aria-label="Close certificate viewer">close ×</button>
+        <figure>
+          <img id="lightboxImg" src="" alt="">
+          <figcaption class="mono" id="lightboxCap"></figcaption>
         </figure>
-        <figure class="testi reveal">
-          <!-- PLACEHOLDER: replace with a real quote -->
-          <blockquote><span class="ph" title="Editable placeholder">[ Add a second quote ]</span></blockquote>
-          <figcaption class="mono">— <span class="ph">[ Name, Title ]</span></figcaption>
-        </figure>
+      </div>
+
+      <!-- ===== Testimonials: auto-rotating carousel ===== -->
+      <div class="testi-block reveal">
+        <h3 class="mono cap-title">What colleagues say</h3>
+        <!-- PLACEHOLDER: all three testimonials below are SAMPLE content —
+             replace quotes, names, titles, and the avatar initials. -->
+        <div class="testi-carousel" id="testiCarousel">
+          <div class="testi-track" id="testiTrack">
+
+            <figure class="testi-slide">
+              <svg class="testi-avatar" viewBox="0 0 64 64" role="img" aria-label="Avatar placeholder">
+                <circle cx="32" cy="32" r="30"/><text x="32" y="40">AR</text>
+              </svg>
+              <blockquote>“Shadab found revenue in journeys we had written off. The welcome-flow fix alone changed our quarter.”</blockquote>
+              <figcaption>
+                <span class="testi-name">Aisha R.</span>
+                <span class="mono testi-title">Head of E-commerce</span>
+                <span class="mono testi-sample" title="Sample content — replace with a real quote">sample — replace</span>
+              </figcaption>
+            </figure>
+
+            <figure class="testi-slide">
+              <svg class="testi-avatar" viewBox="0 0 64 64" role="img" aria-label="Avatar placeholder">
+                <circle cx="32" cy="32" r="30"/><text x="32" y="40">DM</text>
+              </svg>
+              <blockquote>“A rare mix — he speaks CLV with finance and event schemas with engineering, in the same meeting.”</blockquote>
+              <figcaption>
+                <span class="testi-name">Daniel M.</span>
+                <span class="mono testi-title">Marketing Director</span>
+                <span class="mono testi-sample" title="Sample content — replace with a real quote">sample — replace</span>
+              </figcaption>
+            </figure>
+
+            <figure class="testi-slide">
+              <svg class="testi-avatar" viewBox="0 0 64 64" role="img" aria-label="Avatar placeholder">
+                <circle cx="32" cy="32" r="30"/><text x="32" y="40">PN</text>
+              </svg>
+              <blockquote>“We handed him a broken funnel and got back a system. The reporting finally matched reality.”</blockquote>
+              <figcaption>
+                <span class="testi-name">Priya N.</span>
+                <span class="mono testi-title">VP Growth</span>
+                <span class="mono testi-sample" title="Sample content — replace with a real quote">sample — replace</span>
+              </figcaption>
+            </figure>
+
+          </div>
+          <div class="testi-dots" role="tablist" aria-label="Testimonials">
+            <button class="testi-dot active" aria-label="Testimonial 1" aria-selected="true"></button>
+            <button class="testi-dot" aria-label="Testimonial 2" aria-selected="false"></button>
+            <button class="testi-dot" aria-label="Testimonial 3" aria-selected="false"></button>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -442,7 +605,7 @@
       </header>
 
       <p class="contact-lede reveal">
-        Open to senior retention roles in <em>UK · Ireland · Australia · Canada.</em>
+        Open to senior retention &amp; growth roles in <em>UK · Ireland · Australia · Canada.</em>
       </p>
       <p class="contact-sub reveal">If your repeat-purchase curve is flat, let's look at the data together.</p>
 

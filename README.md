@@ -1,10 +1,10 @@
-# Shadab Khan — Retention & Lifecycle Strategist Portfolio
+# Shadab Khan — Retention, Lifecycle & Growth Portfolio
 
-Single-page portfolio for a senior CRM & Retention professional. Dark editorial
-design — ink ground, display type, mono data labels, one acid accent, and a
-signature lifecycle-loop diagram. Self-contained **HTML + CSS + vanilla JS**;
-the only external dependency is Google Fonts. Free to host on GitHub Pages,
-Netlify, or Vercel.
+Single-page portfolio for a senior CRM, Retention & Growth professional. Dark
+editorial design — ink ground, display type, mono data labels, one acid accent,
+and a signature animated customer-lifecycle loop (pure SVG code, no video or
+images). Self-contained **HTML + CSS + vanilla JS**; the only external
+dependency is Google Fonts. Free to host on GitHub Pages, Netlify, or Vercel.
 
 ## Files
 
@@ -12,7 +12,23 @@ Netlify, or Vercel.
 |---|---|
 | `index.html` | All content, organised by section comments |
 | `styles.css` | All styling — palette & type tokens at the top of the file |
-| `script.js` | Menu, scroll reveals, progress line, accordions, cursor glow |
+| `script.js` | Menu, reveals, tabs, accordions, carousel, cert lightbox, cursor glow |
+| `certs/` | Certificate images — see "Certificate images" below |
+
+## Certificate images
+
+Each credential in `index.html` carries `data-cert="certs/<file>"`. On load the
+site quietly checks whether that file exists:
+
+- **File exists** → a "view certificate ↗" button appears and opens the image
+  in a lightbox.
+- **File missing** → no button, no error. The credential just lists normally.
+
+Currently `certs/klaviyo.svg` and `certs/moengage.svg` are **placeholder
+images** — replace them with your real certificates (keep the filenames, or
+update the `data-cert` attributes). The CleverTap/GA4/Braze entries already
+point at `certs/clevertap.png`, `certs/ga4.png`, `certs/braze.png` — upload
+those files whenever you earn them and the buttons will appear automatically.
 
 ## ⚠️ Placeholders to fill before publishing
 
@@ -22,17 +38,18 @@ beside it. Search `index.html` for `class="ph"`. Full list:
 
 | # | Location | Placeholder |
 |---|---|---|
-| 1 | About | `[ Refine this paragraph in your own voice ]` — sample paragraph provided |
+| 1 | About | `[ Refine in your own voice ]` — both paragraphs are sample copy |
 | 2 | Case Study 1 → Impact | `[ 12× ]` flagship conversion improvement (sample from your notes — confirm) |
 | 3 | Case Study 1 → Impact | `[ ~18% conversion ]` wishlist abandonment (confirm) |
 | 4 | Case Study 1 → Next | `[ Holdout-based incrementality measurement ]` |
 | 5 | Case Study 2 → Impact | `[ Clean attribution · compliant data flow · conversion-accuracy improvement ]` |
 | 6 | Case Study 3 → Impact | `[ seven-figure, indexed ]` revenue-at-risk |
 | 7 | Case Study 4 → Impact | `[ Launch outcomes / reach ]` |
-| 8 | Case Study 5 | Entire card is a "coming soon" slot — external DTC lifecycle teardown to build later |
+| 8 | Case Study 6 | Entire card is a "coming soon" slot — external DTC lifecycle teardown to build later |
 | 9 | Credentials | CleverTap certification `[ add ]` (marked "in progress") |
 | 10 | Credentials | GA4 / Google Analytics certification `[ add ]` (marked "in progress") |
-| 11 | Testimonials | Two quote slots + name/title placeholders |
+| 11 | Certificate images | `certs/klaviyo.svg` and `certs/moengage.svg` are placeholder graphics — replace with real certificates |
+| 12 | Testimonials | **All three quotes, names, titles and avatar initials are SAMPLE content** (each slide carries a visible "sample — replace" tag) — replace with real quotes before publishing |
 
 To clear one: replace the text, then delete the `<span class="ph">` wrapper
 and the adjacent `<!-- PLACEHOLDER -->` comment.
