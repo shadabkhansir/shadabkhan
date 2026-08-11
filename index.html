@@ -37,10 +37,14 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="styles.css">
+  <!-- The ?v= number busts browser caches. BUMP IT (v=6, v=7 …) every time
+       you edit styles.css or script.js, otherwise returning visitors keep
+       running the old cached files. -->
+  <link rel="stylesheet" href="styles.css?v=5">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='40' fill='%23C6F24E'/></svg>">
 
-  <!-- Apply the saved theme before first paint so there's no colour flash -->
+  <!-- Apply the saved theme before first paint so there's no colour flash.
+       Default is Normal (colour); "mono" is the black & white view. -->
   <script>
     try {
       if (localStorage.getItem("theme") === "mono") {
@@ -66,8 +70,26 @@
       <a href="#contact" class="nav-contact"><span class="mono nav-idx">05</span> Contact</a>
     </nav>
     <div class="nav-right">
-      <!-- Theme switch: normal (dark + accent) ↔ black & white. Saved in localStorage. -->
-      <button class="theme-toggle mono" id="themeToggle" aria-label="Switch to black and white theme">◐ B/W</button>
+      <!-- Theme switch: Normal (colour) ↔ Mono (black & white).
+           A sliding pill with two icons; state saved in localStorage. -->
+      <button class="theme-switch" id="themeToggle" role="switch" aria-checked="false"
+              aria-label="Switch to black and white view" title="Switch view">
+        <span class="theme-knob" aria-hidden="true"></span>
+        <span class="theme-ico theme-ico-colour" aria-hidden="true">
+          <!-- droplet = colour view -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2.7 6.8 8.4a7.3 7.3 0 1 0 10.4 0Z"/>
+          </svg>
+        </span>
+        <span class="theme-ico theme-ico-mono" aria-hidden="true">
+          <!-- half-filled circle = black & white view -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="9"/>
+            <path d="M12 3a9 9 0 0 1 0 18Z" fill="currentColor" stroke="none"/>
+          </svg>
+        </span>
+        <span class="theme-label mono" id="themeLabel">Normal</span>
+      </button>
       <button class="nav-burger" id="navBurger" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
         <span></span><span></span>
       </button>
@@ -642,6 +664,7 @@
     <a class="mono" href="#top">↑ top</a>
   </footer>
 
-  <script src="script.js"></script>
+  <!-- Bump ?v= together with the stylesheet whenever you edit this file. -->
+  <script src="script.js?v=5"></script>
 </body>
 </html>

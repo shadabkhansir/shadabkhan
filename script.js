@@ -1,225 +1,342 @@
 /* ============================================================
    SHADAB KHAN — PORTFOLIO INTERACTIONS
-   Vanilla JS, no libraries. Features:
-     1. Mobile full-screen menu
-     2. Scroll reveals (IntersectionObserver)
-     3. Reading-progress line + nav border + active section link
-     4. Case-study accordions (accessible)
-     5. Cursor glow (fine pointers only)
-   Everything defers to prefers-reduced-motion.
+   Vanilla JS, no libraries.
+
+   ARCHITECTURE NOTE (important):
+   Every feature is registered through feature() below, which wraps it
+   in its own try/catch. If one feature fails on some browser or
+   version, the others still run — previously a single early error
+   could silently kill everything defined after it.
+
+   Order matters: the two most visible features (theme switch and the
+   lifecycle animation) are registered FIRST so nothing else can
+   affect them.
    ============================================================ */
 
 (function () {
   "use strict";
 
-  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var reduceMotion = false;
+  try {
+    reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  } catch (e) { /* older browsers: assume motion is fine */ }
 
-  /* ---------- 1. Mobile menu ---------- */
-  const burger = document.getElementById("navBurger");
-  const menu = document.getElementById("mobileMenu");
-
-  function setMenu(open) {
-    menu.hidden = !open;
-    burger.setAttribute("aria-expanded", String(open));
-    burger.setAttribute("aria-label", open ? "Close menu" : "Open menu");
-    document.body.style.overflow = open ? "hidden" : "";
+  /** Run a feature in isolation — a failure here never blocks the rest. */
+  function feature(name, fn) {
+    try {
+      fn();
+    } catch (err) {
+      // Logged for debugging; the page keeps working without this feature.
+      if (window.console && console.warn) console.warn("[portfolio] " + name + " failed:", err);
+    }
   }
-  setMenu(false);
 
-  burger.addEventListener("click", () => setMenu(menu.hidden));
-  menu.addEventListener("click", (e) => {
-    if (e.target.closest("a")) setMenu(false);
-  });
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && !menu.hidden) setMenu(false);
+  /* ================= 1. THEME SWITCH (Normal ↔ Mono) ================= */
+  feature("theme", function () {
+    var root = document.documentElement;
+    var btn = document.getElementById("themeToggle");
+    var label = document.getElementById("themeLabel");
+    if (!btn) return;
+
+    function isMono() {
+      return root.getAttribute("data-theme") === "mono";
+    }
+
+    function sync() {
+      var mono = isMono();
+      if (label) label.textContent = mono ? "Mono" : "Normal";
+      btn.setAttribute("aria-checked", mono ? "true" : "false");
+      btn.setAttribute(
+        "aria-label",
+        mono ? "Switch to normal colour view" : "Switch to black and white view"
+      );
+    }
+
+    btn.addEventListener("click", function () {
+      var goingMono = !isMono();
+      if (goingMono) {
+        root.setAttribute("data-theme", "mono");
+      } else {
+        root.removeAttribute("data-theme");
+      }
+      // Persist, but never let a storage failure block the visual switch.
+      try {
+        localStorage.setItem("theme", goingMono ? "mono" : "normal");
+      } catch (e) { /* private mode / file:// — switch still works this session */ }
+      sync();
+    });
+
+    sync();
   });
 
-  /* ---------- 2. Scroll reveals ---------- */
-  const revealEls = document.querySelectorAll(".reveal");
-  if (reduceMotion || !("IntersectionObserver" in window)) {
-    revealEls.forEach((el) => el.classList.add("visible"));
-  } else {
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-            io.unobserve(entry.target);
-          }
+  /* ================= 2. LIFECYCLE LOOP ANIMATION ================= */
+  // Two dots travel the full customer journey. Driven by
+  // requestAnimationFrame sampling the hidden #loopTrack path, which works
+  // consistently across browsers (SVG SMIL did not). Runs regardless of the
+  // OS "reduce motion" setting — this diagram is the site's signature and
+  // is small, contained, and non-flashing.
+  feature("lifecycle-loop", function () {
+    var track = document.getElementById("loopTrack");
+    var dot1 = document.getElementById("loopDot1");
+    var dot2 = document.getElementById("loopDot2");
+    if (!track || !dot1 || !dot2 || typeof track.getTotalLength !== "function") return;
+
+    var len = track.getTotalLength();
+    if (!len) return;
+
+    var CYCLE = 12000; // ms for one full lap
+    var dots = [
+      { el: dot1, offset: 0 },
+      { el: dot2, offset: 0.5 },
+    ];
+
+    function frame(now) {
+      var t = (now % CYCLE) / CYCLE;
+      for (var i = 0; i < dots.length; i++) {
+        var p = track.getPointAtLength(((t + dots[i].offset) % 1) * len);
+        dots[i].el.setAttribute("cx", p.x.toFixed(1));
+        dots[i].el.setAttribute("cy", p.y.toFixed(1));
+      }
+      requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  });
+
+  /* ================= 3. MOBILE MENU ================= */
+  feature("mobile-menu", function () {
+    var burger = document.getElementById("navBurger");
+    var menu = document.getElementById("mobileMenu");
+    if (!burger || !menu) return;
+
+    function setMenu(open) {
+      menu.hidden = !open;
+      burger.setAttribute("aria-expanded", String(open));
+      burger.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+      document.body.style.overflow = open ? "hidden" : "";
+    }
+    setMenu(false);
+
+    burger.addEventListener("click", function () { setMenu(menu.hidden); });
+    menu.addEventListener("click", function (e) {
+      if (e.target.closest && e.target.closest("a")) setMenu(false);
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && !menu.hidden) setMenu(false);
+    });
+  });
+
+  /* ================= 4. SCROLL REVEALS ================= */
+  feature("reveals", function () {
+    var els = document.querySelectorAll(".reveal");
+    if (reduceMotion || !("IntersectionObserver" in window)) {
+      for (var i = 0; i < els.length; i++) els[i].classList.add("visible");
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    for (var j = 0; j < els.length; j++) io.observe(els[j]);
+  });
+
+  /* ================= 5. PROGRESS BAR + NAV + ACTIVE LINK ================= */
+  feature("scroll-state", function () {
+    var progress = document.querySelector(".progress");
+    var nav = document.getElementById("nav");
+    var sections = document.querySelectorAll("section[id]");
+    var anchors = document.querySelectorAll(".nav-links a[href^='#']");
+
+    function onScroll() {
+      var y = window.scrollY;
+      var max = document.documentElement.scrollHeight - window.innerHeight;
+      if (progress) progress.style.width = max > 0 ? (y / max) * 100 + "%" : "0%";
+      if (nav) nav.classList.toggle("scrolled", y > 10);
+
+      var current = "";
+      for (var i = 0; i < sections.length; i++) {
+        if (y >= sections[i].offsetTop - 140) current = sections[i].id;
+      }
+      for (var j = 0; j < anchors.length; j++) {
+        anchors[j].classList.toggle("active", anchors[j].getAttribute("href") === "#" + current);
+      }
+    }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+  });
+
+  /* ================= 6. CASE-STUDY ACCORDIONS ================= */
+  feature("accordions", function () {
+    var heads = document.querySelectorAll(".case-head[aria-controls]");
+    for (var i = 0; i < heads.length; i++) {
+      (function (btn) {
+        var panel = document.getElementById(btn.getAttribute("aria-controls"));
+        if (!panel) return;
+        btn.addEventListener("click", function () {
+          var open = btn.getAttribute("aria-expanded") === "true";
+          btn.setAttribute("aria-expanded", String(!open));
+          panel.classList.toggle("open", !open);
         });
-      },
-      { threshold: 0.1 }
-    );
-    revealEls.forEach((el) => io.observe(el));
-  }
-
-  /* ---------- 3. Progress line + nav state + active link ---------- */
-  const progress = document.querySelector(".progress");
-  const nav = document.getElementById("nav");
-  const sections = document.querySelectorAll("section[id]");
-  const navAnchors = document.querySelectorAll(".nav-links a[href^='#']");
-
-  function onScroll() {
-    const y = window.scrollY;
-    const max = document.documentElement.scrollHeight - window.innerHeight;
-    progress.style.width = max > 0 ? (y / max) * 100 + "%" : "0%";
-    nav.classList.toggle("scrolled", y > 10);
-
-    let current = "";
-    sections.forEach((s) => {
-      if (y >= s.offsetTop - 140) current = s.id;
-    });
-    navAnchors.forEach((a) => {
-      a.classList.toggle("active", a.getAttribute("href") === "#" + current);
-    });
-  }
-  window.addEventListener("scroll", onScroll, { passive: true });
-  onScroll();
-
-  /* ---------- 4. Case-study accordions ---------- */
-  // Buttons carry aria-expanded; panels animate open via the
-  // grid-template-rows 0fr→1fr transition in CSS.
-  document.querySelectorAll(".case-head[aria-controls]").forEach((btn) => {
-    const panel = document.getElementById(btn.getAttribute("aria-controls"));
-    btn.addEventListener("click", () => {
-      const open = btn.getAttribute("aria-expanded") === "true";
-      btn.setAttribute("aria-expanded", String(!open));
-      panel.classList.toggle("open", !open);
-    });
+      })(heads[i]);
+    }
   });
 
-  /* ---------- 5. Capability tabs ---------- */
-  const tabBtns = document.querySelectorAll(".tab-btn");
-  const tabPanels = document.querySelectorAll(".tab-panel");
+  /* ================= 7. CAPABILITY TABS ================= */
+  feature("tabs", function () {
+    var btns = document.querySelectorAll(".tab-btn");
+    var panels = document.querySelectorAll(".tab-panel");
+    if (!btns.length) return;
 
-  tabBtns.forEach((btn) => {
-    btn.addEventListener("click", () => {
-      tabBtns.forEach((b) => {
-        const on = b === btn;
-        b.classList.toggle("active", on);
-        b.setAttribute("aria-selected", String(on));
+    function activate(btn) {
+      for (var i = 0; i < btns.length; i++) {
+        var on = btns[i] === btn;
+        btns[i].classList.toggle("active", on);
+        btns[i].setAttribute("aria-selected", String(on));
+      }
+      for (var j = 0; j < panels.length; j++) {
+        (function (p) {
+          var on = p.id === btn.getAttribute("aria-controls");
+          p.hidden = !on;
+          p.classList.remove("active"); // restart the chip cascade
+          if (on) requestAnimationFrame(function () { p.classList.add("active"); });
+        })(panels[j]);
+      }
+    }
+
+    for (var k = 0; k < btns.length; k++) {
+      (function (b) {
+        b.addEventListener("click", function () { activate(b); });
+      })(btns[k]);
+    }
+
+    var list = document.querySelector(".tab-list");
+    if (list) {
+      list.addEventListener("keydown", function (e) {
+        if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
+        var arr = Array.prototype.slice.call(btns);
+        var i = arr.indexOf(document.activeElement);
+        if (i === -1) return;
+        var next = arr[(i + (e.key === "ArrowRight" ? 1 : arr.length - 1)) % arr.length];
+        next.focus();
+        next.click();
       });
-      tabPanels.forEach((p) => {
-        const on = p.id === btn.getAttribute("aria-controls");
-        p.hidden = !on;
-        // re-toggling .active restarts the chip cascade animation
-        p.classList.remove("active");
-        if (on) requestAnimationFrame(() => p.classList.add("active"));
-      });
-    });
-  });
-  // arrow-key support on the tablist
-  document.querySelector(".tab-list")?.addEventListener("keydown", (e) => {
-    if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
-    const list = Array.from(tabBtns);
-    const i = list.indexOf(document.activeElement);
-    if (i === -1) return;
-    const next = list[(i + (e.key === "ArrowRight" ? 1 : list.length - 1)) % list.length];
-    next.focus();
-    next.click();
+    }
   });
 
-  /* ---------- 6. Certificate images (graceful) ---------- */
-  // Each credential can declare data-cert="certs/<file>". We probe the file
+  /* ================= 8. CERTIFICATES + LIGHTBOX ================= */
+  // Each credential may declare data-cert="certs/<file>". The file is probed
   // with an off-screen Image: if it loads, a "view certificate" button is
-  // injected that opens the lightbox. If it 404s, nothing happens — the
-  // credential simply shows without a view option. No errors surface.
-  const lightbox = document.getElementById("lightbox");
-  const lightboxImg = document.getElementById("lightboxImg");
-  const lightboxCap = document.getElementById("lightboxCap");
-  const lightboxClose = document.getElementById("lightboxClose");
-  let lastCertTrigger = null;
+  // injected. If it is missing, nothing appears and no error is shown.
+  feature("certificates", function () {
+    var lightbox = document.getElementById("lightbox");
+    var img = document.getElementById("lightboxImg");
+    var cap = document.getElementById("lightboxCap");
+    var closeBtn = document.getElementById("lightboxClose");
+    var lastTrigger = null;
 
-  function openLightbox(src, title, trigger) {
-    lightboxImg.src = src;
-    lightboxImg.alt = title;
-    lightboxCap.textContent = title;
-    lightbox.hidden = false;
-    document.body.style.overflow = "hidden";
-    lastCertTrigger = trigger;
-    lightboxClose.focus();
-  }
-  function closeLightbox() {
-    lightbox.hidden = true;
-    document.body.style.overflow = "";
-    if (lastCertTrigger) lastCertTrigger.focus();
-  }
-  if (lightbox) {
-    lightboxClose.addEventListener("click", closeLightbox);
-    lightbox.addEventListener("click", (e) => {
-      if (e.target === lightbox) closeLightbox();
-    });
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && !lightbox.hidden) closeLightbox();
-    });
-  }
+    function open(src, title, trigger) {
+      if (!lightbox) return;
+      img.src = src;
+      img.alt = title;
+      cap.textContent = title;
+      lightbox.hidden = false;
+      document.body.style.overflow = "hidden";
+      lastTrigger = trigger;
+      closeBtn.focus();
+    }
+    function close() {
+      if (!lightbox) return;
+      lightbox.hidden = true;
+      document.body.style.overflow = "";
+      if (lastTrigger) lastTrigger.focus();
+    }
 
-  document.querySelectorAll(".cred[data-cert]").forEach((li) => {
-    const src = li.dataset.cert;
-    const title = li.dataset.certTitle || "Certificate";
-    if (!src) return;
-    const probe = new Image();
-    probe.onload = () => {
-      const btn = document.createElement("button");
-      btn.className = "cred-view";
-      btn.textContent = "view certificate ↗";
-      btn.addEventListener("click", () => openLightbox(src, title, btn));
-      li.querySelector(".cred-meta").prepend(btn);
-    };
-    // onerror: intentionally do nothing — missing file, no button, no error
-    probe.src = src;
+    if (lightbox && closeBtn) {
+      closeBtn.addEventListener("click", close);
+      lightbox.addEventListener("click", function (e) {
+        if (e.target === lightbox) close();
+      });
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && !lightbox.hidden) close();
+      });
+    }
+
+    var creds = document.querySelectorAll(".cred[data-cert]");
+    for (var i = 0; i < creds.length; i++) {
+      (function (li) {
+        var src = li.getAttribute("data-cert");
+        var title = li.getAttribute("data-cert-title") || "Certificate";
+        if (!src) return;
+        var probe = new Image();
+        probe.onload = function () {
+          var meta = li.querySelector(".cred-meta");
+          if (!meta) return;
+          var btn = document.createElement("button");
+          btn.className = "cred-view";
+          btn.textContent = "view certificate ↗";
+          btn.addEventListener("click", function () { open(src, title, btn); });
+          meta.insertBefore(btn, meta.firstChild);
+        };
+        // no onerror handler: a missing file simply means no button
+        probe.src = src;
+      })(creds[i]);
+    }
   });
 
-  /* ---------- 7. Testimonials carousel ---------- */
-  const track = document.getElementById("testiTrack");
-  const carousel = document.getElementById("testiCarousel");
-  const dots = document.querySelectorAll(".testi-dot");
-  let testiIndex = 0;
-  let testiTimer = null;
+  /* ================= 9. TESTIMONIAL CAROUSEL ================= */
+  feature("testimonials", function () {
+    var track = document.getElementById("testiTrack");
+    var carousel = document.getElementById("testiCarousel");
+    var dots = document.querySelectorAll(".testi-dot");
+    if (!track || !carousel || !dots.length) return;
 
-  function goTo(i) {
-    testiIndex = (i + dots.length) % dots.length;
-    track.style.transform = `translateX(-${testiIndex * 100}%)`;
-    dots.forEach((d, n) => {
-      d.classList.toggle("active", n === testiIndex);
-      d.setAttribute("aria-selected", String(n === testiIndex));
-    });
-  }
-  function startAuto() {
-    if (reduceMotion || testiTimer) return;
-    testiTimer = setInterval(() => goTo(testiIndex + 1), 6000);
-  }
-  function stopAuto() {
-    clearInterval(testiTimer);
-    testiTimer = null;
-  }
+    var index = 0;
+    var timer = null;
 
-  if (track && dots.length) {
-    dots.forEach((d, n) =>
-      d.addEventListener("click", () => { goTo(n); stopAuto(); startAuto(); })
-    );
-    // pause while the reader is engaging with it
-    carousel.addEventListener("mouseenter", stopAuto);
-    carousel.addEventListener("mouseleave", startAuto);
-    carousel.addEventListener("focusin", stopAuto);
-    carousel.addEventListener("focusout", startAuto);
-    startAuto();
-  }
+    function goTo(i) {
+      index = (i + dots.length) % dots.length;
+      track.style.transform = "translateX(-" + index * 100 + "%)";
+      for (var n = 0; n < dots.length; n++) {
+        dots[n].classList.toggle("active", n === index);
+        dots[n].setAttribute("aria-selected", String(n === index));
+      }
+    }
+    function start() {
+      if (reduceMotion || timer) return;
+      timer = setInterval(function () { goTo(index + 1); }, 6000);
+    }
+    function stop() {
+      clearInterval(timer);
+      timer = null;
+    }
 
-  /* ---------- 8. Cursor glow ---------- */
-  // A large, very faint accent radial that trails the pointer.
-  // Skipped for touch devices and reduced-motion users.
-  const glow = document.querySelector(".cursor-glow");
-  const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+    for (var d = 0; d < dots.length; d++) {
+      (function (n) {
+        dots[n].addEventListener("click", function () { goTo(n); stop(); start(); });
+      })(d);
+    }
+    carousel.addEventListener("mouseenter", stop);
+    carousel.addEventListener("mouseleave", start);
+    carousel.addEventListener("focusin", stop);
+    carousel.addEventListener("focusout", start);
+    start();
+  });
 
-  if (glow && finePointer && !reduceMotion) {
-    let gx = 0, gy = 0, tx = 0, ty = 0, raf = null;
+  /* ================= 10. CURSOR GLOW ================= */
+  feature("cursor-glow", function () {
+    var glow = document.querySelector(".cursor-glow");
+    if (!glow || reduceMotion) return;
+    if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+
+    var gx = 0, gy = 0, tx = 0, ty = 0, raf = null;
 
     function tick() {
-      // ease toward the target for a soft trailing feel
       gx += (tx - gx) * 0.12;
       gy += (ty - gy) * 0.12;
-      glow.style.transform = `translate(${gx - 280}px, ${gy - 280}px)`;
+      glow.style.transform = "translate(" + (gx - 280) + "px," + (gy - 280) + "px)";
       if (Math.abs(tx - gx) > 0.5 || Math.abs(ty - gy) > 0.5) {
         raf = requestAnimationFrame(tick);
       } else {
@@ -227,70 +344,19 @@
       }
     }
 
-    window.addEventListener("pointermove", (e) => {
+    window.addEventListener("pointermove", function (e) {
       tx = e.clientX;
       ty = e.clientY;
       glow.style.opacity = "1";
       if (!raf) raf = requestAnimationFrame(tick);
     }, { passive: true });
 
-    window.addEventListener("pointerleave", () => { glow.style.opacity = "0"; });
-  }
+    window.addEventListener("pointerleave", function () { glow.style.opacity = "0"; });
+  });
 
-  /* ---------- 9. Lifecycle loop dots (cross-browser) ---------- */
-  // SMIL animateMotion proved unreliable on some desktop setups, so the
-  // travelling dots are driven by requestAnimationFrame along the hidden
-  // #loopTrack path instead. This is the site's signature animation and
-  // runs regardless of OS motion settings (it's small and contained).
-  const loopTrack = document.getElementById("loopTrack");
-  const loopDots = [
-    { el: document.getElementById("loopDot1"), offset: 0 },
-    { el: document.getElementById("loopDot2"), offset: 0.5 },
-  ];
-
-  if (loopTrack && loopDots.every((d) => d.el) && loopTrack.getTotalLength) {
-    const trackLen = loopTrack.getTotalLength();
-    const CYCLE_MS = 12000;
-
-    function moveDots(now) {
-      const t = (now % CYCLE_MS) / CYCLE_MS;
-      loopDots.forEach((d) => {
-        const pt = loopTrack.getPointAtLength(((t + d.offset) % 1) * trackLen);
-        d.el.setAttribute("cx", pt.x.toFixed(1));
-        d.el.setAttribute("cy", pt.y.toFixed(1));
-      });
-      requestAnimationFrame(moveDots);
-    }
-    requestAnimationFrame(moveDots);
-  }
-
-  /* ---------- 10. Theme switch (normal ↔ black & white) ---------- */
-  // The <head> snippet applies the saved theme before first paint;
-  // this button just flips it and keeps the label in sync.
-  const themeBtn = document.getElementById("themeToggle");
-
-  function syncThemeButton() {
-    const mono = document.documentElement.getAttribute("data-theme") === "mono";
-    themeBtn.textContent = mono ? "◐ Colour" : "◐ B/W";
-    themeBtn.setAttribute(
-      "aria-label",
-      mono ? "Switch to colour theme" : "Switch to black and white theme"
-    );
-  }
-  if (themeBtn) {
-    syncThemeButton();
-    themeBtn.addEventListener("click", () => {
-      const mono = document.documentElement.getAttribute("data-theme") === "mono";
-      if (mono) {
-        document.documentElement.removeAttribute("data-theme");
-      } else {
-        document.documentElement.setAttribute("data-theme", "mono");
-      }
-      try { localStorage.setItem("theme", mono ? "normal" : "mono"); } catch (e) { /* ignore */ }
-      syncThemeButton();
-    });
-  }
-
-  /* ---------- Footer year ---------- */
-  document.getElementById("year").textContent = new Date().getFullYear();
+  /* ================= 11. FOOTER YEAR ================= */
+  feature("year", function () {
+    var el = document.getElementById("year");
+    if (el) el.textContent = new Date().getFullYear();
+  });
 })();

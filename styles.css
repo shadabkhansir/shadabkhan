@@ -130,16 +130,72 @@ em { font-style: normal; color: var(--accent); }
 
 .nav-right { display: flex; align-items: center; gap: 1rem; }
 
-/* Theme switch button */
-.theme-toggle {
-  background: none;
+/* ---------- Theme switch (Normal ↔ Mono) ----------
+   A pill with a sliding knob. The knob animates left→right, the two icons
+   swap with a rotate+fade, and the label crossfades. */
+.theme-switch {
+  position: relative;
+  display: flex; align-items: center; gap: 0.5rem;
+  background: var(--surface);
   border: 1px solid var(--line);
-  color: var(--paper);
-  padding: 0.4rem 0.85rem;
+  border-radius: 999px;
+  padding: 0.3rem 0.85rem 0.3rem 2.75rem;
   cursor: pointer;
-  transition: border-color 0.2s, color 0.2s, transform 0.2s;
+  color: var(--paper);
+  transition: border-color 0.25s, background 0.4s;
 }
-.theme-toggle:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
+.theme-switch:hover { border-color: var(--accent); }
+
+/* the sliding knob */
+.theme-knob {
+  position: absolute;
+  left: 4px; top: 50%;
+  width: 26px; height: 26px;
+  margin-top: -13px;
+  border-radius: 50%;
+  background: var(--accent);
+  transition: transform 0.45s cubic-bezier(0.5, 1.6, 0.5, 1), background 0.4s;
+}
+[data-theme="mono"] .theme-knob { transform: translateX(4px) rotate(180deg); }
+
+/* icons sit on top of the knob and swap */
+.theme-ico {
+  position: absolute;
+  left: 4px; top: 50%;
+  width: 26px; height: 26px;
+  margin-top: -13px;
+  display: grid; place-items: center;
+  color: var(--accent-ink);
+  transition: opacity 0.35s, transform 0.45s cubic-bezier(0.5, 1.6, 0.5, 1);
+  pointer-events: none;
+}
+.theme-ico svg { width: 15px; height: 15px; }
+
+.theme-ico-colour { opacity: 1; transform: rotate(0deg) scale(1); }
+.theme-ico-mono   { opacity: 0; transform: rotate(-120deg) scale(0.4); }
+[data-theme="mono"] .theme-ico-colour { opacity: 0; transform: rotate(120deg) scale(0.4); }
+[data-theme="mono"] .theme-ico-mono   { opacity: 1; transform: translateX(4px) scale(1); }
+
+.theme-label {
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  min-width: 3.6rem;
+  text-align: left;
+  animation: label-in 0.4s ease;
+}
+@keyframes label-in { from { opacity: 0; transform: translateY(-3px); } }
+
+/* Whole-page colour crossfade when the theme flips */
+body, .nav, .tabs, .testi-carousel, .case, .cred, .btn,
+.tab-btn, .cap-title, .theme-switch, .lightbox img {
+  transition: background-color 0.45s ease, color 0.45s ease, border-color 0.45s ease;
+}
+
+/* Hide the label on very small screens — the icon carries the meaning */
+@media (max-width: 420px) {
+  .theme-label { display: none; }
+  .theme-switch { padding: 0.3rem 0.5rem 0.3rem 2.4rem; }
+}
 
 .nav-burger {
   display: flex; flex-direction: column; gap: 7px;

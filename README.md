@@ -15,17 +15,34 @@ dependency is Google Fonts. Free to host on GitHub Pages, Netlify, or Vercel.
 | `script.js` | Menu, reveals, tabs, accordions, carousel, cert lightbox, cursor glow |
 | `certs/` | Certificate images — see "Certificate images" below |
 
+## ⚠️ Bump the cache version after every edit
+
+`index.html` loads its assets as `styles.css?v=5` and `script.js?v=5`.
+**Every time you edit either file, increase that number** (`?v=6`, `?v=7`, …)
+in both places. Browsers cache CSS/JS aggressively — without a version bump,
+returning visitors (and you, while testing) keep running the *old* files, which
+looks exactly like "my changes didn't work."
+
+If something still looks stale, hard-refresh: **Ctrl+Shift+R** (Windows) or
+**Cmd+Shift+R** (Mac).
+
 ## Theme switch
 
-The nav carries a **◐ B/W** button that swaps the site between the normal
-colour theme and a black & white (monochrome light) theme. The choice is saved
-to `localStorage` and re-applied before first paint on the next visit, so
-there's no colour flash.
+The nav carries a sliding pill switch with two views:
+
+| Label | What it is |
+|---|---|
+| **Normal** (droplet icon) | The colour theme — dark ink with the acid accent |
+| **Mono** (half-circle icon) | Black & white — black type on paper, no accent colour |
+
+The knob slides, the icons rotate/fade between states, and the whole page
+crossfades its colours. The choice is saved to `localStorage` and re-applied
+before first paint on the next visit, so there's no flash.
 
 To change either palette, edit the CSS custom properties at the top of
-`styles.css`: `:root { … }` is the normal theme, `[data-theme="mono"] { … }`
-is black & white. Nothing else needs touching — every colour on the site is
-derived from those tokens.
+`styles.css`: `:root { … }` is Normal, `[data-theme="mono"] { … }` is Mono.
+Nothing else needs touching — every colour on the site derives from those
+tokens.
 
 ## Certificate images
 
@@ -113,6 +130,14 @@ or drag-and-drop the folder at app.netlify.com/drop.
   button a new `aria-controls` id matching the panel's `id`.
 - Certifications: each `<li class="cred">` has a status label — use
   `cred-done` class + "earned" text when you complete one.
+
+## How the JavaScript is structured
+
+`script.js` registers each feature through a `feature(name, fn)` wrapper that
+isolates it in its own `try/catch`. If one feature fails on some browser or
+version, every other feature still runs, and a warning goes to the console
+instead of silently breaking the page. The theme switch and the lifecycle
+animation are registered first so nothing can affect them.
 
 ## Performance & accessibility
 
