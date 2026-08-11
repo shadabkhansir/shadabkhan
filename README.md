@@ -15,6 +15,18 @@ dependency is Google Fonts. Free to host on GitHub Pages, Netlify, or Vercel.
 | `script.js` | Menu, reveals, tabs, accordions, carousel, cert lightbox, cursor glow |
 | `certs/` | Certificate images — see "Certificate images" below |
 
+## Theme switch
+
+The nav carries a **◐ B/W** button that swaps the site between the normal
+colour theme and a black & white (monochrome light) theme. The choice is saved
+to `localStorage` and re-applied before first paint on the next visit, so
+there's no colour flash.
+
+To change either palette, edit the CSS custom properties at the top of
+`styles.css`: `:root { … }` is the normal theme, `[data-theme="mono"] { … }`
+is black & white. Nothing else needs touching — every colour on the site is
+derived from those tokens.
+
 ## Certificate images
 
 Each credential in `index.html` carries `data-cert="certs/<file>"`. On load the
@@ -29,6 +41,9 @@ images** — replace them with your real certificates (keep the filenames, or
 update the `data-cert` attributes). The CleverTap/GA4/Braze entries already
 point at `certs/clevertap.png`, `certs/ga4.png`, `certs/braze.png` — upload
 those files whenever you earn them and the buttons will appear automatically.
+
+The viewer can be closed three ways: the **✕ close** button (top-right, accent
+coloured), the **Esc** key, or clicking/tapping the backdrop outside the image.
 
 ## ⚠️ Placeholders to fill before publishing
 

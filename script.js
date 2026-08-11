@@ -237,6 +237,60 @@
     window.addEventListener("pointerleave", () => { glow.style.opacity = "0"; });
   }
 
+  /* ---------- 9. Lifecycle loop dots (cross-browser) ---------- */
+  // SMIL animateMotion proved unreliable on some desktop setups, so the
+  // travelling dots are driven by requestAnimationFrame along the hidden
+  // #loopTrack path instead. This is the site's signature animation and
+  // runs regardless of OS motion settings (it's small and contained).
+  const loopTrack = document.getElementById("loopTrack");
+  const loopDots = [
+    { el: document.getElementById("loopDot1"), offset: 0 },
+    { el: document.getElementById("loopDot2"), offset: 0.5 },
+  ];
+
+  if (loopTrack && loopDots.every((d) => d.el) && loopTrack.getTotalLength) {
+    const trackLen = loopTrack.getTotalLength();
+    const CYCLE_MS = 12000;
+
+    function moveDots(now) {
+      const t = (now % CYCLE_MS) / CYCLE_MS;
+      loopDots.forEach((d) => {
+        const pt = loopTrack.getPointAtLength(((t + d.offset) % 1) * trackLen);
+        d.el.setAttribute("cx", pt.x.toFixed(1));
+        d.el.setAttribute("cy", pt.y.toFixed(1));
+      });
+      requestAnimationFrame(moveDots);
+    }
+    requestAnimationFrame(moveDots);
+  }
+
+  /* ---------- 10. Theme switch (normal ↔ black & white) ---------- */
+  // The <head> snippet applies the saved theme before first paint;
+  // this button just flips it and keeps the label in sync.
+  const themeBtn = document.getElementById("themeToggle");
+
+  function syncThemeButton() {
+    const mono = document.documentElement.getAttribute("data-theme") === "mono";
+    themeBtn.textContent = mono ? "◐ Colour" : "◐ B/W";
+    themeBtn.setAttribute(
+      "aria-label",
+      mono ? "Switch to colour theme" : "Switch to black and white theme"
+    );
+  }
+  if (themeBtn) {
+    syncThemeButton();
+    themeBtn.addEventListener("click", () => {
+      const mono = document.documentElement.getAttribute("data-theme") === "mono";
+      if (mono) {
+        document.documentElement.removeAttribute("data-theme");
+      } else {
+        document.documentElement.setAttribute("data-theme", "mono");
+      }
+      try { localStorage.setItem("theme", mono ? "normal" : "mono"); } catch (e) { /* ignore */ }
+      syncThemeButton();
+    });
+  }
+
   /* ---------- Footer year ---------- */
   document.getElementById("year").textContent = new Date().getFullYear();
 })();

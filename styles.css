@@ -24,6 +24,23 @@
 
   --gutter: clamp(1.25rem, 5vw, 5rem);
   --max: 1200px;
+
+  --glow-color: rgba(198, 242, 78, 0.055);
+}
+
+/* ---------- Black & white theme ----------
+   Toggled by the ◐ button in the nav (saved to localStorage).
+   Same layout, monochrome light palette: black ink on paper. */
+[data-theme="mono"] {
+  --ink: #f6f6f3;
+  --surface: #ffffff;
+  --paper: #101010;
+  --muted: #595959;
+  --accent: #101010;
+  --accent-ink: #f6f6f3;
+  --line: #d8d8d2;
+  --ph: #91650a;
+  --glow-color: rgba(0, 0, 0, 0.045);
 }
 
 /* ---------- Base ---------- */
@@ -72,7 +89,7 @@ em { font-style: normal; color: var(--accent); }
 .cursor-glow {
   position: fixed; z-index: 0; pointer-events: none;
   width: 560px; height: 560px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(198, 242, 78, 0.055) 0%, transparent 60%);
+  background: radial-gradient(circle, var(--glow-color) 0%, transparent 60%);
   transform: translate(-50%, -50%);
   top: 0; left: 0; opacity: 0;
   transition: opacity 0.5s;
@@ -110,6 +127,19 @@ em { font-style: normal; color: var(--accent); }
 .nav-links a.active .nav-idx { color: var(--accent); }
 .nav-idx { color: var(--muted); font-size: 0.68rem; margin-right: 0.3rem; }
 .nav-contact { color: var(--accent) !important; }
+
+.nav-right { display: flex; align-items: center; gap: 1rem; }
+
+/* Theme switch button */
+.theme-toggle {
+  background: none;
+  border: 1px solid var(--line);
+  color: var(--paper);
+  padding: 0.4rem 0.85rem;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s, transform 0.2s;
+}
+.theme-toggle:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
 
 .nav-burger {
   display: flex; flex-direction: column; gap: 7px;
@@ -312,10 +342,14 @@ main { position: relative; z-index: 1; }
 }
 .loop-cap { font-style: italic; }
 
-/* Reduced motion: freeze SMIL dots too */
+/* The lifecycle loop is the site's signature and stays animated even when
+   the OS requests reduced motion (which silently disabled it on some
+   desktops) — it's small, contained, and JS-driven. The global
+   reduced-motion kill switch above would stop the dashes and rings,
+   so they are explicitly re-enabled here. */
 @media (prefers-reduced-motion: reduce) {
-  .loop-dot, .loop-dot-2 { display: none; }
-  .loop-ring { display: none; }
+  .loop-flow { animation: flow 2.6s linear infinite !important; }
+  .loop-ring { animation: ring 3.3s var(--pd, 0s) ease-out infinite !important; }
 }
 
 /* ---------- About ---------- */
@@ -549,14 +583,27 @@ main { position: relative; z-index: 1; }
   background: var(--surface);
 }
 .lightbox figcaption { color: var(--muted); }
+.lightbox-hint { color: var(--muted); opacity: 0.8; font-size: 0.7rem; }
+
+/* Close button: deliberately loud — accent block, top-right, always visible */
 .lightbox-close {
-  position: absolute; top: 1.25rem; right: var(--gutter);
-  background: none; border: 1px solid var(--line);
-  color: var(--paper); cursor: pointer;
-  padding: 0.5rem 1rem;
-  transition: border-color 0.2s, color 0.2s;
+  position: absolute; top: 1rem; right: 1rem; z-index: 1;
+  background: var(--accent);
+  border: 1px solid var(--accent);
+  color: var(--accent-ink);
+  cursor: pointer;
+  font-size: 1.05rem;
+  line-height: 1;
+  padding: 0.7rem 1.1rem;
+  display: flex; align-items: center; gap: 0.5rem;
+  transition: background 0.2s, color 0.2s, transform 0.2s;
 }
-.lightbox-close:hover { border-color: var(--accent); color: var(--accent); }
+.lightbox-close .mono { font-size: 0.75rem; }
+.lightbox-close:hover {
+  background: transparent;
+  color: var(--accent);
+  transform: translateY(-1px);
+}
 
 /* ---------- Testimonials carousel ---------- */
 .testi-block { margin-top: 1rem; }

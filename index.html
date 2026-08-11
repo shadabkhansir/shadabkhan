@@ -39,6 +39,15 @@
 
   <link rel="stylesheet" href="styles.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='40' fill='%23C6F24E'/></svg>">
+
+  <!-- Apply the saved theme before first paint so there's no colour flash -->
+  <script>
+    try {
+      if (localStorage.getItem("theme") === "mono") {
+        document.documentElement.setAttribute("data-theme", "mono");
+      }
+    } catch (e) { /* private mode etc. — default theme is fine */ }
+  </script>
 </head>
 <body>
 
@@ -56,9 +65,13 @@
       <a href="#credentials"><span class="mono nav-idx">04</span> Credentials</a>
       <a href="#contact" class="nav-contact"><span class="mono nav-idx">05</span> Contact</a>
     </nav>
-    <button class="nav-burger" id="navBurger" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
-      <span></span><span></span>
-    </button>
+    <div class="nav-right">
+      <!-- Theme switch: normal (dark + accent) ↔ black & white. Saved in localStorage. -->
+      <button class="theme-toggle mono" id="themeToggle" aria-label="Switch to black and white theme">◐ B/W</button>
+      <button class="nav-burger" id="navBurger" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+        <span></span><span></span>
+      </button>
+    </div>
   </header>
 
   <div class="mobile-menu" id="mobileMenu" hidden>
@@ -133,16 +146,14 @@
           <path class="loop-arrow" d="M640 172 L647 155 L657 171 Z" />
           <path class="loop-arrow" d="M64 142 L72 158 L81 142 Z" />
 
-          <!-- travelling customer dots: the full loop as a motion path.
-               Second dot starts half a cycle behind the first. -->
-          <circle class="loop-dot" r="6">
-            <animateMotion dur="12s" repeatCount="indefinite"
-              path="M70 155 H1030 C1092 155, 1092 250, 1000 250 L730 250 C672 250, 658 182, 646 157 L646 155 L838 155 C845 48, 235 40, 70 155" />
-          </circle>
-          <circle class="loop-dot loop-dot-2" r="4">
-            <animateMotion dur="12s" begin="-6s" repeatCount="indefinite"
-              path="M70 155 H1030 C1092 155, 1092 250, 1000 250 L730 250 C672 250, 658 182, 646 157 L646 155 L838 155 C845 48, 235 40, 70 155" />
-          </circle>
+          <!-- travelling customer dots. The invisible track below defines the
+               full loop; script.js moves the dots along it with
+               requestAnimationFrame — this works in every browser (SMIL and
+               OS animation settings proved unreliable on some desktops). -->
+          <path id="loopTrack" fill="none" stroke="none"
+            d="M70 155 H1030 C1092 155, 1092 250, 1000 250 L730 250 C672 250, 658 182, 646 157 L646 155 L838 155 C845 48, 235 40, 70 155" />
+          <circle class="loop-dot" id="loopDot1" r="6" cx="70" cy="155" />
+          <circle class="loop-dot loop-dot-2" id="loopDot2" r="4" cx="646" cy="155" />
 
           <!-- nodes: pulse rings fire in journey order -->
           <g class="loop-node">
@@ -534,14 +545,8 @@
         </li>
       </ul>
 
-      <!-- Certificate lightbox (hidden until a certificate is opened) -->
-      <div class="lightbox" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="Certificate viewer">
-        <button class="lightbox-close mono" id="lightboxClose" aria-label="Close certificate viewer">close ×</button>
-        <figure>
-          <img id="lightboxImg" src="" alt="">
-          <figcaption class="mono" id="lightboxCap"></figcaption>
-        </figure>
-      </div>
+      <!-- The certificate lightbox itself lives at the end of <body> so it
+           escapes this section's stacking context and covers the nav bar. -->
 
       <!-- ===== Testimonials: auto-rotating carousel ===== -->
       <div class="testi-block reveal">
@@ -617,6 +622,19 @@
     </section>
 
   </main>
+
+  <!-- ==================== CERTIFICATE LIGHTBOX ====================
+       Direct child of <body> (not inside <main>) so it sits above the
+       fixed nav — otherwise main's stacking context traps it underneath
+       and the close button can't be clicked. -->
+  <div class="lightbox" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="Certificate viewer">
+    <button class="lightbox-close" id="lightboxClose" aria-label="Close certificate viewer">✕ <span class="mono">close</span></button>
+    <figure>
+      <img id="lightboxImg" src="" alt="">
+      <figcaption class="mono" id="lightboxCap"></figcaption>
+      <p class="mono lightbox-hint">press Esc, tap ✕, or click outside to close</p>
+    </figure>
+  </div>
 
   <footer class="footer">
     <p class="mono">© <span id="year">2026</span> Shadab Khan</p>
