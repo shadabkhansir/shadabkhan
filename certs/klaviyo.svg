@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 560" font-family="monospace">
   <!-- PLACEHOLDER certificate image.
-       Replace this file with your real Klaviyo certificate
+       Replace this file with your real certificate
        (keep the same filename, or update data-cert in index.html). -->
   <rect width="800" height="560" fill="#12151d"/>
   <rect x="24" y="24" width="752" height="512" fill="none" stroke="#c6f24e" stroke-width="2" stroke-dasharray="10 8"/>

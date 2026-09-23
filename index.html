@@ -10,19 +10,24 @@
        No frameworks. Only external dependency: Google Fonts.
 
        DESIGN IDENTITY:
-       Dark editorial. Ink ground, paper-white display type
-       (Space Grotesk), mono data labels (IBM Plex Mono), one acid
-       accent. Signature element: the animated customer-lifecycle
-       loop after the hero (pure SVG + SMIL — no video, no images).
+       Dark editorial by default (ink ground, acid-lime accent) with a
+       designed Light theme (indigo accent). Space Grotesk display,
+       IBM Plex Mono data labels. Signature element: the animated
+       customer-lifecycle loop after the hero (pure SVG + JS).
 
        HOW TO EDIT:
        - All copy lives in this file, organised by section comments.
        - Every bracketed placeholder is wrapped in a span with class
          "ph" and marked with a PLACEHOLDER comment. Search: class="ph"
-       - Certificate images: drop files into the certs/ folder and
-         point each credential's data-cert attribute at them. If the
-         file is missing, the "view certificate" button simply never
-         appears — no error shown.
+       - RESUME: replace resume/Shadab-Khan-Resume.pdf with your new
+         PDF using the SAME filename. Nothing else to change.
+       - PHOTO: replace images/profile.webp + images/profile.jpg
+         (portrait, roughly 4:5, ~900px wide).
+       - TOOLS / CHANNELS SLIDER: add or remove an <li> in the lists
+         under "Tools" and "Channels". The slider loops automatically.
+       - CERTIFICATES: drop images into certs/ and point each
+         credential's data-cert attribute at them. A missing file
+         simply shows no "view certificate" button — no error.
        - The README lists every placeholder with its location.
        ============================================================ -->
 
@@ -32,15 +37,16 @@
   <meta property="og:title" content="Shadab Khan — Retention, Lifecycle &amp; Growth Strategist">
   <meta property="og:description" content="I turn customer data into repeat revenue.">
   <meta property="og:type" content="website">
+  <meta property="og:image" content="images/profile.jpg">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 
-  <!-- The ?v= number busts browser caches. BUMP IT (v=6, v=7 …) every time
+  <!-- The ?v= number busts browser caches. BUMP IT (v=8, v=9 …) every time
        you edit styles.css or script.js, otherwise returning visitors keep
        running the old cached files. -->
-  <link rel="stylesheet" href="styles.css?v=6">
+  <link rel="stylesheet" href="styles.css?v=7">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='40' fill='%23C6F24E'/></svg>">
 
   <!-- Apply the saved theme before first paint so there's no colour flash.
@@ -52,6 +58,15 @@
       }
     } catch (e) { /* private mode etc. — default theme is fine */ }
   </script>
+
+  <!-- If JavaScript is off entirely, show all content instead of leaving
+       scroll-reveal elements invisible. -->
+  <noscript>
+    <style>
+      .reveal { opacity: 1 !important; transform: none !important; }
+      .photo-img { clip-path: none !important; }
+    </style>
+  </noscript>
 </head>
 <body>
 
@@ -66,8 +81,9 @@
       <a href="#about"><span class="mono nav-idx">01</span> About</a>
       <a href="#capabilities"><span class="mono nav-idx">02</span> Capabilities</a>
       <a href="#work"><span class="mono nav-idx">03</span> Case Studies</a>
-      <a href="#credentials"><span class="mono nav-idx">04</span> Credentials</a>
-      <a href="#contact" class="nav-contact"><span class="mono nav-idx">05</span> Contact</a>
+      <a href="#experience"><span class="mono nav-idx">04</span> Experience</a>
+      <a href="#credentials"><span class="mono nav-idx">05</span> Credentials</a>
+      <a href="#contact" class="nav-contact"><span class="mono nav-idx">06</span> Contact</a>
     </nav>
     <div class="nav-right">
       <!-- Theme switch: Dark (default identity) ↔ Light (indigo colour theme).
@@ -101,8 +117,9 @@
       <a href="#about"><span class="mono">01</span>About</a>
       <a href="#capabilities"><span class="mono">02</span>Capabilities</a>
       <a href="#work"><span class="mono">03</span>Case Studies</a>
-      <a href="#credentials"><span class="mono">04</span>Credentials</a>
-      <a href="#contact"><span class="mono">05</span>Contact</a>
+      <a href="#experience"><span class="mono">04</span>Experience</a>
+      <a href="#credentials"><span class="mono">05</span>Credentials</a>
+      <a href="#contact"><span class="mono">06</span>Contact</a>
     </nav>
     <p class="mono mobile-menu-foot">UAE · open to relocation — UK · IE · AU · CA</p>
   </div>
@@ -148,9 +165,9 @@
     </section>
 
     <!-- ==================== SIGNATURE: ANIMATED LIFECYCLE LOOP ==================== -->
-    <!-- Pure SVG + SMIL + CSS: two dots travel the full journey continuously —
-         down the funnel, back through win-back into retention, and advocacy
-         looping back to awareness. No video, no images, autoplays on load. -->
+    <!-- Pure SVG. Two dots travel the full journey continuously — down the
+         funnel, back through win-back into retention, and advocacy looping
+         back to awareness. No video, no images; driven by script.js. -->
     <section class="loop-section" aria-label="Customer lifecycle loop diagram">
       <div class="loop-scroll">
         <svg class="loop-svg" viewBox="0 0 1100 310" role="img"
@@ -170,8 +187,7 @@
 
           <!-- travelling customer dots. The invisible track below defines the
                full loop; script.js moves the dots along it with
-               requestAnimationFrame — this works in every browser (SMIL and
-               OS animation settings proved unreliable on some desktops). -->
+               requestAnimationFrame — this works in every browser. -->
           <path id="loopTrack" fill="none" stroke="none"
             d="M70 155 H1030 C1092 155, 1092 250, 1000 250 L730 250 C672 250, 658 182, 646 157 L646 155 L838 155 C845 48, 235 40, 70 155" />
           <circle class="loop-dot" id="loopDot1" r="6" cx="70" cy="155" />
@@ -222,36 +238,62 @@
     </section>
 
     <!-- ==================== 01 ABOUT ==================== -->
+    <!-- Two columns on desktop: text 60% left, photo 40% right.
+         On mobile the photo stacks FIRST (straight after the heading),
+         then the text. No borders or card backgrounds — the two halves
+         sit on the same ground so they read as one composition. -->
     <section class="section" id="about">
       <header class="section-head reveal">
         <span class="mono section-idx">01</span>
         <h2>About</h2>
       </header>
 
-      <div class="about-body reveal">
-        <!-- PLACEHOLDER: refine both paragraphs in your own voice -->
-        <p class="about-lede">
-          CRM &amp; retention lead for a leading GCC beauty &amp; cosmetics retailer — five markets,
-          11K+ SKUs, a dual B2B salon and retail customer base. I specialise in diagnosing broken
-          retention systems in the data and re-architecting them: the lifecycle journeys, the
-          segmentation, the measurement layer underneath, and the commercial logic on top.
-        </p>
-        <p class="about-second">
-          Before retention, I did growth. In B2B SaaS I built acquisition engines end to end —
-          paid campaigns across Google, Meta and LinkedIn, SEO and content programs that grew organic
-          leads 80%, and launch campaigns that generated 1,000+ inbound leads — contributing to a
-          3× revenue year. That's why my lifecycle work connects: I've owned every stage of the
-          funnel the journeys are built on. Currently targeting senior retention and growth roles
-          in international markets.
-        </p>
-        <p class="mono about-note"><span class="ph" title="Editable placeholder">[ Refine in your own voice ]</span></p>
+      <div class="about-grid">
+        <div class="about-body reveal">
+          <!-- PLACEHOLDER: refine both paragraphs in your own voice -->
+          <p class="about-lede">
+            CRM &amp; retention lead for a leading GCC beauty &amp; cosmetics retailer — five markets,
+            11K+ SKUs, a dual B2B salon and retail customer base. I specialise in diagnosing broken
+            retention systems in the data and re-architecting them: the lifecycle journeys, the
+            segmentation, the measurement layer underneath, and the commercial logic on top.
+          </p>
+          <p class="about-second">
+            Before retention, I did growth. In B2B SaaS I built acquisition engines end to end —
+            paid campaigns across Google, Meta and LinkedIn, SEO and content programs that grew organic
+            leads 80%, and launch campaigns that generated 1,000+ inbound leads — contributing to a
+            3× revenue year. That's why my lifecycle work connects: I've owned every stage of the
+            funnel the journeys are built on. Currently targeting senior retention and growth roles
+            in international markets.
+          </p>
+          <ul class="about-facts mono">
+            <li><span>Based</span> Dubai, UAE</li>
+            <li><span>Experience</span> 5+ years · e-commerce &amp; B2B SaaS</li>
+            <li><span>Open to</span> UK · Ireland · Australia · Canada</li>
+          </ul>
+          <p class="mono about-note"><span class="ph" title="Editable placeholder">[ Refine in your own voice ]</span></p>
+        </div>
+
+        <figure class="about-photo reveal" aria-label="Portrait of Shadab Khan">
+          <!-- Three layers so each animation owns its own transform:
+               .photo-tilt  → follows the cursor (JS, desktop only)
+               .photo-float → slow idle float (CSS)
+               .photo-img   → wipe-up reveal (CSS clip-path)          -->
+          <div class="photo-tilt" id="photoTilt">
+            <span class="photo-outline" aria-hidden="true"></span>
+            <div class="photo-float">
+              <picture>
+                <source srcset="images/profile.webp" type="image/webp">
+                <img class="photo-img" src="images/profile.jpg" alt="Shadab Khan"
+                     width="900" height="1125" loading="lazy" decoding="async">
+              </picture>
+            </div>
+            <span class="photo-badge mono"><i aria-hidden="true"></i>Open to senior roles</span>
+          </div>
+        </figure>
       </div>
     </section>
 
     <!-- ==================== 02 CAPABILITIES ==================== -->
-    <!-- Redesigned as an interactive tabbed console: three operating modes,
-         animated tab switch, chips cascade in, each tab closes with a mono
-         proof line. The channels marquee runs underneath. -->
     <section class="section" id="capabilities">
       <header class="section-head reveal">
         <span class="mono section-idx">02</span>
@@ -321,13 +363,50 @@
         </div>
       </div>
 
-      <!-- Channels marquee -->
-      <div class="cap-channels reveal">
-        <h3 class="mono cap-title">Channels</h3>
-        <div class="marquee" aria-label="Channels: Mobile Push, Web Push, In-App, Email, SMS, Web Pop-up, App Inbox">
-          <div class="marquee-track">
-            <span class="marquee-seq">Mobile Push <i>·</i> Web Push <i>·</i> In-App <i>·</i> Email <i>·</i> SMS <i>·</i> Web Pop-up <i>·</i> App Inbox <i>·</i>&nbsp;</span>
-            <span class="marquee-seq" aria-hidden="true">Mobile Push <i>·</i> Web Push <i>·</i> In-App <i>·</i> Email <i>·</i> SMS <i>·</i> Web Pop-up <i>·</i> App Inbox <i>·</i>&nbsp;</span>
+      <!-- ===== Tools & Channels: auto-revolving sliders =====
+           TO ADD AN ITEM: add one <li> to the relevant list. That's it —
+           script.js clones the list for a seamless loop and keeps the
+           speed constant however many items there are.
+           data-speed = pixels per second · data-direction = left | right
+           Hover (or keyboard focus) pauses a row. -->
+      <div class="stack reveal">
+        <div class="stack-row">
+          <h3 class="mono cap-title">Tools</h3>
+          <div class="slider" data-speed="38" data-direction="left">
+            <ul class="slider-track slider-pills" aria-label="Tools I work with">
+              <li>HubSpot</li>
+              <li>CleverTap</li>
+              <li>MoEngage</li>
+              <li>Klaviyo</li>
+              <li>Mailchimp</li>
+              <li>GA4</li>
+              <li>Google Tag Manager</li>
+              <li>Server-side GTM</li>
+              <li>Meta CAPI</li>
+              <li>TikTok CAPI</li>
+              <li>Shopify</li>
+              <li>Magento</li>
+              <li>WordPress</li>
+              <li>Hotjar</li>
+              <li>Google Ads</li>
+              <li>Meta Ads</li>
+              <li>LinkedIn Ads</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="stack-row">
+          <h3 class="mono cap-title">Channels</h3>
+          <div class="slider" data-speed="52" data-direction="right">
+            <ul class="slider-track slider-big" aria-label="Channels I run">
+              <li>Mobile Push</li>
+              <li>Web Push</li>
+              <li>In-App</li>
+              <li>Email</li>
+              <li>SMS</li>
+              <li>Web Pop-up</li>
+              <li>App Inbox</li>
+            </ul>
           </div>
         </div>
       </div>
@@ -339,7 +418,7 @@
         <span class="mono section-idx">03</span>
         <h2>Case Studies</h2>
       </header>
-      <p class="section-note mono reveal">All numbers indexed / anonymised. Employer referenced as “a leading GCC beauty &amp; cosmetics retailer.”</p>
+      <p class="section-note mono reveal">All numbers indexed / anonymised — absolute values withheld for confidentiality.</p>
 
       <div class="cases">
 
@@ -521,10 +600,99 @@
       </div>
     </section>
 
-    <!-- ==================== 04 CREDENTIALS ==================== -->
-    <section class="section" id="credentials">
+    <!-- ==================== 04 EXPERIENCE ==================== -->
+    <!-- Source: resume/Shadab-Khan-Resume.pdf. To add a role, copy one
+         <li class="xp"> block. data-start / data-end ("YYYY-MM" or
+         "present") drive the auto-calculated duration label, so the
+         current role's tenure stays accurate without edits. -->
+    <section class="section" id="experience">
       <header class="section-head reveal">
         <span class="mono section-idx">04</span>
+        <h2>Experience</h2>
+      </header>
+
+      <ol class="xp-list reveal">
+        <li class="xp xp-current" data-start="2025-03" data-end="present">
+          <div class="xp-when">
+            <span class="mono xp-dates">Mar 2025 — Present</span>
+            <span class="mono xp-dur" aria-hidden="true"></span>
+          </div>
+          <div class="xp-what">
+            <h3 class="xp-role">Ecommerce Customer Success Executive</h3>
+            <p class="xp-org">Nazih General Trading Co. LLC <span class="mono">· Dubai, UAE</span></p>
+            <p class="xp-sum">Own CRM retention strategy for Nazih Cosmetics' e-commerce across six GCC markets — UAE, KSA, Oman, Bahrain, Kuwait and Qatar.</p>
+            <ul class="xp-points">
+              <li>Lifted repeat purchase rate <strong>40%</strong> and grew CRM-attributed revenue <strong>30%</strong> across 5 GCC storefronts by re-architecting behavioural-trigger journeys and segmentation in CleverTap, backed by a GA4/GTM tracking rebuild.</li>
+              <li>Own the end-to-end lifecycle — acquisition, onboarding, retention, loyalty, win-back and cart recovery — across email, SMS, push and in-app for brands including GHD, BaByliss Pro and Revlon.</li>
+              <li>Partner with performance, e-commerce and analytics teams on campaign accuracy, customer data quality and event tracking, sharpening attribution and lifecycle decisions.</li>
+            </ul>
+            <ul class="xp-tags mono">
+              <li>CleverTap</li><li>GA4 / GTM</li><li>Lifecycle</li><li>Retention</li><li>Multi-market</li>
+            </ul>
+          </div>
+        </li>
+
+        <li class="xp" data-start="2023-08" data-end="2025-02">
+          <div class="xp-when">
+            <span class="mono xp-dates">Aug 2023 — Feb 2025</span>
+            <span class="mono xp-dur" aria-hidden="true"></span>
+          </div>
+          <div class="xp-what">
+            <h3 class="xp-role">Growth Marketing Associate</h3>
+            <p class="xp-org">Next Big Innovation Labs <span class="mono">· Bangalore, India</span></p>
+            <p class="xp-sum">Full-funnel growth in a fast-moving startup — lifecycle, content and paid, with a direct line to revenue.</p>
+            <ul class="xp-points">
+              <li>Contributed to <strong>3× revenue growth</strong> within one year through lifecycle marketing, CRM-led nurture programs and campaign operations.</li>
+              <li>Grew organic lead generation <strong>80%</strong> through SEO, content marketing, website optimisation and email newsletter programs.</li>
+              <li>Ran campaigns across Google, Meta and LinkedIn Ads, coordinating with sales and cross-functional teams on lead flow and tracking accuracy.</li>
+            </ul>
+            <ul class="xp-tags mono">
+              <li>SEO &amp; Content</li><li>Paid Media</li><li>Nurture</li><li>Growth</li>
+            </ul>
+          </div>
+        </li>
+
+        <li class="xp" data-start="2021-05" data-end="2023-05">
+          <div class="xp-when">
+            <span class="mono xp-dates">May 2021 — May 2023</span>
+            <span class="mono xp-dur" aria-hidden="true"></span>
+          </div>
+          <div class="xp-what">
+            <h3 class="xp-role">Growth Marketer</h3>
+            <p class="xp-org">CustomerGlu (Marax Technologies) <span class="mono">· Bangalore, India</span></p>
+            <p class="xp-sum">B2B SaaS acquisition and nurture for a gamified-engagement platform — and where HubSpot became second nature.</p>
+            <ul class="xp-points">
+              <li>Contributed to <strong>35% growth</strong> in new-customer acquisition through multi-channel B2B SaaS acquisition and nurture campaigns.</li>
+              <li>Automated HubSpot workflows for lead capture, nurturing, scoring, lifecycle progression and follow-up — improving qualification and sales handoff.</li>
+              <li>Supported a Product Hunt launch and demand-gen campaigns that generated <strong>1,000+ inbound leads</strong>, while strengthening CRM reporting and funnel visibility.</li>
+            </ul>
+            <ul class="xp-tags mono">
+              <li>HubSpot</li><li>B2B SaaS</li><li>Demand Gen</li><li>Launches</li>
+            </ul>
+          </div>
+        </li>
+      </ol>
+
+      <!-- Education -->
+      <div class="edu reveal">
+        <h3 class="mono cap-title">Education</h3>
+        <ul class="edu-list">
+          <li>
+            <span class="edu-name">Master of Business Administration (MBA, Online)</span>
+            <span class="mono edu-meta">Amity University · Uttar Pradesh, India · 2023 — 2025</span>
+          </li>
+          <li>
+            <span class="edu-name">B.Tech, Computer Science &amp; Engineering</span>
+            <span class="mono edu-meta">Lovely Professional University · Punjab, India · 2018 — 2022</span>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ==================== 05 CREDENTIALS ==================== -->
+    <section class="section" id="credentials">
+      <header class="section-head reveal">
+        <span class="mono section-idx">05</span>
         <h2>Credentials</h2>
       </header>
 
@@ -566,9 +734,6 @@
           </span>
         </li>
       </ul>
-
-      <!-- The certificate lightbox itself lives at the end of <body> so it
-           escapes this section's stacking context and covers the nav bar. -->
 
       <!-- ===== Testimonials: auto-rotating carousel ===== -->
       <div class="testi-block reveal">
@@ -624,10 +789,10 @@
       </div>
     </section>
 
-    <!-- ==================== 05 CONTACT ==================== -->
+    <!-- ==================== 06 CONTACT ==================== -->
     <section class="section contact" id="contact">
       <header class="section-head reveal">
-        <span class="mono section-idx">05</span>
+        <span class="mono section-idx">06</span>
         <h2>Contact</h2>
       </header>
 
@@ -636,8 +801,22 @@
       </p>
       <p class="contact-sub reveal">If your repeat-purchase curve is flat, let's look at the data together.</p>
 
+      <!-- Three CTAs: résumé (view + download) → email → LinkedIn.
+           TO UPDATE THE RÉSUMÉ: replace resume/Shadab-Khan-Resume.pdf with
+           your new PDF using the same filename. Both links below pick it up. -->
       <div class="contact-actions reveal">
-        <a class="btn btn-solid" href="mailto:hishadabk@gmail.com">hishadabk@gmail.com</a>
+        <div class="resume-cta">
+          <a class="btn btn-solid" href="resume/Shadab-Khan-Resume.pdf" target="_blank" rel="noopener">
+            View résumé <span aria-hidden="true">↗</span>
+          </a>
+          <a class="btn btn-solid btn-dl" href="resume/Shadab-Khan-Resume.pdf" download="Shadab-Khan-Resume.pdf"
+             aria-label="Download résumé as PDF" title="Download PDF">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 4v11M7 10.5l5 5 5-5M5 20h14"/>
+            </svg>
+          </a>
+        </div>
+        <a class="btn btn-line" href="mailto:hishadabk@gmail.com">hishadabk@gmail.com</a>
         <a class="btn btn-line" href="https://linkedin.com/in/shadabkhansir" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
       </div>
       <p class="mono contact-loc reveal">Based in the UAE — open to relocation.</p>
@@ -665,6 +844,6 @@
   </footer>
 
   <!-- Bump ?v= together with the stylesheet whenever you edit this file. -->
-  <script src="script.js?v=6"></script>
+  <script src="script.js?v=7"></script>
 </body>
 </html>

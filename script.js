@@ -5,12 +5,11 @@
    ARCHITECTURE NOTE (important):
    Every feature is registered through feature() below, which wraps it
    in its own try/catch. If one feature fails on some browser or
-   version, the others still run — previously a single early error
-   could silently kill everything defined after it.
+   version, the others still run — a single early error can no longer
+   silently kill everything defined after it.
 
-   Order matters: the two most visible features (theme switch and the
-   lifecycle animation) are registered FIRST so nothing else can
-   affect them.
+   Order matters: the most visible features (theme switch, lifecycle
+   animation, sliders) are registered FIRST.
    ============================================================ */
 
 (function () {
@@ -26,12 +25,11 @@
     try {
       fn();
     } catch (err) {
-      // Logged for debugging; the page keeps working without this feature.
       if (window.console && console.warn) console.warn("[portfolio] " + name + " failed:", err);
     }
   }
 
-  /* ================= 1. THEME SWITCH (Normal ↔ Mono) ================= */
+  /* ================= 1. THEME SWITCH (Dark ↔ Light) ================= */
   feature("theme", function () {
     var root = document.documentElement;
     var btn = document.getElementById("themeToggle");
@@ -47,10 +45,7 @@
       // The label names the theme you are currently viewing.
       if (label) label.textContent = light ? "Light" : "Dark";
       btn.setAttribute("aria-checked", light ? "true" : "false");
-      btn.setAttribute(
-        "aria-label",
-        light ? "Switch to dark theme" : "Switch to light theme"
-      );
+      btn.setAttribute("aria-label", light ? "Switch to dark theme" : "Switch to light theme");
     }
 
     btn.addEventListener("click", function () {
@@ -71,11 +66,10 @@
   });
 
   /* ================= 2. LIFECYCLE LOOP ANIMATION ================= */
-  // Two dots travel the full customer journey. Driven by
-  // requestAnimationFrame sampling the hidden #loopTrack path, which works
-  // consistently across browsers (SVG SMIL did not). Runs regardless of the
-  // OS "reduce motion" setting — this diagram is the site's signature and
-  // is small, contained, and non-flashing.
+  // Two dots travel the full customer journey, driven by
+  // requestAnimationFrame sampling the hidden #loopTrack path (SVG SMIL
+  // proved unreliable in some desktop browsers). Runs regardless of the
+  // OS "reduce motion" setting — it is the site's signature, small and slow.
   feature("lifecycle-loop", function () {
     var track = document.getElementById("loopTrack");
     var dot1 = document.getElementById("loopDot1");
@@ -103,7 +97,103 @@
     requestAnimationFrame(frame);
   });
 
-  /* ================= 3. MOBILE MENU ================= */
+  /* ================= 3. TOOLS & CHANNELS SLIDERS ================= */
+  // Any .slider containing a .slider-track list auto-revolves.
+  //   data-speed     = pixels per second (default 40)
+  //   data-direction = "left" | "right" (default left)
+  // The original <li> items are cloned (aria-hidden) until the track is
+  // long enough to loop without gaps, so adding or removing items in the
+  // HTML needs no other change. Hover / focus pauses a row. Rows also
+  // pause while off-screen to save battery.
+  feature("sliders", function () {
+    var sliders = Array.prototype.slice.call(document.querySelectorAll(".slider"));
+    if (!sliders.length) return;
+
+    var rows = sliders.map(function (el) {
+      var track = el.querySelector(".slider-track");
+      var row = {
+        el: el,
+        track: track,
+        speed: parseFloat(el.getAttribute("data-speed")) || 40,
+        dir: el.getAttribute("data-direction") === "right" ? -1 : 1,
+        pos: 0,
+        setWidth: 0,
+        hovered: false,
+        onScreen: true,
+      };
+      el.addEventListener("mouseenter", function () { row.hovered = true; });
+      el.addEventListener("mouseleave", function () { row.hovered = false; });
+      el.addEventListener("focusin", function () { row.hovered = true; });
+      el.addEventListener("focusout", function () { row.hovered = false; });
+      return row;
+    });
+
+    // (Re)build clones so the track covers one full set + the visible width.
+    function build(row) {
+      if (!row.track) return;
+      var clones = row.track.querySelectorAll("[data-clone]");
+      for (var i = 0; i < clones.length; i++) clones[i].parentNode.removeChild(clones[i]);
+
+      var originals = Array.prototype.slice.call(row.track.children);
+      if (!originals.length) return;
+
+      row.setWidth = row.track.offsetWidth;          // width of one full set
+      if (!row.setWidth) return;
+
+      var guard = 0;
+      while (row.track.offsetWidth < row.setWidth + row.el.clientWidth + 1 && guard < 50) {
+        originals.forEach(function (li) {
+          var c = li.cloneNode(true);
+          c.setAttribute("aria-hidden", "true");
+          c.setAttribute("data-clone", "");
+          row.track.appendChild(c);
+        });
+        guard++;
+      }
+      row.pos = row.pos % row.setWidth;
+    }
+
+    function buildAll() { rows.forEach(build); }
+    buildAll();
+
+    // Widths change once web fonts arrive and on resize — rebuild then.
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(buildAll);
+    window.addEventListener("load", buildAll);
+    var resizeTimer;
+    window.addEventListener("resize", function () {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(buildAll, 150);
+    });
+
+    // Pause rows that are off-screen.
+    if ("IntersectionObserver" in window) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          rows.forEach(function (r) {
+            if (r.el === entry.target) r.onScreen = entry.isIntersecting;
+          });
+        });
+      });
+      rows.forEach(function (r) { io.observe(r.el); });
+    }
+
+    var last = null;
+    function frame(now) {
+      // cap dt so a backgrounded tab doesn't cause a big jump on return
+      var dt = last === null ? 0 : Math.min((now - last) / 1000, 0.05);
+      last = now;
+      rows.forEach(function (r) {
+        if (!r.setWidth || r.hovered || !r.onScreen) return;
+        r.pos += r.dir * r.speed * dt;
+        r.pos = ((r.pos % r.setWidth) + r.setWidth) % r.setWidth;
+        r.track.style.transform = "translate3d(" + (-r.pos).toFixed(2) + "px,0,0)";
+      });
+      requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  });
+
+  /* ================= 4. MOBILE MENU ================= */
   feature("mobile-menu", function () {
     var burger = document.getElementById("navBurger");
     var menu = document.getElementById("mobileMenu");
@@ -126,7 +216,7 @@
     });
   });
 
-  /* ================= 4. SCROLL REVEALS ================= */
+  /* ================= 5. SCROLL REVEALS ================= */
   feature("reveals", function () {
     var els = document.querySelectorAll(".reveal");
     if (reduceMotion || !("IntersectionObserver" in window)) {
@@ -144,7 +234,7 @@
     for (var j = 0; j < els.length; j++) io.observe(els[j]);
   });
 
-  /* ================= 5. PROGRESS BAR + NAV + ACTIVE LINK ================= */
+  /* ================= 6. PROGRESS BAR + NAV + ACTIVE LINK ================= */
   feature("scroll-state", function () {
     var progress = document.querySelector(".progress");
     var nav = document.getElementById("nav");
@@ -169,7 +259,7 @@
     onScroll();
   });
 
-  /* ================= 6. CASE-STUDY ACCORDIONS ================= */
+  /* ================= 7. CASE-STUDY ACCORDIONS ================= */
   feature("accordions", function () {
     var heads = document.querySelectorAll(".case-head[aria-controls]");
     for (var i = 0; i < heads.length; i++) {
@@ -185,7 +275,7 @@
     }
   });
 
-  /* ================= 7. CAPABILITY TABS ================= */
+  /* ================= 8. CAPABILITY TABS ================= */
   feature("tabs", function () {
     var btns = document.querySelectorAll(".tab-btn");
     var panels = document.querySelectorAll(".tab-panel");
@@ -227,7 +317,58 @@
     }
   });
 
-  /* ================= 8. CERTIFICATES + LIGHTBOX ================= */
+  /* ================= 9. PORTRAIT TILT ================= */
+  // The About photo leans gently toward the cursor (max ~6°).
+  // Desktop pointers only; skipped for reduced motion.
+  feature("photo-tilt", function () {
+    var tilt = document.getElementById("photoTilt");
+    if (!tilt || reduceMotion) return;
+    if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+    var area = tilt.closest(".about-grid") || tilt;
+
+    area.addEventListener("mousemove", function (e) {
+      var r = tilt.getBoundingClientRect();
+      var x = (e.clientX - (r.left + r.width / 2)) / r.width;   // ~ -1..1
+      var y = (e.clientY - (r.top + r.height / 2)) / r.height;
+      x = Math.max(-1, Math.min(1, x));
+      y = Math.max(-1, Math.min(1, y));
+      tilt.style.transform =
+        "perspective(900px) rotateY(" + (x * 6).toFixed(2) + "deg) rotateX(" + (-y * 5).toFixed(2) + "deg)";
+    });
+    area.addEventListener("mouseleave", function () {
+      tilt.style.transform = "";
+    });
+  });
+
+  /* ================= 10. EXPERIENCE DURATIONS ================= */
+  // Each .xp carries data-start="YYYY-MM" and data-end="YYYY-MM"|"present".
+  // The tenure label is computed so the current role stays accurate.
+  feature("durations", function () {
+    var items = document.querySelectorAll(".xp[data-start]");
+    var now = new Date();
+
+    function parse(v) {
+      if (!v || v === "present") return { y: now.getFullYear(), m: now.getMonth() + 1 };
+      var p = v.split("-");
+      return { y: parseInt(p[0], 10), m: parseInt(p[1], 10) };
+    }
+
+    for (var i = 0; i < items.length; i++) {
+      var s = parse(items[i].getAttribute("data-start"));
+      var e = parse(items[i].getAttribute("data-end"));
+      var months = (e.y - s.y) * 12 + (e.m - s.m) + 1; // inclusive, LinkedIn-style
+      if (!(months > 0)) continue;
+      var y = Math.floor(months / 12);
+      var m = months % 12;
+      var parts = [];
+      if (y) parts.push(y + (y === 1 ? " yr" : " yrs"));
+      if (m) parts.push(m + (m === 1 ? " mo" : " mos"));
+      var out = items[i].querySelector(".xp-dur");
+      if (out) out.textContent = parts.join(" ");
+    }
+  });
+
+  /* ================= 11. CERTIFICATES + LIGHTBOX ================= */
   // Each credential may declare data-cert="certs/<file>". The file is probed
   // with an off-screen Image: if it loads, a "view certificate" button is
   // injected. If it is missing, nothing appears and no error is shown.
@@ -287,7 +428,7 @@
     }
   });
 
-  /* ================= 9. TESTIMONIAL CAROUSEL ================= */
+  /* ================= 12. TESTIMONIAL CAROUSEL ================= */
   feature("testimonials", function () {
     var track = document.getElementById("testiTrack");
     var carousel = document.getElementById("testiCarousel");
@@ -326,7 +467,7 @@
     start();
   });
 
-  /* ================= 10. CURSOR GLOW ================= */
+  /* ================= 13. CURSOR GLOW ================= */
   feature("cursor-glow", function () {
     var glow = document.querySelector(".cursor-glow");
     if (!glow || reduceMotion) return;
@@ -355,7 +496,7 @@
     window.addEventListener("pointerleave", function () { glow.style.opacity = "0"; });
   });
 
-  /* ================= 11. FOOTER YEAR ================= */
+  /* ================= 14. FOOTER YEAR ================= */
   feature("year", function () {
     var el = document.getElementById("year");
     if (el) el.textContent = new Date().getFullYear();
