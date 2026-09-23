@@ -355,6 +355,8 @@ main { position: relative; z-index: 1; }
 }
 .hstat-arrow { color: var(--muted); font-size: 0.6em; margin: 0 0.15em; }
 .hstat-label { font-size: 0.88rem; color: var(--muted); line-height: 1.5; }
+/* company attribution under each stat */
+.hstat-co { display: block; margin-top: 0.75rem; color: var(--accent); text-transform: uppercase; font-size: 0.7rem; opacity: 0.85; }
 
 .hero-footnote { color: var(--muted); opacity: 0.75; margin-top: 1.25rem; }
 
