@@ -7,7 +7,7 @@
   <!-- ============================================================
        SHADAB KHAN — RETENTION, LIFECYCLE & GROWTH
        Single-page portfolio. Self-contained HTML + CSS + vanilla JS.
-       No frameworks. Only external dependency: Google Fonts.
+       No frameworks and no external dependencies (fonts are self-hosted).
 
        DESIGN IDENTITY:
        Dark editorial by default (ink ground, acid-lime accent) with a
@@ -49,7 +49,7 @@
   <!-- The ?v= number busts browser caches. BUMP IT (v=8, v=9 …) every time
        you edit styles.css or script.js, otherwise returning visitors keep
        running the old cached files. -->
-  <link rel="stylesheet" href="styles.css?v=17">
+  <link rel="stylesheet" href="styles.css?v=18">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='40' fill='%23C6F24E'/></svg>">
 
   <!-- Apply the saved theme before first paint so there's no colour flash.
@@ -827,53 +827,61 @@
         <h2>Credentials</h2>
       </header>
 
-      <!-- Each credential may carry data-cert="certs/<file>". If that image
-           exists in the repo, JS adds a "view certificate" button that opens
-           it in a lightbox. If the file is missing, nothing appears — no error.
+      <!-- Each credential has a "view certificate" link to its image in certs/.
+           Nothing is downloaded until someone clicks it (same as the résumé
+           button): script.js then opens the image in the on-page viewer, and
+           without JavaScript the link simply opens the image in a new tab.
            Add an <a class="btn btn-line cred-verify"> link when the issuer has a public
            verification page. -->
       <ul class="cred-list">
-        <li class="cred reveal" data-cert="certs/growthx-product-growth.jpg" data-cert-title="GrowthX — Product &amp; Growth Program, certificate of completion">
+        <li class="cred reveal">
           <span class="cred-name">Product &amp; Growth Program <span class="cred-issuer mono">GrowthX</span></span>
           <span class="cred-meta">
+            <a class="btn btn-solid cred-view" href="certs/growthx-product-growth.jpg" target="_blank" rel="noopener" data-cert-title="GrowthX — Product &amp; Growth Program, certificate of completion">view certificate ↗</a>
           </span>
         </li>
-        <li class="cred reveal" data-cert="certs/product-folks-plg-2023.jpg" data-cert-title="The Product Folks — Product-Led Growth '23, certificate of completion">
+        <li class="cred reveal">
           <span class="cred-name">Product-Led Growth Cohort <span class="cred-issuer mono">The Product Folks</span></span>
           <span class="cred-meta">
+            <a class="btn btn-solid cred-view" href="certs/product-folks-plg-2023.jpg" target="_blank" rel="noopener" data-cert-title="The Product Folks — Product-Led Growth, certificate of completion">view certificate ↗</a>
             <a class="btn btn-line cred-verify" href="https://certificate.givemycertificate.com/c/495d14d3-fd97-4809-bfb1-3ac77685c5cb" target="_blank" rel="noopener noreferrer">verify certificate ↗</a>
           </span>
         </li>
-        <li class="cred reveal" data-cert="certs/moengage-celp-2023.jpg" data-cert-title="MoEngage — Customer Engagement Leadership Program (CELP), certificate of completion">
+        <li class="cred reveal">
           <span class="cred-name">Customer Engagement Leadership Program <span class="cred-issuer mono">MoEngage</span></span>
           <span class="cred-meta">
+            <a class="btn btn-solid cred-view" href="certs/moengage-celp-2023.jpg" target="_blank" rel="noopener" data-cert-title="MoEngage — Customer Engagement Leadership Program (CELP), certificate of completion">view certificate ↗</a>
             <a class="btn btn-line cred-verify" href="https://www.credential.net/3313639f-ca8e-48e5-9d5a-def59842c7fe" target="_blank" rel="noopener noreferrer">verify certificate ↗</a>
           </span>
         </li>
 
         <!-- ===== HIDDEN until there is proof =====
              To show one: move it above this comment (outside the comment),
-             drop its certificate image into certs/, point data-cert at it,
+             drop its certificate image into certs/, point the view link at it,
              and add a cred-verify link if there is one.
 
-        <li class="cred reveal" data-cert="certs/klaviyo.jpg" data-cert-title="Klaviyo — CRM Strategist Certification">
+        <li class="cred reveal">
           <span class="cred-name">CRM Strategist Certification <span class="cred-issuer mono">Klaviyo</span></span>
           <span class="cred-meta">
+            <a class="btn btn-solid cred-view" href="certs/klaviyo.jpg" target="_blank" rel="noopener" data-cert-title="Klaviyo — CRM Strategist Certification">view certificate ↗</a>
           </span>
         </li>
-        <li class="cred reveal" data-cert="certs/clevertap.jpg" data-cert-title="CleverTap Certification">
+        <li class="cred reveal">
           <span class="cred-name">CleverTap certification <span class="cred-issuer mono">CleverTap</span></span>
           <span class="cred-meta">
+            <a class="btn btn-solid cred-view" href="certs/clevertap.jpg" target="_blank" rel="noopener" data-cert-title="CleverTap Certification">view certificate ↗</a>
           </span>
         </li>
-        <li class="cred reveal" data-cert="certs/ga4.jpg" data-cert-title="Google Analytics (GA4) Certification">
+        <li class="cred reveal">
           <span class="cred-name">Google Analytics Certification <span class="cred-issuer mono">Google</span></span>
           <span class="cred-meta">
+            <a class="btn btn-solid cred-view" href="certs/ga4.jpg" target="_blank" rel="noopener" data-cert-title="Google Analytics (GA4) Certification">view certificate ↗</a>
           </span>
         </li>
-        <li class="cred reveal" data-cert="certs/braze.jpg" data-cert-title="Braze Certification">
+        <li class="cred reveal">
           <span class="cred-name">Braze certification <span class="cred-issuer mono">Braze</span></span>
           <span class="cred-meta">
+            <a class="btn btn-solid cred-view" href="certs/braze.jpg" target="_blank" rel="noopener" data-cert-title="Braze Certification">view certificate ↗</a>
           </span>
         </li>
         ===== end hidden ===== -->
@@ -980,11 +988,10 @@
 
   <footer class="footer">
     <p class="mono">© <span id="year">2026</span> Shadab Khan</p>
-    <p class="mono">No frameworks. No trackers. Loads fast.</p>
     <a class="mono" href="#top">↑ top</a>
   </footer>
 
   <!-- Bump ?v= together with the stylesheet whenever you edit this file. -->
-  <script src="script.js?v=17"></script>
+  <script src="script.js?v=18"></script>
 </body>
 </html>

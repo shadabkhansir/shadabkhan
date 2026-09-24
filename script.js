@@ -85,7 +85,11 @@
       { el: dot2, offset: 0.5 },
     ];
 
+    // Only animate while the diagram is on screen, so it doesn't use CPU
+    // (and battery) while the visitor reads the rest of the page.
+    var running = false;
     function frame(now) {
+      if (!running) return;
       var t = (now % CYCLE) / CYCLE;
       for (var i = 0; i < dots.length; i++) {
         var p = track.getPointAtLength(((t + dots[i].offset) % 1) * len);
@@ -94,7 +98,17 @@
       }
       requestAnimationFrame(frame);
     }
-    requestAnimationFrame(frame);
+    function start() { if (!running) { running = true; requestAnimationFrame(frame); } }
+    function stop() { running = false; }
+
+    var section = track.closest ? track.closest(".loop-section") : null;
+    if (section && "IntersectionObserver" in window) {
+      new IntersectionObserver(function (entries) {
+        entries[0].isIntersecting ? start() : stop();
+      }, { rootMargin: "100px" }).observe(section);
+    } else {
+      start();
+    }
   });
 
   /* ================= 3. TOOLS & CHANNELS SLIDERS ================= */
@@ -369,9 +383,10 @@
   });
 
   /* ================= 11. CERTIFICATES + LIGHTBOX ================= */
-  // Each credential may declare data-cert="certs/<file>". The file is probed
-  // with an off-screen Image: if it loads, a "view certificate" button is
-  // injected. If it is missing, nothing appears and no error is shown.
+  // Each "view certificate" is a plain link to the image (like the résumé
+  // button). Nothing is downloaded on page load: the image is fetched only
+  // when someone clicks, and shown in the on-page viewer. Without JS the
+  // link still works and opens the image in a new tab.
   feature("certificates", function () {
     var lightbox = document.getElementById("lightbox");
     var img = document.getElementById("lightboxImg");
@@ -406,45 +421,14 @@
       });
     }
 
-    function addButton(li, src, title) {
-      var meta = li.querySelector(".cred-meta");
-      if (!meta) return;
-      var btn = document.createElement("button");
-      btn.className = "btn btn-solid cred-view"; // same style as "View case studies"
-      btn.textContent = "view certificate ↗";
-      btn.addEventListener("click", function () { open(src, title, btn); });
-      meta.insertBefore(btn, meta.firstChild);
-    }
-
-    // Check each certificate exists WITHOUT downloading it: a HEAD request
-    // returns only headers (0 KB). Previously the full images (~280 KB) were
-    // downloaded on every page load just to test they existed. A missing
-    // file simply means no button and no visible error.
-    function check(li) {
-      var src = li.getAttribute("data-cert");
-      var title = li.getAttribute("data-cert-title") || "Certificate";
-      if (!src) return;
-      if (window.fetch && location.protocol !== "file:") {
-        fetch(src, { method: "HEAD" })
-          .then(function (r) { if (r.ok) addButton(li, src, title); })
-          .catch(function () { /* offline or missing: no button */ });
-      } else {
-        // fallback for very old browsers or opening the file locally
-        var probe = new Image();
-        probe.onload = function () { addButton(li, src, title); };
-        probe.src = src;
-      }
-    }
-
-    function checkAll() {
-      var creds = document.querySelectorAll(".cred[data-cert]");
-      for (var i = 0; i < creds.length; i++) check(creds[i]);
-    }
-
-    // Run only after the page has fully loaded, so it never competes with
-    // the first screen for bandwidth.
-    if (document.readyState === "complete") checkAll();
-    else window.addEventListener("load", checkAll);
+    document.addEventListener("click", function (e) {
+      var link = e.target.closest && e.target.closest("a.cred-view");
+      if (!link || !lightbox) return;
+      // let modified clicks (new tab / new window) behave like a normal link
+      if (e.ctrlKey || e.metaKey || e.shiftKey || e.button === 1) return;
+      e.preventDefault();
+      open(link.getAttribute("href"), link.getAttribute("data-cert-title") || "Certificate", link);
+    });
   });
 
   /* ================= 12. TESTIMONIAL CAROUSEL ================= */
