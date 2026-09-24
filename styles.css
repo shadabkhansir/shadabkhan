@@ -288,7 +288,8 @@ main { position: relative; z-index: 1; }
 .hero {
   max-width: var(--max);
   margin: 0 auto;
-  padding: clamp(8rem, 16vh, 11rem) var(--gutter) 0;
+  /* top padding clears the ~62px fixed nav plus a ~30–37px breathing gap */
+  padding: clamp(5.75rem, 11vh, 6.75rem) var(--gutter) 0;
 }
 .hero-eyebrow { color: var(--accent); margin-bottom: 2rem; text-transform: uppercase; }
 
