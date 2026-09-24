@@ -410,7 +410,7 @@
       var meta = li.querySelector(".cred-meta");
       if (!meta) return;
       var btn = document.createElement("button");
-      btn.className = "cred-view";
+      btn.className = "btn btn-solid cred-view"; // same style as "View case studies"
       btn.textContent = "view certificate ↗";
       btn.addEventListener("click", function () { open(src, title, btn); });
       meta.insertBefore(btn, meta.firstChild);
