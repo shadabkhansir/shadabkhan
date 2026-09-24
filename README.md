@@ -48,10 +48,16 @@ current role.
 Each credential carries `data-cert="certs/<file>"`. If that file exists, a
 "view certificate ↗" button appears and opens a lightbox (close with ✕, Esc,
 or clicking outside). If the file is missing, no button appears and no error
-shows. `certs/klaviyo.svg` and `certs/moengage.svg` are **placeholders** —
-replace them with your real certificates. CleverTap/GA4/Braze already point at
-`certs/clevertap.png`, `certs/ga4.png`, `certs/braze.png`; upload those when
-earned and their buttons appear automatically.
+shows. Add an `<a class="cred-verify">` link when the issuer has a public
+verification page.
+
+**Shown now (with proof):** GrowthX Product & Growth Program, The Product
+Folks Product-Led Growth 2023, MoEngage CELP 2023.
+
+**Hidden until there is proof:** Klaviyo, CleverTap, Google Analytics and
+Braze sit inside an HTML comment at the end of the credentials list in
+`index.html`. To show one, move it out of the comment, drop its certificate
+image into `certs/`, point `data-cert` at it, and set its status/date.
 
 ## ⚠️ Bump the cache version after editing CSS/JS
 
@@ -76,7 +82,6 @@ Placeholders render as amber dashed chips on the page and are wrapped in
 | 7 | Case Study 4 → Impact | `[ Launch outcomes / reach ]` |
 | 9 | Credentials | CleverTap certification `[ add ]` |
 | 10 | Credentials | GA4 / Google Analytics certification `[ add ]` |
-| 11 | Certificate images | `certs/klaviyo.svg`, `certs/moengage.svg` are placeholder graphics |
 
 ## Theme switch
 

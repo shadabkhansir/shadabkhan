@@ -887,7 +887,24 @@ main { position: relative; z-index: 1; }
   border-bottom: 1px solid var(--line);
 }
 .cred-name { font-size: 0.98rem; }
-.cred-meta { display: flex; align-items: baseline; gap: 1.25rem; }
+/* issuer shown under the credential name */
+.cred-issuer {
+  display: block;
+  margin-top: 0.2rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.cred-meta { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.6rem 1.25rem; }
+/* link to the issuer's public verification page */
+.cred-verify {
+  font-size: 0.72rem;
+  color: var(--accent);
+  border-bottom: 1px dashed color-mix(in srgb, var(--accent) 50%, transparent);
+  transition: border-color 0.2s;
+}
+.cred-verify:hover { border-bottom-color: var(--accent); }
 .cred-status { color: var(--muted); text-transform: uppercase; }
 .cred-done { color: var(--accent); }
 

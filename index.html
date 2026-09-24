@@ -46,7 +46,7 @@
   <!-- The ?v= number busts browser caches. BUMP IT (v=8, v=9 …) every time
        you edit styles.css or script.js, otherwise returning visitors keep
        running the old cached files. -->
-  <link rel="stylesheet" href="styles.css?v=13">
+  <link rel="stylesheet" href="styles.css?v=14">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='40' fill='%23C6F24E'/></svg>">
 
   <!-- Apply the saved theme before first paint so there's no colour flash.
@@ -346,7 +346,7 @@
             <p class="tab-lede">Journeys, segmentation and commercial logic that turn first orders into repeat revenue.</p>
             <ul class="tab-chips">
               <li style="--i:0">CleverTap</li>
-              <li style="--i:1">Klaviyo <span class="mono chip-note">certified strategist</span></li>
+              <li style="--i:1">Klaviyo</li>
               <li style="--i:2">Braze <span class="mono chip-note">learning</span></li>
               <li style="--i:3">Lifecycle Architecture</li>
               <li style="--i:4">Behavioral Segmentation</li>
@@ -826,41 +826,61 @@
 
       <!-- Each credential may carry data-cert="certs/<file>". If that image
            exists in the repo, JS adds a "view certificate" button that opens
-           it in a lightbox. If the file is missing, nothing appears — no error. -->
+           it in a lightbox. If the file is missing, nothing appears — no error.
+           Add an <a class="cred-verify"> link when the issuer has a public
+           verification page. -->
       <ul class="cred-list">
-        <li class="cred reveal" data-cert="certs/klaviyo.svg" data-cert-title="Klaviyo — CRM Strategist Certification">
-          <span class="cred-name">Klaviyo — CRM Strategist Certification</span>
+        <li class="cred reveal" data-cert="certs/growthx-product-growth.jpg" data-cert-title="GrowthX — Product &amp; Growth Program, certificate of completion">
+          <span class="cred-name">Product &amp; Growth Program <span class="cred-issuer mono">GrowthX</span></span>
           <span class="cred-meta">
-            <span class="mono cred-status cred-done">earned</span>
+            <span class="mono cred-status cred-done">completed · 2023</span>
           </span>
         </li>
-        <li class="cred reveal" data-cert="certs/moengage.svg" data-cert-title="MoEngage — Customer Engagement Leadership Program">
-          <span class="cred-name">MoEngage — Customer Engagement Leadership Program</span>
+        <li class="cred reveal" data-cert="certs/product-folks-plg-2023.jpg" data-cert-title="The Product Folks — Product-Led Growth '23, certificate of completion">
+          <span class="cred-name">Product-Led Growth Cohort 2023 <span class="cred-issuer mono">The Product Folks</span></span>
           <span class="cred-meta">
-            <span class="mono cred-status cred-done">earned · 2023</span>
+            <a class="mono cred-verify" href="https://certificate.givemycertificate.com/c/495d14d3-fd97-4809-bfb1-3ac77685c5cb" target="_blank" rel="noopener noreferrer">verify ↗</a>
+            <span class="mono cred-status cred-done">completed · Jun 2023</span>
           </span>
         </li>
-        <li class="cred reveal" data-cert="certs/clevertap.png" data-cert-title="CleverTap Certification">
-          <!-- PLACEHOLDER: add certification name/date when earned; drop image at certs/clevertap.png -->
-          <span class="cred-name">CleverTap certification <span class="ph" title="Add when earned">[ add ]</span></span>
+        <li class="cred reveal" data-cert="certs/moengage-celp-2023.jpg" data-cert-title="MoEngage — Customer Engagement Leadership Program (CELP), certificate of completion">
+          <span class="cred-name">Customer Engagement Leadership Program <span class="cred-issuer mono">MoEngage</span></span>
+          <span class="cred-meta">
+            <a class="mono cred-verify" href="https://www.credential.net/3313639f-ca8e-48e5-9d5a-def59842c7fe" target="_blank" rel="noopener noreferrer">verify ↗</a>
+            <span class="mono cred-status cred-done">completed · Mar 2023</span>
+          </span>
+        </li>
+
+        <!-- ===== HIDDEN until there is proof =====
+             To show one: move it above this comment (outside the comment),
+             drop its certificate image into certs/, point data-cert at it,
+             and change the status to "completed · <date>".
+
+        <li class="cred reveal" data-cert="certs/klaviyo.jpg" data-cert-title="Klaviyo — CRM Strategist Certification">
+          <span class="cred-name">CRM Strategist Certification <span class="cred-issuer mono">Klaviyo</span></span>
+          <span class="cred-meta">
+            <span class="mono cred-status cred-done">completed · YEAR</span>
+          </span>
+        </li>
+        <li class="cred reveal" data-cert="certs/clevertap.jpg" data-cert-title="CleverTap Certification">
+          <span class="cred-name">CleverTap certification <span class="cred-issuer mono">CleverTap</span></span>
           <span class="cred-meta">
             <span class="mono cred-status">in progress</span>
           </span>
         </li>
-        <li class="cred reveal" data-cert="certs/ga4.png" data-cert-title="GA4 / Google Analytics Certification">
-          <!-- PLACEHOLDER: add certification when earned; drop image at certs/ga4.png -->
-          <span class="cred-name">GA4 / Google Analytics Certification <span class="ph" title="Add when earned">[ add ]</span></span>
+        <li class="cred reveal" data-cert="certs/ga4.jpg" data-cert-title="Google Analytics (GA4) Certification">
+          <span class="cred-name">Google Analytics Certification <span class="cred-issuer mono">Google</span></span>
           <span class="cred-meta">
             <span class="mono cred-status">in progress</span>
           </span>
         </li>
-        <li class="cred reveal" data-cert="certs/braze.png" data-cert-title="Braze Certification">
-          <!-- PLACEHOLDER: planned; drop image at certs/braze.png when earned -->
-          <span class="cred-name">Braze certification</span>
+        <li class="cred reveal" data-cert="certs/braze.jpg" data-cert-title="Braze Certification">
+          <span class="cred-name">Braze certification <span class="cred-issuer mono">Braze</span></span>
           <span class="cred-meta">
             <span class="mono cred-status">planned</span>
           </span>
         </li>
+        ===== end hidden ===== -->
       </ul>
 
       <!-- ===== Testimonials: auto-rotating carousel =====
@@ -969,6 +989,6 @@
   </footer>
 
   <!-- Bump ?v= together with the stylesheet whenever you edit this file. -->
-  <script src="script.js?v=13"></script>
+  <script src="script.js?v=14"></script>
 </body>
 </html>
