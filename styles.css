@@ -996,13 +996,17 @@ main { position: relative; z-index: 1; }
 }
 .testi-name { font-weight: 600; }
 .testi-title { color: var(--muted); }
-.testi-sample {
-  color: var(--ph);
-  border: 1px dashed color-mix(in srgb, var(--ph) 55%, transparent);
-  padding: 0.05rem 0.5rem;
+/* where the quote comes from (LinkedIn / experience letter) */
+.testi-source {
+  flex-basis: 100%;
   font-size: 0.68rem;
-  cursor: help;
+  color: var(--accent);
+  opacity: 0.85;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
 }
+a.testi-source { transition: opacity 0.2s; }
+a.testi-source:hover { opacity: 1; text-decoration: underline; }
 
 .testi-dots {
   display: flex; gap: 0.6rem; justify-content: center;

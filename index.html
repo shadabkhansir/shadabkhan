@@ -46,7 +46,7 @@
   <!-- The ?v= number busts browser caches. BUMP IT (v=8, v=9 …) every time
        you edit styles.css or script.js, otherwise returning visitors keep
        running the old cached files. -->
-  <link rel="stylesheet" href="styles.css?v=11">
+  <link rel="stylesheet" href="styles.css?v=12">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='40' fill='%23C6F24E'/></svg>">
 
   <!-- Apply the saved theme before first paint so there's no colour flash.
@@ -725,16 +725,6 @@
           </div>
         </article>
 
-        <!-- CASE 9 — coming soon slot -->
-        <article class="case case-soon reveal">
-          <div class="case-head case-head-static">
-            <span class="mono case-idx">CS·09</span>
-            <span class="case-title">External lifecycle teardown of a well-known DTC brand</span>
-            <span class="mono case-kpi case-kpi-soon">coming soon</span>
-          </div>
-          <!-- PLACEHOLDER: build later — outside-in audit of a DTC brand's welcome flow / cart recovery -->
-        </article>
-
       </div>
     </section>
 
@@ -873,47 +863,36 @@
         </li>
       </ul>
 
-      <!-- ===== Testimonials: auto-rotating carousel ===== -->
+      <!-- ===== Testimonials: auto-rotating carousel =====
+           Real, verbatim quotes only. Each slide names its source
+           (LinkedIn recommendation / experience letter). To add one, copy
+           a <figure class="testi-slide"> and add a matching .testi-dot. -->
       <div class="testi-block reveal">
-        <h3 class="mono cap-title">What colleagues say</h3>
-        <!-- PLACEHOLDER: all three testimonials below are SAMPLE content —
-             replace quotes, names, titles, and the avatar initials. -->
+        <h3 class="mono cap-title">What people I've worked with say</h3>
         <div class="testi-carousel" id="testiCarousel">
           <div class="testi-track" id="testiTrack">
 
             <figure class="testi-slide">
-              <svg class="testi-avatar" viewBox="0 0 64 64" role="img" aria-label="Avatar placeholder">
-                <circle cx="32" cy="32" r="30"/><text x="32" y="40">AR</text>
+              <svg class="testi-avatar" viewBox="0 0 64 64" role="img" aria-label="Kanupriya Chhabra">
+                <circle cx="32" cy="32" r="30"/><text x="32" y="40">KC</text>
               </svg>
-              <blockquote>“Shadab found revenue in journeys we had written off. The welcome-flow fix alone changed our quarter.”</blockquote>
+              <blockquote>“Shadab is a very diligent colleague and puts in his 100% while implementing any tasks that he is assigned. He is a great team player and a very reliable colleague. He will be a great addition to any organisation that he joins.”</blockquote>
               <figcaption>
-                <span class="testi-name">Aisha R.</span>
-                <span class="mono testi-title">Head of E-commerce</span>
-                <span class="mono testi-sample" title="Sample content — replace with a real quote">sample — replace</span>
+                <span class="testi-name">Kanupriya Chhabra</span>
+                <span class="mono testi-title">Marketing, Mindcase · worked with Shadab at CustomerGlu</span>
+                <a class="mono testi-source" href="https://www.linkedin.com/in/shadabkhansir/details/recommendations/" target="_blank" rel="noopener noreferrer">LinkedIn recommendation · Feb 2023 ↗</a>
               </figcaption>
             </figure>
 
             <figure class="testi-slide">
-              <svg class="testi-avatar" viewBox="0 0 64 64" role="img" aria-label="Avatar placeholder">
-                <circle cx="32" cy="32" r="30"/><text x="32" y="40">DM</text>
+              <svg class="testi-avatar" viewBox="0 0 64 64" role="img" aria-label="Prateek Gupta">
+                <circle cx="32" cy="32" r="30"/><text x="32" y="40">PG</text>
               </svg>
-              <blockquote>“A rare mix — he speaks CLV with finance and event schemas with engineering, in the same meeting.”</blockquote>
+              <blockquote>“We thank him for all his efforts &amp; contributions to building the growth function at CustomerGlu.”</blockquote>
               <figcaption>
-                <span class="testi-name">Daniel M.</span>
-                <span class="mono testi-title">Marketing Director</span>
-                <span class="mono testi-sample" title="Sample content — replace with a real quote">sample — replace</span>
-              </figcaption>
-            </figure>
-
-            <figure class="testi-slide">
-              <svg class="testi-avatar" viewBox="0 0 64 64" role="img" aria-label="Avatar placeholder">
-                <circle cx="32" cy="32" r="30"/><text x="32" y="40">PN</text>
-              </svg>
-              <blockquote>“We handed him a broken funnel and got back a system. The reporting finally matched reality.”</blockquote>
-              <figcaption>
-                <span class="testi-name">Priya N.</span>
-                <span class="mono testi-title">VP Growth</span>
-                <span class="mono testi-sample" title="Sample content — replace with a real quote">sample — replace</span>
+                <span class="testi-name">Prateek Gupta</span>
+                <span class="mono testi-title">CEO &amp; Founder, CustomerGlu</span>
+                <span class="mono testi-source">From Shadab's experience letter · 2023</span>
               </figcaption>
             </figure>
 
@@ -921,7 +900,6 @@
           <div class="testi-dots" role="tablist" aria-label="Testimonials">
             <button class="testi-dot active" aria-label="Testimonial 1" aria-selected="true"></button>
             <button class="testi-dot" aria-label="Testimonial 2" aria-selected="false"></button>
-            <button class="testi-dot" aria-label="Testimonial 3" aria-selected="false"></button>
           </div>
         </div>
       </div>
@@ -982,6 +960,6 @@
   </footer>
 
   <!-- Bump ?v= together with the stylesheet whenever you edit this file. -->
-  <script src="script.js?v=11"></script>
+  <script src="script.js?v=12"></script>
 </body>
 </html>

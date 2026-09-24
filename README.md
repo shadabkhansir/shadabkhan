@@ -74,11 +74,9 @@ Placeholders render as amber dashed chips on the page and are wrapped in
 | 5 | Case Study 2 → Impact | `[ Clean attribution · compliant data flow · conversion-accuracy improvement ]` |
 | 6 | Case Study 3 → Impact | `[ seven-figure, indexed ]` revenue-at-risk |
 | 7 | Case Study 4 → Impact | `[ Launch outcomes / reach ]` |
-| 8 | Case Study 6 | "Coming soon" slot — external DTC lifecycle teardown |
 | 9 | Credentials | CleverTap certification `[ add ]` |
 | 10 | Credentials | GA4 / Google Analytics certification `[ add ]` |
 | 11 | Certificate images | `certs/klaviyo.svg`, `certs/moengage.svg` are placeholder graphics |
-| 12 | Testimonials | **All three quotes, names, titles and initials are SAMPLE content** (each tagged "sample — replace") |
 
 ## Theme switch
 
