@@ -355,6 +355,11 @@ main { position: relative; z-index: 1; }
   letter-spacing: -0.03em;
   margin-bottom: 2rem;
 }
+/* Phones: slightly smaller so the headline stays two tidy lines
+   ("I turn customer data" / "into <phrase>") for every rotating phrase. */
+@media (max-width: 480px) {
+  .hero-h1 { font-size: clamp(2rem, 8.6vw, 2.3rem); }
+}
 .hero-line { display: block; }
 .hero-h1 em { position: relative; }
 /* hand-set underline on the money phrase */
@@ -366,6 +371,35 @@ main { position: relative; z-index: 1; }
 }
 @keyframes rule-in { to { transform: scaleX(1); } }
 @media (prefers-reduced-motion: reduce) { .hero-h1 em::after { transform: scaleX(1); } }
+
+/* ---------- Rotating hero phrase ----------
+   script.js cycles the words in data-words. Out: the phrase lifts and fades
+   while the underline retracts to the right. In: the next phrase rises into
+   place and the underline draws again from the left. Small and slow, so it
+   is kept even under reduced motion (like the other signature loops). */
+.rot-word {
+  display: inline-block;
+  transition: opacity 0.4s ease, transform 0.45s cubic-bezier(0.2, 0.6, 0.2, 1);
+}
+.rot-word.is-out { opacity: 0; transform: translateY(-0.3em); }
+.rot-word.is-pre { opacity: 0; transform: translateY(0.3em); transition: none; }
+
+.hero-h1 em.is-retract::after { animation: rule-out 0.35s ease-in forwards; }
+.hero-h1 em.is-draw::after    { animation: rule-in 0.55s cubic-bezier(0.2, 0.6, 0.2, 1) forwards; }
+@keyframes rule-out { from { transform: scaleX(1); transform-origin: right; } to { transform: scaleX(0); transform-origin: right; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .rot-word { transition: opacity 0.4s ease, transform 0.45s cubic-bezier(0.2, 0.6, 0.2, 1) !important; }
+  .rot-word.is-pre { transition: none !important; }
+  .hero-h1 em.is-retract::after { animation: rule-out 0.35s ease-in forwards !important; }
+  .hero-h1 em.is-draw::after    { animation: rule-in 0.55s cubic-bezier(0.2, 0.6, 0.2, 1) forwards !important; }
+}
+
+/* text for screen readers only (the rotating phrase itself is aria-hidden) */
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
 
 .hero-sub { font-size: clamp(1rem, 2vw, 1.2rem); color: var(--paper); max-width: 560px; margin-bottom: 0.75rem; }
 .hero-tags { color: var(--muted); margin-bottom: 2.5rem; }

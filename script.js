@@ -111,6 +111,62 @@
     }
   });
 
+  /* ================= 2b. ROTATING HERO PHRASE ================= */
+  // Cycles the phrases in the <em class="rotator" data-words="a|b|c">.
+  // The headline's height is reserved for the tallest phrase, so the page
+  // below never jumps when a longer phrase wraps onto an extra line.
+  feature("hero-rotator", function () {
+    var em = document.querySelector(".rotator[data-words]");
+    if (!em) return;
+    var word = em.querySelector(".rot-word");
+    var h1 = em.closest ? em.closest("h1") : null;
+    var words = em.getAttribute("data-words").split("|").filter(Boolean);
+    if (!word || words.length < 2) return;
+
+    var HOLD = 2800;     // ms each phrase stays on screen
+    var OUT = 420;       // ms for the outgoing phrase to leave
+    var index = 0;
+
+    // Reserve height for the tallest phrase (measured in one synchronous
+    // pass, so nothing flickers on screen).
+    function reserveHeight() {
+      if (!h1) return;
+      var current = word.textContent, max = 0;
+      h1.style.minHeight = "";
+      for (var i = 0; i < words.length; i++) {
+        word.textContent = words[i];
+        max = Math.max(max, h1.offsetHeight);
+      }
+      word.textContent = current;
+      h1.style.minHeight = max + "px";
+    }
+    reserveHeight();
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(reserveHeight);
+    var rt;
+    window.addEventListener("resize", function () { clearTimeout(rt); rt = setTimeout(reserveHeight, 150); });
+
+    function next() {
+      if (document.hidden) return setTimeout(next, HOLD);  // don't cycle in a background tab
+      index = (index + 1) % words.length;
+      em.classList.remove("is-draw");
+      em.classList.add("is-retract");
+      word.classList.add("is-out");
+      setTimeout(function () {
+        word.textContent = words[index];
+        word.classList.remove("is-out");
+        word.classList.add("is-pre");          // jump below, invisible
+        void word.offsetWidth;                  // commit that position
+        word.classList.remove("is-pre");        // then glide up into place
+        em.classList.remove("is-retract");
+        void em.offsetWidth;
+        em.classList.add("is-draw");
+        setTimeout(next, HOLD);
+      }, OUT);
+    }
+    // first change after the entrance animation and underline have played
+    setTimeout(next, 3200);
+  });
+
   /* ================= 3. TOOLS & CHANNELS SLIDERS ================= */
   // Any .slider containing a .slider-track list auto-revolves.
   //   data-speed     = pixels per second (default 40)
