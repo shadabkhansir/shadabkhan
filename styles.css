@@ -982,7 +982,13 @@ main { position: relative; z-index: 1; }
   font-family: var(--font-mono); font-size: 20px;
   fill: var(--accent); text-anchor: middle;
 }
-
+/* real headshots: round, with the same accent ring as the initials badge */
+.testi-photo {
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--accent);
+  background: var(--surface);
+}
 .testi-slide blockquote {
   grid-area: quote;
   font-family: var(--font-display);
