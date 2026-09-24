@@ -406,26 +406,45 @@
       });
     }
 
-    var creds = document.querySelectorAll(".cred[data-cert]");
-    for (var i = 0; i < creds.length; i++) {
-      (function (li) {
-        var src = li.getAttribute("data-cert");
-        var title = li.getAttribute("data-cert-title") || "Certificate";
-        if (!src) return;
-        var probe = new Image();
-        probe.onload = function () {
-          var meta = li.querySelector(".cred-meta");
-          if (!meta) return;
-          var btn = document.createElement("button");
-          btn.className = "cred-view";
-          btn.textContent = "view certificate ↗";
-          btn.addEventListener("click", function () { open(src, title, btn); });
-          meta.insertBefore(btn, meta.firstChild);
-        };
-        // no onerror handler: a missing file simply means no button
-        probe.src = src;
-      })(creds[i]);
+    function addButton(li, src, title) {
+      var meta = li.querySelector(".cred-meta");
+      if (!meta) return;
+      var btn = document.createElement("button");
+      btn.className = "cred-view";
+      btn.textContent = "view certificate ↗";
+      btn.addEventListener("click", function () { open(src, title, btn); });
+      meta.insertBefore(btn, meta.firstChild);
     }
+
+    // Check each certificate exists WITHOUT downloading it: a HEAD request
+    // returns only headers (0 KB). Previously the full images (~280 KB) were
+    // downloaded on every page load just to test they existed. A missing
+    // file simply means no button and no visible error.
+    function check(li) {
+      var src = li.getAttribute("data-cert");
+      var title = li.getAttribute("data-cert-title") || "Certificate";
+      if (!src) return;
+      if (window.fetch && location.protocol !== "file:") {
+        fetch(src, { method: "HEAD" })
+          .then(function (r) { if (r.ok) addButton(li, src, title); })
+          .catch(function () { /* offline or missing: no button */ });
+      } else {
+        // fallback for very old browsers or opening the file locally
+        var probe = new Image();
+        probe.onload = function () { addButton(li, src, title); };
+        probe.src = src;
+      }
+    }
+
+    function checkAll() {
+      var creds = document.querySelectorAll(".cred[data-cert]");
+      for (var i = 0; i < creds.length; i++) check(creds[i]);
+    }
+
+    // Run only after the page has fully loaded, so it never competes with
+    // the first screen for bandwidth.
+    if (document.readyState === "complete") checkAll();
+    else window.addEventListener("load", checkAll);
   });
 
   /* ================= 12. TESTIMONIAL CAROUSEL ================= */

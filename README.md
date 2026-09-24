@@ -107,6 +107,15 @@ Light. To make Light the default, swap the two blocks and change `"light"` to
 **Netlify/Vercel:** import the repo (no build command, root publish directory),
 or drag-and-drop the folder at app.netlify.com/drop.
 
+## Fonts (self-hosted)
+
+Fonts live in `fonts/` and are declared with `@font-face` at the top of
+`styles.css` (Space Grotesk 400/500, Inter 400/500/600, IBM Plex Mono
+400/500, Latin subset). Serving them from this site instead of Google Fonts
+removes two third-party connections from the first load. If you ever use a
+new weight (e.g. `font-weight: 700`), add the matching `.woff2` file and an
+`@font-face` rule. Licenses: `fonts/LICENSE-*.txt` (SIL OFL 1.1).
+
 ## How the JavaScript is structured
 
 `script.js` registers each feature through a `feature(name, fn)` wrapper that
@@ -115,7 +124,7 @@ other feature still runs and a warning goes to the console.
 
 ## Performance & accessibility
 
-- No frameworks, no trackers; one font request; portrait ~42 KB WebP, lazy-loaded.
+- No frameworks, no trackers; self-hosted fonts; portrait ~42 KB WebP, lazy-loaded.
 - Semantic HTML, skip link, visible focus states, accessible accordions, tabs
   and switch; Esc closes the menu and lightbox; sliders pause on hover/focus.
 - Scroll reveals and hover motion respect `prefers-reduced-motion`. The small,

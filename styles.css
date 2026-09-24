@@ -6,6 +6,48 @@
    Mobile-first.
    ============================================================ */
 
+/* ---------- Self-hosted fonts ----------
+   Served from /fonts on this site instead of Google Fonts: no extra
+   third-party connections and no render-blocking external stylesheet.
+   Latin subset only, just the weights the site uses. font-display: swap
+   shows text immediately in a fallback font until the file arrives.
+   Licenses: fonts/LICENSE-*.txt (SIL Open Font License 1.1). */
+@font-face {
+  font-family: "Space Grotesk"; font-style: normal; font-weight: 400; font-display: swap;
+  src: url(fonts/space-grotesk-latin-400.woff2) format("woff2");
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+@font-face {
+  font-family: "Space Grotesk"; font-style: normal; font-weight: 500; font-display: swap;
+  src: url(fonts/space-grotesk-latin-500.woff2) format("woff2");
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+@font-face {
+  font-family: "Inter"; font-style: normal; font-weight: 400; font-display: swap;
+  src: url(fonts/inter-latin-400.woff2) format("woff2");
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+@font-face {
+  font-family: "Inter"; font-style: normal; font-weight: 500; font-display: swap;
+  src: url(fonts/inter-latin-500.woff2) format("woff2");
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+@font-face {
+  font-family: "Inter"; font-style: normal; font-weight: 600; font-display: swap;
+  src: url(fonts/inter-latin-600.woff2) format("woff2");
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+@font-face {
+  font-family: "IBM Plex Mono"; font-style: normal; font-weight: 400; font-display: swap;
+  src: url(fonts/ibm-plex-mono-latin-400.woff2) format("woff2");
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+@font-face {
+  font-family: "IBM Plex Mono"; font-style: normal; font-weight: 500; font-display: swap;
+  src: url(fonts/ibm-plex-mono-latin-500.woff2) format("woff2");
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+
 :root {
   --ink: #0b0d12;          /* page ground */
   --surface: #12151d;      /* raised panels */
@@ -271,6 +313,18 @@ main { position: relative; z-index: 1; }
               transform 0.7s cubic-bezier(0.2, 0.6, 0.2, 1);
 }
 .reveal.visible { opacity: 1; transform: none; }
+
+/* Hero entrance: pure CSS, starts with the first paint (no wait for JS or
+   the scroll observer), short and staggered via --d on each element.
+   Under reduced motion the global rule disables it and content shows as-is. */
+.hero-in {
+  animation: hero-in 0.5s cubic-bezier(0.2, 0.6, 0.2, 1) both;
+  animation-delay: calc(var(--d, 0) * 60ms);
+}
+@keyframes hero-in {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: none; }
+}
 
 /* ---------- Placeholder chips ---------- */
 .ph {
@@ -905,8 +959,8 @@ main { position: relative; z-index: 1; }
   transition: border-color 0.2s;
 }
 .cred-verify:hover { border-bottom-color: var(--accent); }
-.cred-status { color: var(--muted); text-transform: uppercase; }
-.cred-done { color: var(--accent); }
+/* date the credential was issued */
+.cred-date { color: var(--muted); text-transform: uppercase; }
 
 /* "view certificate" button — injected by JS only when the image exists */
 .cred-view {

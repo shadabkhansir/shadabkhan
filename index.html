@@ -39,14 +39,17 @@
   <meta property="og:type" content="website">
   <meta property="og:image" content="images/profile.jpg">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <!-- Fonts are self-hosted (see @font-face in styles.css). Preload only the
+       three files needed for the first screen so text renders in the right
+       typeface as early as possible; the rest load on demand. -->
+  <link rel="preload" href="fonts/space-grotesk-latin-500.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/inter-latin-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/ibm-plex-mono-latin-400.woff2" as="font" type="font/woff2" crossorigin>
 
   <!-- The ?v= number busts browser caches. BUMP IT (v=8, v=9 …) every time
        you edit styles.css or script.js, otherwise returning visitors keep
        running the old cached files. -->
-  <link rel="stylesheet" href="styles.css?v=14">
+  <link rel="stylesheet" href="styles.css?v=16">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='40' fill='%23C6F24E'/></svg>">
 
   <!-- Apply the saved theme before first paint so there's no colour flash.
@@ -128,24 +131,24 @@
 
     <!-- ==================== HERO ==================== -->
     <section class="hero" id="top">
-      <p class="mono hero-eyebrow reveal">Shadab Khan — Retention, Lifecycle &amp; Growth</p>
+      <p class="mono hero-eyebrow hero-in" style="--d:0">Shadab Khan — Retention, Lifecycle &amp; Growth</p>
 
       <h1 class="hero-h1">
-        <span class="hero-line reveal">I turn customer data</span>
-        <span class="hero-line reveal">into <em>repeat revenue.</em></span>
+        <span class="hero-line hero-in" style="--d:1">I turn customer data</span>
+        <span class="hero-line hero-in" style="--d:2">into <em>repeat revenue.</em></span>
       </h1>
 
-      <p class="hero-sub reveal">
+      <p class="hero-sub hero-in" style="--d:3">
         I bridge the gap between customer acquisition and long-term retention. On the front end, I build performance marketing strategies that bring in high-intent users efficiently. On the back end, I design automated CRM and lifecycle systems that turn first-time buyers into loyal, repeat customers with growing lifetime value.
       </p>
-      <p class="mono hero-tags reveal">Growth Marketing · CRM &amp; Lifecycle Architecture · Advanced Marketing Analytics · Multi-Region E-commerce</p>
+      <p class="mono hero-tags hero-in" style="--d:4">Growth Marketing · CRM &amp; Lifecycle Architecture · Advanced Marketing Analytics · Multi-Region E-commerce</p>
 
-      <div class="hero-cta reveal">
+      <div class="hero-cta hero-in" style="--d:5">
         <a class="btn btn-solid" href="#work">View case studies</a>
         <a class="btn btn-line" href="#contact">Get in touch</a>
       </div>
 
-      <div class="hero-stats reveal" role="list" aria-label="Career growth results">
+      <div class="hero-stats hero-in" style="--d:6" role="list" aria-label="Career growth results">
         <div class="hstat" role="listitem">
           <span class="hstat-num mono">+40%</span>
           <span class="hstat-label">repeat purchase rate across 5 GCC storefronts, with +30% CRM-attributed revenue</span>
@@ -162,7 +165,7 @@
           <span class="hstat-co mono">CustomerGlu</span>
         </div>
       </div>
-      <p class="mono hero-footnote reveal">Results from 5+ years across e-commerce and B2B SaaS, in India and the GCC.</p>
+      <p class="mono hero-footnote hero-in" style="--d:7">Results from 5+ years across e-commerce and B2B SaaS, in India and the GCC.</p>
     </section>
 
     <!-- ==================== SIGNATURE: ANIMATED LIFECYCLE LOOP ==================== -->
@@ -833,51 +836,51 @@
         <li class="cred reveal" data-cert="certs/growthx-product-growth.jpg" data-cert-title="GrowthX — Product &amp; Growth Program, certificate of completion">
           <span class="cred-name">Product &amp; Growth Program <span class="cred-issuer mono">GrowthX</span></span>
           <span class="cred-meta">
-            <span class="mono cred-status cred-done">completed · 2023</span>
+            <span class="mono cred-date">2023</span>
           </span>
         </li>
         <li class="cred reveal" data-cert="certs/product-folks-plg-2023.jpg" data-cert-title="The Product Folks — Product-Led Growth '23, certificate of completion">
           <span class="cred-name">Product-Led Growth Cohort 2023 <span class="cred-issuer mono">The Product Folks</span></span>
           <span class="cred-meta">
-            <a class="mono cred-verify" href="https://certificate.givemycertificate.com/c/495d14d3-fd97-4809-bfb1-3ac77685c5cb" target="_blank" rel="noopener noreferrer">verify ↗</a>
-            <span class="mono cred-status cred-done">completed · Jun 2023</span>
+            <a class="mono cred-verify" href="https://certificate.givemycertificate.com/c/495d14d3-fd97-4809-bfb1-3ac77685c5cb" target="_blank" rel="noopener noreferrer">verify certificate ↗</a>
+            <span class="mono cred-date">Jun 2023</span>
           </span>
         </li>
         <li class="cred reveal" data-cert="certs/moengage-celp-2023.jpg" data-cert-title="MoEngage — Customer Engagement Leadership Program (CELP), certificate of completion">
           <span class="cred-name">Customer Engagement Leadership Program <span class="cred-issuer mono">MoEngage</span></span>
           <span class="cred-meta">
-            <a class="mono cred-verify" href="https://www.credential.net/3313639f-ca8e-48e5-9d5a-def59842c7fe" target="_blank" rel="noopener noreferrer">verify ↗</a>
-            <span class="mono cred-status cred-done">completed · Mar 2023</span>
+            <a class="mono cred-verify" href="https://www.credential.net/3313639f-ca8e-48e5-9d5a-def59842c7fe" target="_blank" rel="noopener noreferrer">verify certificate ↗</a>
+            <span class="mono cred-date">Mar 2023</span>
           </span>
         </li>
 
         <!-- ===== HIDDEN until there is proof =====
              To show one: move it above this comment (outside the comment),
              drop its certificate image into certs/, point data-cert at it,
-             and change the status to "completed · <date>".
+             set the date, and add a cred-verify link if there is one.
 
         <li class="cred reveal" data-cert="certs/klaviyo.jpg" data-cert-title="Klaviyo — CRM Strategist Certification">
           <span class="cred-name">CRM Strategist Certification <span class="cred-issuer mono">Klaviyo</span></span>
           <span class="cred-meta">
-            <span class="mono cred-status cred-done">completed · YEAR</span>
+            <span class="mono cred-date">YEAR</span>
           </span>
         </li>
         <li class="cred reveal" data-cert="certs/clevertap.jpg" data-cert-title="CleverTap Certification">
           <span class="cred-name">CleverTap certification <span class="cred-issuer mono">CleverTap</span></span>
           <span class="cred-meta">
-            <span class="mono cred-status">in progress</span>
+            <span class="mono cred-date">MON YEAR</span>
           </span>
         </li>
         <li class="cred reveal" data-cert="certs/ga4.jpg" data-cert-title="Google Analytics (GA4) Certification">
           <span class="cred-name">Google Analytics Certification <span class="cred-issuer mono">Google</span></span>
           <span class="cred-meta">
-            <span class="mono cred-status">in progress</span>
+            <span class="mono cred-date">MON YEAR</span>
           </span>
         </li>
         <li class="cred reveal" data-cert="certs/braze.jpg" data-cert-title="Braze Certification">
           <span class="cred-name">Braze certification <span class="cred-issuer mono">Braze</span></span>
           <span class="cred-meta">
-            <span class="mono cred-status">planned</span>
+            <span class="mono cred-date">MON YEAR</span>
           </span>
         </li>
         ===== end hidden ===== -->
@@ -989,6 +992,6 @@
   </footer>
 
   <!-- Bump ?v= together with the stylesheet whenever you edit this file. -->
-  <script src="script.js?v=14"></script>
+  <script src="script.js?v=16"></script>
 </body>
 </html>
