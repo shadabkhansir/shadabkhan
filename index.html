@@ -46,7 +46,7 @@
   <!-- The ?v= number busts browser caches. BUMP IT (v=8, v=9 …) every time
        you edit styles.css or script.js, otherwise returning visitors keep
        running the old cached files. -->
-  <link rel="stylesheet" href="styles.css?v=9">
+  <link rel="stylesheet" href="styles.css?v=10">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='40' fill='%23C6F24E'/></svg>">
 
   <!-- Apply the saved theme before first paint so there's no colour flash.
@@ -147,14 +147,14 @@
 
       <div class="hero-stats reveal" role="list" aria-label="Career growth results">
         <div class="hstat" role="listitem">
-          <span class="hstat-num mono">3×</span>
-          <span class="hstat-label">revenue growth in 12 months, driven by lifecycle and CRM-led growth</span>
-          <span class="hstat-co mono">Next Big Innovation Labs</span>
-        </div>
-        <div class="hstat" role="listitem">
           <span class="hstat-num mono">+40%</span>
           <span class="hstat-label">repeat purchase rate across 5 GCC storefronts, with +30% CRM-attributed revenue</span>
           <span class="hstat-co mono">Nazih Cosmetics · 6 GCC markets</span>
+        </div>
+        <div class="hstat" role="listitem">
+          <span class="hstat-num mono">3×</span>
+          <span class="hstat-label">revenue growth in 12 months, driven by lifecycle and CRM-led growth</span>
+          <span class="hstat-co mono">Next Big Innovation Labs</span>
         </div>
         <div class="hstat" role="listitem">
           <span class="hstat-num mono">+35%</span>
@@ -251,27 +251,33 @@
 
       <div class="about-grid">
         <div class="about-body reveal">
-          <!-- PLACEHOLDER: refine both paragraphs in your own voice -->
           <p class="about-lede">
-            CRM &amp; retention lead for a leading GCC beauty &amp; cosmetics retailer — five markets,
-            11K+ SKUs, a dual B2B salon and retail customer base. I specialise in diagnosing broken
-            retention systems in the data and re-architecting them: the lifecycle journeys, the
-            segmentation, the measurement layer underneath, and the commercial logic on top.
+            I've spent the last five years helping companies grow. First by bringing in
+            new customers, and then by giving them good reasons to keep coming back.
           </p>
           <p class="about-second">
-            Before retention, I did growth. In B2B SaaS I built acquisition engines end to end —
-            paid campaigns across Google, Meta and LinkedIn, SEO and content programs that grew organic
-            leads 80%, and launch campaigns that generated 1,000+ inbound leads — contributing to a
-            3× revenue year. That's why my lifecycle work connects: I've owned every stage of the
-            funnel the journeys are built on. Currently targeting senior retention and growth roles
-            in international markets.
+            Right now I run e-commerce CRM for Nazih Cosmetics across six GCC markets, looking
+            after brands like GHD, BaByliss Pro and Revlon. I rebuilt our customer journeys and
+            segmentation in CleverTap and fixed the tracking underneath them. Repeat purchases are
+            up 40% and CRM revenue is up 30% across our five storefronts.
+          </p>
+          <p class="about-second">
+            I started on the acquisition side. At Next Big Innovation Labs I ran paid campaigns on
+            Google, Meta and LinkedIn, grew organic leads by 80% through SEO and content, and was
+            part of the team that tripled revenue in a year. Before that, at CustomerGlu, I
+            automated our HubSpot lead lifecycle and helped with a Product Hunt launch that brought
+            in more than 1,000 inbound leads.
+          </p>
+          <p class="about-second">
+            Working both ends of the funnel shapes how I think. I know what it costs to win a
+            customer, so I care a lot about their second, third and tenth order. I'm now looking
+            for senior growth and retention roles in the UK, Ireland, Australia or Canada.
           </p>
           <ul class="about-facts mono">
             <li><span>Based</span> Dubai, UAE</li>
             <li><span>Experience</span> 5+ years · e-commerce &amp; B2B SaaS</li>
             <li><span>Open to</span> UK · Ireland · Australia · Canada</li>
           </ul>
-          <p class="mono about-note"><span class="ph" title="Editable placeholder">[ Refine in your own voice ]</span></p>
         </div>
 
         <figure class="about-photo reveal" aria-label="Portrait of Shadab Khan">
@@ -414,185 +420,235 @@
     </section>
 
     <!-- ==================== 03 CASE STUDIES ==================== -->
+    <!-- Each case: company + period under the title, then Challenge →
+         What I found (optional) → What I did → Impact (metric tiles) →
+         Why it matters. Source: resume/Shadab-Khan-Resume.pdf.
+         TO ADD A CASE: copy one <article class="case"> block and give its
+         button a new aria-controls id that matches the panel's id. -->
     <section class="section" id="work">
       <header class="section-head reveal">
         <span class="mono section-idx">03</span>
         <h2>Case Studies</h2>
       </header>
-      <p class="section-note mono reveal">All numbers indexed / anonymised — absolute values withheld for confidentiality.</p>
+      <p class="section-note mono reveal">Percentages are relative lifts. Absolute revenue figures are kept confidential.</p>
 
       <div class="cases">
 
-        <!-- CASE 1 -->
+        <!-- CASE 1 — Nazih: retention rebuild -->
         <article class="case reveal">
           <button class="case-head" aria-expanded="false" aria-controls="case1">
             <span class="mono case-idx">CS·01</span>
-            <span class="case-title">Rebuilding a retention system converting below 1%</span>
-            <span class="mono case-kpi">12× flagship lift</span>
+            <span class="case-title">Turning first orders into repeat revenue across the GCC
+              <span class="case-co mono">Nazih Cosmetics · 2025 — Present</span>
+            </span>
+            <span class="mono case-kpi">+40% repeat purchase</span>
             <span class="case-toggle" aria-hidden="true"></span>
           </button>
           <div class="case-body" id="case1">
             <div class="case-inner">
               <dl>
                 <div class="case-row">
-                  <dt class="mono">Problem</dt>
-                  <dd>Inherited 56 live lifecycle journeys converting under 1% overall.</dd>
+                  <dt class="mono">Challenge</dt>
+                  <dd>When I took over CRM, there were 56 live customer journeys and together they converted at under 1%. The journeys were running across five storefronts and six markets, but they weren't bringing customers back.</dd>
                 </div>
                 <div class="case-row">
-                  <dt class="mono">Diagnosis</dt>
-                  <dd>Audited every journey. Found the flagship Welcome journey pulling tens of thousands of users into a dead end through a mis-configured goal event — and app/in-app surfaces converting roughly 10× better than web.</dd>
+                  <dt class="mono">What I found</dt>
+                  <dd>I went through every journey one by one. The biggest problem was the Welcome journey, our main entry point. A wrongly set goal event was sending tens of thousands of new customers into a dead end. I also found that app and in-app messages converted about 10× better than web.</dd>
                 </div>
                 <div class="case-row">
-                  <dt class="mono">Built</dt>
-                  <dd>A canonical 17-journey lifecycle framework spanning acquisition → retention → value growth. Fixed the goal-event logic, reallocated effort to the high-converting surfaces, and stood up back-in-stock and price-drop trigger journeys.</dd>
+                  <dt class="mono">What I did</dt>
+                  <dd>I cut the 56 journeys down to a clean framework of 17, covering onboarding, repeat purchase, loyalty, win-back and cart recovery. I fixed the Welcome journey, moved effort toward the channels that actually converted, and added back-in-stock and price-drop triggers so customers heard from us when they had a real reason to buy. Everything runs in CleverTap across email, SMS, push and in-app, for brands including GHD, BaByliss Pro and Revlon.</dd>
                 </div>
                 <div class="case-row">
                   <dt class="mono">Impact</dt>
-                  <!-- PLACEHOLDER: confirm/replace achieved metrics -->
-                  <dd>Flagship journey conversion improved <span class="ph" title="Sample figure — confirm or replace">[ 12× ]</span>; top performer (wishlist abandonment) sustained <span class="ph" title="Sample figure — confirm or replace">[ ~18% conversion ]</span>.</dd>
-                </div>
-                <div class="case-row">
-                  <dt class="mono">Next</dt>
-                  <!-- PLACEHOLDER: confirm next step -->
-                  <dd><span class="ph" title="Editable placeholder">[ Holdout-based incrementality measurement ]</span></dd>
+                  <dd>
+                    <ul class="case-metrics">
+                      <li><b class="mono">+40%</b><span>repeat purchase rate</span></li>
+                      <li><b class="mono">+30%</b><span>CRM-attributed revenue</span></li>
+                      <li><b class="mono">12×</b><span>Welcome journey conversion</span></li>
+                    </ul>
+                    Measured across five GCC storefronts.
+                  </dd>
                 </div>
               </dl>
             </div>
           </div>
         </article>
 
-        <!-- CASE 2 -->
+        <!-- CASE 2 — Nazih: measurement layer -->
         <article class="case reveal">
           <button class="case-head" aria-expanded="false" aria-controls="case2">
             <span class="mono case-idx">CS·02</span>
-            <span class="case-title">Rebuilding the measurement layer for 6 markets</span>
-            <span class="mono case-kpi">32-event spec</span>
+            <span class="case-title">Rebuilding tracking so the numbers could be trusted
+              <span class="case-co mono">Nazih Cosmetics · 2025 — Present</span>
+            </span>
+            <span class="mono case-kpi">6 markets, one spec</span>
             <span class="case-toggle" aria-hidden="true"></span>
           </button>
           <div class="case-body" id="case2">
             <div class="case-inner">
               <dl>
                 <div class="case-row">
-                  <dt class="mono">Problem</dt>
-                  <dd>Fragmented, non-compliant tracking across six regional sites sharing one app.</dd>
+                  <dt class="mono">Challenge</dt>
+                  <dd>Six regional sites shared one app, and each one tracked things differently. Attribution had gaps, and some of the data flows weren't compliant. It was hard to say which campaigns were really driving revenue.</dd>
                 </div>
                 <div class="case-row">
-                  <dt class="mono">Built</dt>
-                  <dd>A 32-event GA4/GTM specification with server-side routing to GA4, Google Ads, Meta CAPI and TikTok CAPI — plus a PII-compliance split: hashed user data for Enhanced Conversions and CAPI, kept apart from non-PII GA4 properties. GDPR / consent-aware by design.</dd>
+                  <dt class="mono">What I did</dt>
+                  <dd>I wrote a 32-event GA4 and GTM specification and set up server-side routing to GA4, Google Ads, Meta CAPI and TikTok CAPI. Hashed customer data goes only to Enhanced Conversions and the CAPIs, and GA4 receives no personal data at all. I then worked with the performance, e-commerce and analytics teams to keep event tracking and customer data clean.</dd>
                 </div>
                 <div class="case-row">
                   <dt class="mono">Impact</dt>
-                  <!-- PLACEHOLDER: add measured outcome -->
-                  <dd><span class="ph" title="Editable placeholder">[ Clean attribution · compliant data flow · conversion-accuracy improvement ]</span></dd>
-                </div>
-                <div class="case-row">
-                  <dt class="mono">Why it matters</dt>
-                  <dd>This is the data layer most retention managers can't touch — and the compliance rigour Western markets require.</dd>
+                  <dd>
+                    <ul class="case-metrics">
+                      <li><b class="mono">32</b><span>events in one shared spec</span></li>
+                      <li><b class="mono">6</b><span>markets on the same tracking</span></li>
+                    </ul>
+                    Consent-aware attribution across every market. This is the data the retention results in CS·01 are measured on, so the team knows which journeys actually earn their revenue.
+                  </dd>
                 </div>
               </dl>
             </div>
           </div>
         </article>
 
-        <!-- CASE 3 -->
+        <!-- CASE 3 — Nazih: CRM and the P&L -->
         <article class="case reveal">
           <button class="case-head" aria-expanded="false" aria-controls="case3">
             <span class="mono case-idx">CS·03</span>
-            <span class="case-title">Connecting CRM to the P&amp;L</span>
-            <span class="mono case-kpi">7-figure risk found</span>
+            <span class="case-title">Linking CRM to stock, pricing and margin
+              <span class="case-co mono">Nazih Cosmetics · 2025 — Present</span>
+            </span>
+            <span class="mono case-kpi">Revenue leak sized</span>
             <span class="case-toggle" aria-hidden="true"></span>
           </button>
           <div class="case-body" id="case3">
             <div class="case-inner">
               <dl>
                 <div class="case-row">
-                  <dt class="mono">Problem</dt>
-                  <dd>The same SKUs sold on our own site and on marketplaces (Amazon, Noon); own-site underperforming, with heavy stock gaps leaking revenue.</dd>
+                  <dt class="mono">Challenge</dt>
+                  <dd>We sold the same products on our own site and on Amazon and Noon. Our own site was losing out, and products running out of stock were quietly costing us sales.</dd>
                 </div>
                 <div class="case-row">
-                  <dt class="mono">Built</dt>
-                  <dd>A cross-channel SKU analysis pinpointing precise discount targets to lift own-site sales; an out-of-stock / opportunity-loss model; and a standing rule that every campaign runs a live stock check — out-of-stock heroes never get pushed.</dd>
+                  <dt class="mono">What I did</dt>
+                  <dd>I compared SKU performance across all three channels to find exactly where a discount would win sales back to our own site. I built an out-of-stock model to put a number on lost revenue. And I set a rule that every campaign checks live stock before it sends, so we never promote a hero product that people can't buy.</dd>
                 </div>
                 <div class="case-row">
                   <dt class="mono">Impact</dt>
-                  <!-- PLACEHOLDER: indexed figure -->
-                  <dd>Identified <span class="ph" title="Indexed figure — confirm">[ seven-figure, indexed ]</span> revenue-at-risk from stock gaps, plus a targeted discount list to recover own-site volume.</dd>
-                </div>
-                <div class="case-row">
-                  <dt class="mono">Why it matters</dt>
-                  <dd>Retention thinking tied directly to margin and merchandising — not just messaging.</dd>
+                  <dd>A clear figure for the revenue lost to stock gaps, plus a targeted discount list to bring volume back to our own site. CRM decisions now account for stock and margin, and campaigns no longer drive customers to empty shelves.</dd>
                 </div>
               </dl>
             </div>
           </div>
         </article>
 
-        <!-- CASE 4 -->
+        <!-- CASE 4 — Nazih: new-market launch -->
         <article class="case reveal">
           <button class="case-head" aria-expanded="false" aria-controls="case4">
             <span class="mono case-idx">CS·04</span>
-            <span class="case-title">Launching retention across 4 new markets</span>
-            <span class="mono case-kpi">0 → 4 storefronts</span>
+            <span class="case-title">Launching four new GCC storefronts
+              <span class="case-co mono">Nazih Cosmetics · 2025 — Present</span>
+            </span>
+            <span class="mono case-kpi">4 new markets</span>
             <span class="case-toggle" aria-hidden="true"></span>
           </button>
           <div class="case-body" id="case4">
             <div class="case-inner">
               <dl>
                 <div class="case-row">
-                  <dt class="mono">Problem</dt>
-                  <dd>Stand up e-commerce and engagement for four new GCC storefronts, from zero.</dd>
+                  <dt class="mono">Challenge</dt>
+                  <dd>The business was expanding into four new GCC markets. Each storefront had to be ready to sell, and ready to bring customers back, from launch.</dd>
                 </div>
                 <div class="case-row">
-                  <dt class="mono">Built</dt>
-                  <dd>Regional launch strategy, a formula-driven media plan across all four markets, competitive white-space analysis, AI-produced launch video creative, and cross-functional delivery with an external dev vendor.</dd>
+                  <dt class="mono">What I did</dt>
+                  <dd>I planned the regional launch, built a formula-based media plan across the four markets, and ran a competitor analysis to find gaps we could own. I produced the launch video with AI tools and worked with our development partner to get the stores live.</dd>
                 </div>
                 <div class="case-row">
                   <dt class="mono">Impact</dt>
-                  <!-- PLACEHOLDER: add launch outcomes -->
-                  <dd><span class="ph" title="Editable placeholder">[ Launch outcomes / reach ]</span></dd>
+                  <!-- PLACEHOLDER: add launch results (e.g. first-90-day orders or reach) -->
+                  <dd>The four new stores joined the same tracking and lifecycle setup as the rest of the business, so every market was measurable from the start. <span class="ph" title="Add your launch results">[ add launch results ]</span></dd>
                 </div>
               </dl>
             </div>
           </div>
         </article>
 
-        <!-- CASE 5 — the growth-marketing record -->
+        <!-- CASE 5 — Next Big Innovation Labs -->
         <article class="case reveal">
           <button class="case-head" aria-expanded="false" aria-controls="case5">
             <span class="mono case-idx">CS·05</span>
-            <span class="case-title">Growth before retention — building acquisition engines in B2B SaaS</span>
-            <span class="mono case-kpi">3× revenue year</span>
+            <span class="case-title">The growth engine behind a 3× revenue year
+              <span class="case-co mono">Next Big Innovation Labs · 2023 — 2025</span>
+            </span>
+            <span class="mono case-kpi">3× revenue</span>
             <span class="case-toggle" aria-hidden="true"></span>
           </button>
           <div class="case-body" id="case5">
             <div class="case-inner">
               <dl>
                 <div class="case-row">
-                  <dt class="mono">Problem</dt>
-                  <dd>Two early-stage B2B SaaS companies with long, consultative sales cycles and pipelines dependent on paid spend and founder networks.</dd>
+                  <dt class="mono">Challenge</dt>
+                  <dd>The company needed to grow quickly, and it needed a steady flow of qualified leads to do it.</dd>
                 </div>
                 <div class="case-row">
-                  <dt class="mono">Built</dt>
-                  <dd>Full-funnel growth systems: SEO and content engines targeting high-intent queries, CRO on the capture layer, paid acquisition across Google, Meta and LinkedIn, automated HubSpot lead-lifecycle (scoring, nurture, sales handoff), and a Product Hunt launch with its surrounding demand-gen push.</dd>
+                  <dt class="mono">What I did</dt>
+                  <dd>I worked across the whole funnel. I ran paid campaigns on Google, Meta and LinkedIn and worked closely with sales to keep lead flow and tracking accurate. On the organic side I built up SEO, content, website improvements and an email newsletter. Then I set up CRM-led nurture programs to move those leads toward a sale.</dd>
                 </div>
                 <div class="case-row">
                   <dt class="mono">Impact</dt>
-                  <dd>Contributed to a 3× revenue year; organic lead generation up 80%; 1,000+ inbound leads from the launch, captured and routed with zero manual triage; 35% growth in new-customer acquisition.</dd>
-                </div>
-                <div class="case-row">
-                  <dt class="mono">Why it matters</dt>
-                  <dd>Retention strategists who have personally run acquisition don't design journeys in a vacuum — they know exactly what the top of the funnel costs.</dd>
+                  <dd>
+                    <ul class="case-metrics">
+                      <li><b class="mono">3×</b><span>revenue in 12 months</span></li>
+                      <li><b class="mono">+80%</b><span>organic leads</span></li>
+                    </ul>
+                    I was part of the team that tripled revenue within a year.
+                  </dd>
                 </div>
               </dl>
             </div>
           </div>
         </article>
 
-        <!-- CASE 6 — coming soon slot -->
+        <!-- CASE 6 — CustomerGlu -->
+        <article class="case reveal">
+          <button class="case-head" aria-expanded="false" aria-controls="case6">
+            <span class="mono case-idx">CS·06</span>
+            <span class="case-title">Automating the lead lifecycle for a B2B SaaS launch
+              <span class="case-co mono">CustomerGlu · 2021 — 2023</span>
+            </span>
+            <span class="mono case-kpi">1,000+ leads</span>
+            <span class="case-toggle" aria-hidden="true"></span>
+          </button>
+          <div class="case-body" id="case6">
+            <div class="case-inner">
+              <dl>
+                <div class="case-row">
+                  <dt class="mono">Challenge</dt>
+                  <dd>CustomerGlu was winning customers through several digital channels. Leads needed to be captured, qualified and handed to sales quickly, and the team needed a clear view of the funnel.</dd>
+                </div>
+                <div class="case-row">
+                  <dt class="mono">What I did</dt>
+                  <dd>I ran multi-channel acquisition and nurture campaigns and automated the lead lifecycle in HubSpot: capture, nurturing, scoring, stage changes and follow-ups. I supported our Product Hunt launch and the demand-gen campaigns around it, and improved CRM reporting so everyone could see where leads came from and where they stalled.</dd>
+                </div>
+                <div class="case-row">
+                  <dt class="mono">Impact</dt>
+                  <dd>
+                    <ul class="case-metrics">
+                      <li><b class="mono">+35%</b><span>new-customer acquisition</span></li>
+                      <li><b class="mono">1,000+</b><span>inbound leads from launch</span></li>
+                    </ul>
+                    Better lead qualification and faster handoffs to sales.
+                  </dd>
+                </div>
+              </dl>
+            </div>
+          </div>
+        </article>
+
+        <!-- CASE 7 — coming soon slot -->
         <article class="case case-soon reveal">
           <div class="case-head case-head-static">
-            <span class="mono case-idx">CS·06</span>
-            <span class="case-title">External lifecycle teardown — a well-known DTC brand</span>
+            <span class="mono case-idx">CS·07</span>
+            <span class="case-title">External lifecycle teardown of a well-known DTC brand</span>
             <span class="mono case-kpi case-kpi-soon">coming soon</span>
           </div>
           <!-- PLACEHOLDER: build later — outside-in audit of a DTC brand's welcome flow / cart recovery -->
@@ -845,6 +901,6 @@
   </footer>
 
   <!-- Bump ?v= together with the stylesheet whenever you edit this file. -->
-  <script src="script.js?v=9"></script>
+  <script src="script.js?v=10"></script>
 </body>
 </html>

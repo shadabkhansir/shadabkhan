@@ -441,6 +441,7 @@ main { position: relative; z-index: 1; }
   margin-bottom: 1.25rem;
 }
 .about-second { color: var(--paper); font-size: 1.02rem; opacity: 0.92; }
+.about-second + .about-second { margin-top: 1rem; }
 
 .about-facts {
   list-style: none;
@@ -706,6 +707,40 @@ main { position: relative; z-index: 1; }
 }
 .case-kpi { color: var(--accent); white-space: nowrap; }
 .case-kpi-soon { color: var(--muted); border: 1px dashed var(--line); padding: 0.25rem 0.7rem; }
+
+/* company · period line under each case title (stays muted on hover) */
+.case-co {
+  display: block;
+  margin-top: 0.35rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* Impact metric tiles inside an open case */
+.case-metrics {
+  list-style: none;
+  display: flex; flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 0.25rem 0 0.9rem;
+}
+.case-metrics li {
+  display: flex; flex-direction: column; gap: 0.2rem;
+  min-width: 9.5rem;
+  padding: 0.8rem 1.1rem;
+  border: 1px solid var(--line);
+  border-left: 2px solid var(--accent);
+  background: var(--surface);
+}
+.case-metrics b {
+  font-size: clamp(1.5rem, 3vw, 1.9rem);
+  font-weight: 500;
+  color: var(--accent);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+.case-metrics span { font-size: 0.8rem; color: var(--muted); }
 
 /* plus / minus toggle drawn in CSS */
 .case-toggle { position: relative; width: 16px; height: 16px; }
