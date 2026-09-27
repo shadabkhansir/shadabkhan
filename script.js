@@ -560,4 +560,19 @@
     var el = document.getElementById("year");
     if (el) el.textContent = new Date().getFullYear();
   });
+
+  /* ================= 15. RÉSUMÉ ALWAYS FRESH =================
+     Adds a new ?t= to the résumé links at the moment they're clicked, so
+     browsers and GitHub's cache can never serve an old copy after the PDF
+     is deleted and re-uploaded. Nothing to change here when you update it. */
+  feature("resumeFresh", function () {
+    var links = document.querySelectorAll('a[href*="resume/Shadab-Khan-Resume.pdf"]');
+    Array.prototype.forEach.call(links, function (a) {
+      var base = a.getAttribute("href").split("?")[0];
+      function refresh() { a.setAttribute("href", base + "?t=" + Date.now()); }
+      ["pointerdown", "keydown", "click", "contextmenu"].forEach(function (ev) {
+        a.addEventListener(ev, refresh);
+      });
+    });
+  });
 })();

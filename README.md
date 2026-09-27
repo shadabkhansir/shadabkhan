@@ -22,10 +22,15 @@ Google Fonts. Free to host on GitHub Pages, Netlify, or Vercel.
 ## Everyday updates
 
 ### Update your résumé
-Replace `resume/Shadab-Khan-Resume.pdf` with your new PDF **using the exact
-same filename**, then in `index.html` bump the `?v=` number on the two résumé
-links in the Contact section (e.g. `Shadab-Khan-Resume.pdf?v=2` → `?v=3`).
-Without that bump, browsers and GitHub's cache can keep showing the old PDF.
+1. On GitHub, open the `resume/` folder, click `Shadab-Khan-Resume.pdf`, then
+   the **⋯** menu → **Delete file** → **Commit changes**.
+2. Back in `resume/`, click **Add file → Upload files**, drop in your new PDF
+   and **Commit changes**.
+
+Make sure the uploaded file is named exactly `Shadab-Khan-Resume.pdf` (not
+`...pdf.pdf` — if it is, rename it on GitHub with the pencil icon). Nothing
+else to change: both résumé buttons always load the newest copy. Allow a
+minute or two for the site to republish.
 
 ### Change your photo
 Replace `images/profile.webp` and `images/profile.jpg` (same names). A portrait

@@ -19,9 +19,8 @@
        - All copy lives in this file, organised by section comments.
        - Every bracketed placeholder is wrapped in a span with class
          "ph" and marked with a PLACEHOLDER comment. Search: class="ph"
-       - RESUME: replace resume/Shadab-Khan-Resume.pdf with your new
-         PDF using the SAME filename, then bump ?v=2 to ?v=3 (etc.) on
-         the two résumé links in Contact so browsers fetch the new copy.
+       - RESUME: delete resume/Shadab-Khan-Resume.pdf, then upload your
+         new PDF with the SAME filename. Nothing else to change.
        - PHOTO: replace images/profile.webp + images/profile.jpg
          (portrait, roughly 4:5, ~900px wide).
        - TOOLS / CHANNELS SLIDER: add or remove an <li> in the lists
@@ -50,7 +49,7 @@
   <!-- The ?v= number busts browser caches. BUMP IT (v=8, v=9 …) every time
        you edit styles.css or script.js, otherwise returning visitors keep
        running the old cached files. -->
-  <link rel="stylesheet" href="styles.css?v=20">
+  <link rel="stylesheet" href="styles.css?v=21">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='40' fill='%23C6F24E'/></svg>">
 
   <!-- Apply the saved theme before first paint so there's no colour flash.
@@ -953,10 +952,9 @@
       <p class="contact-sub reveal">Need more customers, or more from the ones you already have? Let's talk.</p>
 
       <!-- Three CTAs: résumé (view + download) → email → LinkedIn.
-           TO UPDATE THE RÉSUMÉ: replace resume/Shadab-Khan-Resume.pdf with
-           your new PDF using the same filename, then bump the ?v= number
-           on BOTH links below (?v=2 -> ?v=3). That forces browsers and
-           GitHub's cache to load the new file instead of the old one. -->
+           TO UPDATE THE RÉSUMÉ: delete resume/Shadab-Khan-Resume.pdf, then
+           upload your new PDF with the same filename. Both links below
+           always fetch the latest copy (script.js adds a fresh ?t= on click). -->
       <div class="contact-actions reveal">
         <div class="resume-cta">
           <a class="btn btn-solid" href="resume/Shadab-Khan-Resume.pdf?v=2" target="_blank" rel="noopener">
@@ -996,6 +994,6 @@
   </footer>
 
   <!-- Bump ?v= together with the stylesheet whenever you edit this file. -->
-  <script src="script.js?v=20"></script>
+  <script src="script.js?v=21"></script>
 </body>
 </html>
