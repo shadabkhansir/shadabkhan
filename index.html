@@ -20,7 +20,8 @@
        - Every bracketed placeholder is wrapped in a span with class
          "ph" and marked with a PLACEHOLDER comment. Search: class="ph"
        - RESUME: replace resume/Shadab-Khan-Resume.pdf with your new
-         PDF using the SAME filename. Nothing else to change.
+         PDF using the SAME filename, then bump ?v=2 to ?v=3 (etc.) on
+         the two résumé links in Contact so browsers fetch the new copy.
        - PHOTO: replace images/profile.webp + images/profile.jpg
          (portrait, roughly 4:5, ~900px wide).
        - TOOLS / CHANNELS SLIDER: add or remove an <li> in the lists
@@ -953,13 +954,15 @@
 
       <!-- Three CTAs: résumé (view + download) → email → LinkedIn.
            TO UPDATE THE RÉSUMÉ: replace resume/Shadab-Khan-Resume.pdf with
-           your new PDF using the same filename. Both links below pick it up. -->
+           your new PDF using the same filename, then bump the ?v= number
+           on BOTH links below (?v=2 -> ?v=3). That forces browsers and
+           GitHub's cache to load the new file instead of the old one. -->
       <div class="contact-actions reveal">
         <div class="resume-cta">
-          <a class="btn btn-solid" href="resume/Shadab-Khan-Resume.pdf" target="_blank" rel="noopener">
+          <a class="btn btn-solid" href="resume/Shadab-Khan-Resume.pdf?v=2" target="_blank" rel="noopener">
             View résumé <span aria-hidden="true">↗</span>
           </a>
-          <a class="btn btn-solid btn-dl" href="resume/Shadab-Khan-Resume.pdf" download="Shadab-Khan-Resume.pdf"
+          <a class="btn btn-solid btn-dl" href="resume/Shadab-Khan-Resume.pdf?v=2" download="Shadab-Khan-Resume.pdf"
              aria-label="Download résumé as PDF" title="Download PDF">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M12 4v11M7 10.5l5 5 5-5M5 20h14"/>
