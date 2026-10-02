@@ -1,0 +1,113 @@
+\documentclass[10pt,a4paper]{article}
+
+% A4 sizing with balanced margins for readability
+\usepackage[a4paper,left=1.4cm,right=1.4cm,top=0.7cm,bottom=0.7cm]{geometry}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage[hidelinks]{hyperref}
+\hypersetup{pdftitle={Shadab Khan - Resume}, pdfauthor={Shadab Khan}}
+
+% FONT SETUP - engine-proof and ATS-safe.
+% XeLaTeX/LuaLaTeX -> Latin Modern Sans (fontspec)
+% pdfLaTeX        -> Helvetica / Arial-equivalent (helvet). Recommended for ATS.
+\usepackage{iftex}
+\ifPDFTeX
+  \input{glyphtounicode}   % clean, copyable text for ATS parsers
+  \pdfgentounicode=1
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage[scaled=0.92]{helvet}
+  \renewcommand{\familydefault}{\sfdefault}
+\else
+  \usepackage{fontspec}
+  \setmainfont{Latin Modern Sans}
+\fi
+
+% Keep words whole (no mid-word hyphenation)
+\hyphenpenalty=10000
+\exhyphenpenalty=10000
+\emergencystretch=2em
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{1pt}
+\pagenumbering{gobble}
+\pagestyle{empty}
+
+\definecolor{heading}{HTML}{111827}
+\definecolor{text}{HTML}{1F2937}
+\definecolor{subtle}{HTML}{6B7280}
+
+\titleformat{\section}{\large\bfseries\color{heading}}{}{0pt}{}[\vspace{1pt}\titlerule]
+\titlespacing*{\section}{0pt}{5pt}{3pt}
+
+\newcommand{\headergap}{-8pt}
+
+% Single-stream (ATS-friendly) headings using \hfill instead of tables
+\newcommand{\resumename}[1]{\begin{center}\fontsize{16pt}{17pt}\selectfont\bfseries\color{heading} #1\end{center}\vspace{\headergap}}
+\newcommand{\contactline}[1]{\begin{center}\footnotesize\color{subtle} #1\end{center}}
+\newcommand{\jobheading}[4]{\vspace{3pt}\noindent\textbf{#2}\hfill\textbf{#3}\\[0.5pt]{\footnotesize #1}\hfill{\footnotesize #4}\par\vspace{1pt}}
+\newcommand{\educationentry}[4]{\vspace{3pt}\noindent\textbf{#1}\hfill\textbf{#3}\\[1pt]{#2}\hfill{\footnotesize #4}\par\vspace{1pt}}
+\newcommand{\resumeliststart}{\begin{itemize}[leftmargin=*, itemsep=1pt, topsep=1pt, partopsep=0pt, parsep=0pt, after=\vspace{3pt}]}
+\newcommand{\resumelistend}{\end{itemize}\vspace{1pt}}
+\newcommand{\skillline}[2]{\textbf{#1:} #2\par\vspace{2pt}}
+
+\begin{document}
+\color{text}
+
+\resumename{SHADAB KHAN}
+\contactline{Dubai, UAE \textbar{} \href{tel:+971551448115}{+971 55 144 8115} \textbar{} \href{mailto:hishadabk@gmail.com}{hishadabk@gmail.com} \textbar{} \href{https://linkedin.com/in/shadabkhansir}{linkedin.com/in/shadabkhansir} \textbar{} \href{https://shadabkhan.org}{shadabkhan.org}}
+
+\section*{Professional Summary}
+CRM, Lifecycle and Growth Marketing professional with 5+ years of experience driving customer acquisition, engagement, retention and revenue growth across ecommerce, B2B SaaS and biotech. Skilled in CRM strategy, segmentation, journey orchestration, marketing automation, paid and organic acquisition and funnel reporting using CleverTap, HubSpot, MoEngage, Klaviyo and GA4. Proven track record of turning customer data into gains in conversion, repeat purchase and lifetime value.
+
+\section*{Work Experience}
+
+\jobheading{Nazih General Trading Co. LLC.}{Ecommerce CRM Executive}{Dubai, UAE}{March 2025 -- Present}
+\resumeliststart
+  \item Lead E-commerce CRM \& Retention Strategy across 6 GCC markets (UAE, KSA, Oman, Bahrain, Kuwait, Qatar) for Nazih Cosmetics, owning the end-to-end customer lifecycle across onboarding, retention, loyalty, win-back and cart recovery.
+  \item Lifted repeat purchase rate by 40\% and grew CRM-attributed revenue by 30\% across 5 GCC storefronts by consolidating 56 underperforming journeys into 17 CleverTap journeys, incl. a Welcome journey fix that lifted its conversion 12x.
+  \item Build and optimize automated journeys, behavioral triggers (back-in-stock, price-drop) and audience segmentation across email, SMS, push and in-app for beauty brands including GHD, Babyliss Pro and Revlon.
+  \item Wrote a 32-event GA4/GTM tracking spec for 6 markets with server-side routing to GA4, Google Ads, Meta and TikTok CAPI.
+  \item Built an out-of-stock lost-revenue model across own site, Amazon and Noon; campaigns now check live stock before sending.
+  \item Supported the launch of 4 new GCC storefronts (2 to 6 markets) via launch planning, media planning and competitor analysis.
+\resumelistend
+
+\jobheading{Next Big Innovation Labs}{Growth Marketing Associate}{Bangalore, India}{August 2023 -- February 2025}
+\resumeliststart
+  \item Contributed to 3x revenue growth in one year through lifecycle marketing, CRM nurture programs and campaign operations.
+  \item Grew organic lead generation by 80\% through SEO, content marketing, website optimization and email newsletter programs, including growing the company's Substack newsletter from 0 to 10,000 subscribers.
+  \item Built the WordPress website and a Shopify store for consumables, with HubSpot automation for lead capture and follow-up.
+  \item Managed campaign execution across Google Ads, Meta Ads and LinkedIn Ads, coordinating with sales and cross-functional teams to improve lead flow and tracking accuracy.
+\resumelistend
+
+\jobheading{CustomerGlu (Marax Technologies)}{Growth Marketer}{Bangalore, India}{May 2021 -- May 2023}
+\resumeliststart
+  \item Won the company's first 10 clients through cold outreach, prospecting with LinkedIn Sales Navigator and Apollo.io.
+  \item Executed multi-channel B2B SaaS acquisition and nurture campaigns, including 100+ use-case landing pages, contributing to 35\% growth in new customer acquisition.
+  \item Automated HubSpot workflows for lead capture, nurturing, scoring, lifecycle progression and follow-up sequences, improving lead qualification and sales handoff.
+  \item Supported a Product Hunt launch and related demand-generation campaigns that generated 1{,}000+ inbound leads, 100+ trials and 10+ new customers, while strengthening CRM reporting and funnel visibility.
+\resumelistend
+
+\section*{Core Skills}
+\skillline{CRM \& Lifecycle}{CRM Strategy, Lifecycle Marketing, Customer Journey Mapping, Segmentation, Personalization, Retention Marketing, Loyalty Programs, Win-Back Campaigns, Lead Nurturing, Lead Scoring, Data Hygiene}
+\skillline{Growth \& Acquisition}{Paid Media, SEO, Content Marketing, Landing Pages, Outbound Prospecting, Product Launches}
+\skillline{Campaign Operations}{Marketing Automation, Workflow Setup, Trigger-Based Campaigns, Email Marketing, SMS Marketing, Push Notifications, In-App Messaging, A/B and Holdout Testing, Campaign QA, Process Documentation}
+\skillline{Analytics \& Reporting}{Funnel Analysis, Cohort Analysis, Conversion Tracking, Event Taxonomy Design, Dashboard Reporting, Marketing Attribution, Customer Lifetime Value, ROI, ROAS}
+\skillline{Tools}{CleverTap, HubSpot, MoEngage, Klaviyo, Braze, Mailchimp, GA4, Google Tag Manager (incl. server-side), Meta CAPI, TikTok CAPI, Shopify, Magento, WordPress, Hotjar, Apollo.io, LinkedIn Sales Navigator, Google Ads, Meta Ads, LinkedIn Ads}
+
+\section*{Education}
+\educationentry{Amity University}{Master of Business Administration (Online, MBA)}{Uttar Pradesh, India}{2023 -- 2025}
+\educationentry{Lovely Professional University}{Bachelor of Technology, Computer Science \& Engineering}{Punjab, India}{2018 -- 2022}
+
+\section*{Certifications}
+% \mbox keeps each certification on one line (never split mid-name);
+% \raggedright lets the line break cleanly between certifications.
+{\raggedright
+\mbox{\textbf{Klaviyo:} CRM Strategist} \textbar{}
+\mbox{\textbf{CleverTap} \textbar{} \textbf{Braze} \textbar{} \textbf{Google Analytics}} \textbar{}
+\mbox{\textbf{MoEngage:} \href{https://www.credential.net/3313639f-ca8e-48e5-9d5a-def59842c7fe}{Customer Engagement Leadership Program}} \textbar{}
+\mbox{\textbf{The Product Folks:} \href{https://certificate.givemycertificate.com/c/495d14d3-fd97-4809-bfb1-3ac77685c5cb}{Product-Led Growth Cohort}} \textbar{}
+\mbox{\textbf{GrowthX:} Product \& Growth Program}\par}
+
+\end{document}
