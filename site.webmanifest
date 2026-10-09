@@ -1,0 +1,12 @@
+{
+  "name": "Shadab Khan — Growth, Retention & Lifecycle",
+  "short_name": "Shadab Khan",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#0b0d12",
+  "theme_color": "#0b0d12",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}

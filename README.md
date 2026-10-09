@@ -18,6 +18,14 @@ Google Fonts. Free to host on GitHub Pages, Netlify, or Vercel.
 | `resume/Shadab-Khan-Resume.pdf` | The résumé behind the Contact "View résumé" / download buttons |
 | `images/profile.webp`, `images/profile.jpg` | Portrait in the About section |
 | `certs/` | Certificate images (see below) |
+| `images/og-image.jpg` | 1200×630 card shown when the link is shared (LinkedIn, WhatsApp, X) |
+| `robots.txt`, `sitemap.xml` | Crawl rules and sitemap for search engines. Update `<lastmod>` in the sitemap when content changes |
+| `favicon.*`, `favicon-48.png`, `apple-touch-icon.png`, `icon-192.png`, `site.webmanifest` | Browser / search-result icons |
+| `404.html` | Not-found page (GitHub Pages serves it automatically; marked `noindex`) |
+
+SEO tags (canonical, Open Graph, Twitter card, and the JSON-LD `Person`
+structured data) live in the `SEO` block at the top of `index.html`. If you
+change your job title, employer or headline, update them there too.
 
 ## Everyday updates
 
