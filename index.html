@@ -31,13 +31,98 @@
        - The README lists every placeholder with its location.
        ============================================================ -->
 
-  <title>Shadab Khan — Growth, Retention &amp; Customer Lifecycle Management</title>
-  <meta name="description" content="Growth and retention marketer. I bring in the right customers and turn them into repeat revenue. 5+ years across e-commerce, B2B SaaS and biotech in the GCC and India.">
+  <!-- ==================== SEO ====================
+       Canonical URL is https://shadabkhan.org/ (no www, trailing slash).
+       Social cards use images/og-image.jpg (1200×630). If you change the
+       headline or title, update og:/twitter: tags and the JSON-LD below. -->
+  <title>Shadab Khan — Growth, Retention &amp; Lifecycle Marketer</title>
+  <meta name="description" content="Dubai-based growth and retention marketer. I bring in the right customers and turn them into repeat revenue. 5+ years in e-commerce, B2B SaaS and biotech.">
   <meta name="author" content="Shadab Khan">
-  <meta property="og:title" content="Shadab Khan — Growth, Retention &amp; Customer Lifecycle">
-  <meta property="og:description" content="I turn customer data into repeat revenue.">
-  <meta property="og:type" content="website">
-  <meta property="og:image" content="images/profile.jpg">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <link rel="canonical" href="https://shadabkhan.org/">
+  <meta name="theme-color" content="#0b0d12">
+
+  <meta property="og:type" content="profile">
+  <meta property="og:site_name" content="Shadab Khan">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:url" content="https://shadabkhan.org/">
+  <meta property="og:title" content="Shadab Khan — Growth, Retention &amp; Lifecycle Marketer">
+  <meta property="og:description" content="I turn customer data into repeat revenue. CRM, lifecycle and performance marketing across e-commerce, B2B SaaS and biotech in the GCC and India.">
+  <meta property="og:image" content="https://shadabkhan.org/images/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Shadab Khan — I turn customer data into repeat revenue.">
+  <meta property="profile:first_name" content="Shadab">
+  <meta property="profile:last_name" content="Khan">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Shadab Khan — Growth, Retention &amp; Lifecycle Marketer">
+  <meta name="twitter:description" content="I turn customer data into repeat revenue. CRM, lifecycle and performance marketing across e-commerce, B2B SaaS and biotech.">
+  <meta name="twitter:image" content="https://shadabkhan.org/images/og-image.jpg">
+  <meta name="twitter:image:alt" content="Shadab Khan — I turn customer data into repeat revenue.">
+
+  <!-- Structured data: tells Google this is Shadab Khan's profile page
+       (eligible for the knowledge panel / name searches). Keep jobTitle,
+       worksFor and sameAs in sync with the page. -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://shadabkhan.org/#website",
+        "url": "https://shadabkhan.org/",
+        "name": "Shadab Khan",
+        "inLanguage": "en"
+      },
+      {
+        "@type": "ProfilePage",
+        "@id": "https://shadabkhan.org/#profilepage",
+        "url": "https://shadabkhan.org/",
+        "name": "Shadab Khan — Growth, Retention & Lifecycle Marketer",
+        "isPartOf": { "@id": "https://shadabkhan.org/#website" },
+        "mainEntity": { "@id": "https://shadabkhan.org/#person" },
+        "primaryImageOfPage": "https://shadabkhan.org/images/profile.jpg",
+        "inLanguage": "en"
+      },
+      {
+        "@type": "Person",
+        "@id": "https://shadabkhan.org/#person",
+        "name": "Shadab Khan",
+        "url": "https://shadabkhan.org/",
+        "image": "https://shadabkhan.org/images/profile.jpg",
+        "jobTitle": "Ecommerce CRM Executive",
+        "description": "Growth, retention and customer lifecycle marketer with 5+ years across e-commerce, B2B SaaS and biotech in the GCC and India.",
+        "email": "mailto:me@shadabkhan.org",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Nazih General Trading Co. LLC"
+        },
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Dubai",
+          "addressCountry": "AE"
+        },
+        "alumniOf": [
+          { "@type": "CollegeOrUniversity", "name": "Amity University" },
+          { "@type": "CollegeOrUniversity", "name": "Lovely Professional University" }
+        ],
+        "knowsAbout": [
+          "Growth marketing",
+          "Customer retention",
+          "CRM marketing",
+          "Customer lifecycle marketing",
+          "Marketing automation",
+          "Performance marketing",
+          "Marketing analytics",
+          "E-commerce"
+        ],
+        "sameAs": [
+          "https://www.linkedin.com/in/shadabkhansir/"
+        ]
+      }
+    ]
+  }
+  </script>
 
   <!-- Fonts are self-hosted (see @font-face in styles.css). Preload only the
        three files needed for the first screen so text renders in the right
@@ -50,7 +135,13 @@
        you edit styles.css or script.js, otherwise returning visitors keep
        running the old cached files. -->
   <link rel="stylesheet" href="styles.css?v=21">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='40' fill='%23C6F24E'/></svg>">
+  <!-- Real icon files (not a data: URI) so Google can show the favicon in
+       search results. favicon-48.png is the size Google asks for. -->
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon-48.png" type="image/png" sizes="48x48">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
 
   <!-- Apply the saved theme before first paint so there's no colour flash.
        Dark is the default; "light" is the indigo colour theme. -->
