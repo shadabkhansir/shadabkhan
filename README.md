@@ -69,7 +69,8 @@ verification page.
 **Shown now (with proof):** GrowthX Product & Growth Program, The Product
 Folks Product-Led Growth 2023, MoEngage CELP 2023, CleverTap University
 (6 course certifications, 2026; courses listed as chips under the name),
-HubSpot Academy Email Marketing Certified (2026).
+HubSpot Academy Email Marketing Certified (2026), HubSpot Marketing Hub
+Software Certified (2026).
 
 **Hidden until there is proof:** Klaviyo, Google Analytics and Braze sit inside an HTML comment at the end of the credentials list in
 `index.html`. To show one, move it out of the comment, drop its certificate
