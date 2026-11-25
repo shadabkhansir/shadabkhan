@@ -67,10 +67,10 @@ Add an `<a class="btn btn-line cred-verify">` link when the issuer has a public
 verification page.
 
 **Shown now (with proof):** GrowthX Product & Growth Program, The Product
-Folks Product-Led Growth 2023, MoEngage CELP 2023.
+Folks Product-Led Growth 2023, MoEngage CELP 2023, CleverTap University
+(Getting Started with CleverTap, 2026).
 
-**Hidden until there is proof:** Klaviyo, CleverTap, Google Analytics and
-Braze sit inside an HTML comment at the end of the credentials list in
+**Hidden until there is proof:** Klaviyo, Google Analytics and Braze sit inside an HTML comment at the end of the credentials list in
 `index.html`. To show one, move it out of the comment, drop its certificate
 image into `certs/`, point its `cred-view` link at it, and add a
 `cred-verify` link if the issuer has one.
