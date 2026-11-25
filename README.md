@@ -5,8 +5,8 @@ editorial design by default with a designed Light theme, a signature animated
 customer-lifecycle loop (pure SVG + JS, no video or images), tools/channels
 sliders, an experience timeline, and a downloadable résumé.
 
-Self-contained **HTML + CSS + vanilla JS**; the only external dependency is
-Google Fonts. Free to host on GitHub Pages, Netlify, or Vercel.
+Self-contained **HTML + CSS + vanilla JS** with no external dependencies
+(fonts are self-hosted, see below). Free to host on GitHub Pages, Netlify, or Vercel.
 
 ## Files
 
@@ -58,10 +58,12 @@ label ("1 yr 7 mos") is calculated automatically and stays accurate for the
 current role.
 
 ### Certificates
-Each credential carries `data-cert="certs/<file>"`. If that file exists, a
-"view certificate ↗" button appears and opens a lightbox (close with ✕, Esc,
-or clicking outside). If the file is missing, no button appears and no error
-shows. Add an `<a class="cred-verify">` link when the issuer has a public
+Each credential has a "view certificate ↗" link
+(`<a class="btn btn-solid cred-view" href="certs/<file>" data-cert-title="…">`).
+`script.js` opens the image in an on-page lightbox (close with ✕, Esc, or
+clicking outside); without JavaScript the link opens the image in a new tab.
+The button always shows, so only add the link once the image is in `certs/`.
+Add an `<a class="btn btn-line cred-verify">` link when the issuer has a public
 verification page.
 
 **Shown now (with proof):** GrowthX Product & Growth Program, The Product
@@ -70,31 +72,14 @@ Folks Product-Led Growth 2023, MoEngage CELP 2023.
 **Hidden until there is proof:** Klaviyo, CleverTap, Google Analytics and
 Braze sit inside an HTML comment at the end of the credentials list in
 `index.html`. To show one, move it out of the comment, drop its certificate
-image into `certs/`, point `data-cert` at it, and set its status/date.
+image into `certs/`, point its `cred-view` link at it, and add a
+`cred-verify` link if the issuer has one.
 
 ## ⚠️ Bump the cache version after editing CSS/JS
 
-`index.html` loads `styles.css?v=7` and `script.js?v=7`. **Every time you edit
-either file, increase that number** (`?v=8`, …) in both places, or returning
-visitors keep running the old cached files.
-
-## ⚠️ Placeholders to fill before publishing
-
-Placeholders render as amber dashed chips on the page and are wrapped in
-`<span class="ph">` with a `<!-- PLACEHOLDER -->` comment. Search
-`index.html` for `class="ph"`.
-
-| # | Location | Placeholder |
-|---|---|---|
-| 1 | About | `[ Refine in your own voice ]` — both paragraphs are sample copy |
-| 2 | Case Study 1 → Impact | `[ 12× ]` flagship conversion improvement (confirm) |
-| 3 | Case Study 1 → Impact | `[ ~18% conversion ]` wishlist abandonment (confirm) |
-| 4 | Case Study 1 → Next | `[ Holdout-based incrementality measurement ]` |
-| 5 | Case Study 2 → Impact | `[ Clean attribution · compliant data flow · conversion-accuracy improvement ]` |
-| 6 | Case Study 3 → Impact | `[ seven-figure, indexed ]` revenue-at-risk |
-| 7 | Case Study 4 → Impact | `[ Launch outcomes / reach ]` |
-| 9 | Credentials | CleverTap certification `[ add ]` |
-| 10 | Credentials | GA4 / Google Analytics certification `[ add ]` |
+`index.html` loads `styles.css?v=N` and `script.js?v=N` (both currently `21`).
+**Every time you edit either file, increase that number** in both places, or
+returning visitors keep running the old cached files.
 
 ## Theme switch
 
@@ -112,7 +97,7 @@ Light. To make Light the default, swap the two blocks and change `"light"` to
 
 1. Create a repository (name it `<your-username>.github.io` for a clean root URL).
 2. Upload **everything** — `index.html`, `styles.css`, `script.js`, `README.md`
-   and the `images/`, `resume/`, `certs/` folders — to the `main` branch.
+   and the `images/`, `resume/`, `certs/`, `fonts/` folders — to the `main` branch.
 3. Repo → **Settings → Pages** → Source: `Deploy from a branch` → `main` / `/ (root)` → Save.
 4. Live in ~1 minute at `https://<your-username>.github.io/<repo-name>/`.
    Every push to `main` redeploys automatically.
