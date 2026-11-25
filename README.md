@@ -68,7 +68,7 @@ verification page.
 
 **Shown now (with proof):** GrowthX Product & Growth Program, The Product
 Folks Product-Led Growth 2023, MoEngage CELP 2023, CleverTap University
-(Getting Started with CleverTap, 2026).
+(6 course certifications, 2026; courses listed as chips under the name).
 
 **Hidden until there is proof:** Klaviyo, Google Analytics and Braze sit inside an HTML comment at the end of the credentials list in
 `index.html`. To show one, move it out of the comment, drop its certificate
@@ -77,7 +77,7 @@ image into `certs/`, point its `cred-view` link at it, and add a
 
 ## ⚠️ Bump the cache version after editing CSS/JS
 
-`index.html` loads `styles.css?v=N` and `script.js?v=N` (both currently `21`).
+`index.html` loads `styles.css?v=N` and `script.js?v=N` (both currently `22`).
 **Every time you edit either file, increase that number** in both places, or
 returning visitors keep running the old cached files.
 
