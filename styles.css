@@ -984,6 +984,15 @@ main { position: relative; z-index: 1; }
   text-transform: uppercase;
   color: var(--muted);
 }
+/* optional list of courses under a credential (e.g. CleverTap University) */
+.cred-name { flex: 1 1 22rem; }
+.cred-courses { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.7rem; }
+.cred-courses span {
+  font-size: 0.78rem; line-height: 1.3;
+  padding: 0.25rem 0.6rem;
+  border: 1px solid var(--line); border-radius: 999px;
+  color: var(--muted);
+}
 /* Credential actions reuse the site's main buttons:
    "view certificate" = .btn-solid (like "View case studies"),
    "verify certificate" = .btn-line (like "Get in touch"). */
