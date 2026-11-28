@@ -3,13 +3,13 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://shadabkhan.org/</loc>
-    <lastmod>2026-11-25</lastmod>
+    <lastmod>2026-11-28</lastmod>
     <image:image>
       <image:loc>https://shadabkhan.org/images/profile.jpg</image:loc>
     </image:image>
   </url>
   <url>
     <loc>https://shadabkhan.org/resume/Shadab-Khan-Resume.pdf</loc>
-    <lastmod>2026-10-12</lastmod>
+    <lastmod>2026-11-28</lastmod>
   </url>
 </urlset>
